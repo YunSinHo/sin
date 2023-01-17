@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.ld.user.dao.ICarrotDao">
+<select id="carrotlist" resultType="com.ld.admin.vo.CarrotVO">
+		select * from carrot_table;
+	</select>
+	 <select id="getUpdator" resultType="com.ld.admin.vo.UpdatorVO" parameterType="int">
+   	select * from updator where carrot_seq =#{carrot_seq}
+   </select>
+   <select id="carrotread" resultType="com.ld.admin.vo.CarrotVO">
+		select * from carrot_table Where carrot_seq = #{carrot_seq}
+	</select>
+	<update id="updateCarrot"  parameterType="com.ld.admin.vo.CarrotVO">
+   	update carrot_table set carrot_class=#{carrot_class}, carrot_name=#{carrot_name}, carrot_date=#{carrot_date}, carrot_books=#{carrot_books},
+   	carrot_memorization=#{carrot_memorization}, carrot_speech=#{carrot_speech}, carrot_read=#{carrot_read}, carrot_trans=#{carrot_trans},
+   	carrot_solving=#{carrot_solving}, carrot_listen=#{carrot_listen}, carrot_getting=#{carrot_getting}, carrot_showdown=#{carrot_showdown},
+   	carrot_report=#{carrot_report}, carrot_perfection=#{carrot_perfection}, carrot_result=#{carrot_result} where carrot_seq=#{carrot_seq}
+   </update>
+   <insert id="carrotinsert" parameterType="com.ld.admin.vo.CarrotVO">
+		insert into carrot_table(
+	carrot_number, carrot_class, carrot_name, carrot_date, carrot_books, carrot_memorization, carrot_speech, carrot_read, carrot_trans, 
+	carrot_solving, carrot_listen, carrot_getting, carrot_showdown, carrot_report, carrot_perfection, carrot_result)
+		values(#{carrot_number},#{carrot_class}, #{carrot_name}, #{carrot_date}, #{carrot_books}, #{carrot_memorization}, #{carrot_speech}, #{carrot_read}, #{carrot_trans}, #{carrot_solving}, #{carrot_listen}, #{carrot_getting}, #{carrot_showdown}, #{carrot_report}, #{carrot_perfection}, #{carrot_result});
+	</insert>
+</mapper>

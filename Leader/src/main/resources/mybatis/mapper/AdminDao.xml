@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.ld.admin.dao.IAdminDao">
+<insert id="adminregister" useGeneratedKeys="true" keyProperty="admin_seq" parameterType="com.ld.admin.vo.AdminVO">
+		insert into admin_table(admin_id, admin_password, admin_name, admin_phone1, admin_phone2, admin_phone3, admin_email, admin_academy, admin_access, admin_tier, admin_date)
+		values(#{admin_id}, #{admin_password}, #{admin_name}, #{admin_phone1}, #{admin_phone2}, #{admin_phone3}, #{admin_email}, #{admin_academy}, "no", #{admin_tier}, now());
+	</insert>
+	<select id="adminloginCheck" parameterType="String" resultType="com.ld.admin.vo.AdminVO">
+		SELECT * FROM admin_table where admin_id = #{admin_id};
+	</select>
+	
+	<select id="adminworkfixview" resultType="com.ld.admin.vo.AdminworkVO">
+		select * from adminwork_table where adminwork_type = 'fix';
+	</select>
+	<select id="adminworkexceptedview" resultType="com.ld.admin.vo.AdminworkVO">
+		select * from adminwork_table where adminwork_type = 'expected';
+	</select>
+	<select id="adminworkdayview" resultType="com.ld.admin.vo.AdminworkVO">
+		select * from adminwork_table where adminwork_type = 'day';
+	</select>
+	<select id="adminworkmonthlyview" resultType="com.ld.admin.vo.AdminworkVO">
+		select * from adminwork_table where adminwork_type = 'monthly';
+	</select>
+</mapper>

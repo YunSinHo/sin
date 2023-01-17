@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.ld.admin.dao.IGrammarDao">
+
+<insert id="grammarinsert" parameterType="com.ld.admin.vo.GrammarVO">
+		insert into
+		grammartable(grammar_title, grammar_category1, grammar_content1, grammar_viewmoretext1, grammar_viewmoretext2, grammar_category2, grammar_content2, grammar_viewmoretext3, grammar_viewmoretext4) values
+		<foreach collection="list" item="item" separator=" , ">
+			(#{item.grammar_title}, #{item.grammar_category1}, #{item.grammar_content1}, #{item.grammar_viewmoretext1}, #{item.grammar_viewmoretext1}, #{item.grammar_category2}, #{item.grammar_content2}, #{item.grammar_viewmoretext3}, #{item.grammar_viewmoretext4})
+		</foreach>
+	</insert></mapper>

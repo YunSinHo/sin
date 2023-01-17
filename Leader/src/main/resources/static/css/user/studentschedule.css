@@ -1,0 +1,203 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    box-sizing: border-box;
+}
+body{
+    background-color: #FFFBEF;
+    display: grid;
+    grid-template-columns: 12% 88%;
+}
+.menubody{
+    background-color: #2AC3B4;
+    opacity: 0.11;
+}
+.scheduleheader{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    height: 100px;
+    background-color: #2AC3B4;
+    opacity: 0.82;
+}
+.headermain{
+    margin-left: 30px;
+    margin-top: 25px;
+    color: white;
+    font-size: 40px;
+}
+.schedulebody{
+    display: grid;
+    grid-template-columns: 60% 40%;
+    grid-template-rows: 850px auto;
+}
+.calnedarheader{
+    display: flex;
+    margin-left: 50px;
+    font-size: 28px;
+    margin-top: 70px;
+    color: #FA5858;
+}
+.calnedarinfor{
+    font-size: 14px;
+    color: black;
+    margin-top: -40px;
+    margin-left: 30px;
+}
+.calendar {
+    width: 100%;
+    padding: 50px;
+    padding-top: 30px;
+}
+.header {
+    display: flex;
+    align-items: center;
+}
+.year-month {
+    font-size: 60px;
+    align-items: center;
+}
+.monthen{
+    font-size: 28px;
+    margin-left: 10px;
+    margin-top: 20px;
+    color: #7424A2;
+}
+.go-today {
+    width: 75px;
+    border-left: 2px solid #D8D8D8;
+    border-right: 2px solid #D8D8D8;
+}
+.days {
+    display: flex;
+    margin: 25px 0 0;
+    height: 30px;
+    border-left: 2px solid #D8D8D8;
+}
+  
+.day {
+    width: calc(100% / 7);
+    text-align: center;
+    border-top: 2px solid #D8D8D8;
+    border-right: 2px solid #D8D8D8;
+}
+  
+.dates {
+    display: flex;
+    flex-flow: row wrap;
+    height: 100%;
+    min-height: 550px;
+    border-top: 2px solid #D8D8D8;
+    border-right: 2px solid #D8D8D8;
+}
+  
+.date {
+    width: calc(100% / 7);
+    padding: 15px;
+    text-align: center;
+    border-bottom: 2px solid #D8D8D8;
+    border-left: 2px solid #D8D8D8;
+}
+.day:nth-child(7n + 1),
+.date:nth-child(7n + 1) {
+    color: #D13E3E;
+}
+
+.day:nth-child(7n),
+.date:nth-child(7n) {
+    color: #396EE2;
+}
+.other {
+    opacity: .3;
+}
+.today {
+    position: relative;
+}
+  
+.today::before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: block;
+    width: 35px;
+    height: 35px;
+    border: 2px solid red;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    content: "";
+}
+.magnitudearea{
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 2;
+    grid-row-end: 3;
+    padding: 30px;
+    margin-top: -20px;
+}
+.magnitudeheader{
+    display: flex;
+    font-size: 28px;
+    color: #FA5858;
+}
+.magnitudeinfor{
+    font-size: 14px;
+    color: black;
+    margin-left: 50px;
+}
+.missionarea{
+    margin-top:70px;
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 1;
+    grid-row-end: 3;
+}
+.missionheader1{
+    display: flex;
+    font-size: 28px;
+    color: #FA5858;
+}
+.missioninfor{
+    font-size: 14px;
+    margin-left: 0px;
+    margin-top: -40px;
+    color: black;
+}
+.missionbody1{
+    border: 2px solid #01DFD7;
+    border-radius: 15px;
+    margin-top: 20px;
+    height: 100px;
+    width: 90%;
+    padding-left: 30px;
+    padding-top: 20px;
+    background-color: white;
+}
+.missionheader2{
+    margin-top: 30px;
+    display: flex;
+    font-size: 28px;
+    color: #FA5858;
+}
+.missionbody2{
+    margin-top: 20px;
+    margin-bottom:30px;
+}
+.missiontable{
+    width: 90%;
+    border: 1px solid #01DFD7;
+    border-collapse: collapse;
+}
+th, td {
+    border: 1px solid #01DFD7;
+    padding:0 15px 0 15px;
+}
+thead{
+    color: #FA5858;
+    height:40px;
+    font-size: 20px;
+}
+tbody td:first-child{ 
+    text-align: center;
+    height:80px;
+}

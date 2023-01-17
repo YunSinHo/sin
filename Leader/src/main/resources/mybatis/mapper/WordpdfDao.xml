@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.ld.user.dao.IWordpdfDao">
+<insert id="wordpdfinsert" parameterType="com.ld.user.vo.WordpdfVO">
+		insert into wordpdf(wpdf_header, wpdf_name, wpdf_trans)
+		values
+		<foreach collection="list" item="item" separator=" , ">
+			(#{item.wpdf_header},#{item.wpdf_name},#{item.wpdf_trans})
+		</foreach>
+	</insert>
+	<select id="wordpdfread" resultType="com.ld.user.vo.WordcollectionVO" parameterType="int">
+		select * from wordcollection Where  word_difficulty= #{gugudan_level};
+	</select>
+	<select id="wordpdflist_page" resultType="com.ld.user.vo.WordgugudanVO">
+		select * from wordgugudan;
+	</select>
+	
+	<select id ="getGugudan" resultType="com.ld.user.vo.WordgugudanVO" parameterType="String">
+		select * from wordgugudan where gugudan_name=#{gugudan_name}
+	</select>
+	
+	<select id="getMaxSeq" resultType="com.ld.user.vo.WordcollectionVO" parameterType="int">
+		select * from wordcollection where word_difficulty= #{gugudan_level} order by word_seq desc limit 1;
+	</select>
+	<select id="getMaxSeq1" resultType="com.ld.user.vo.WordcollectionVO" parameterType="int">
+		select * from wordcollection where word_difficulty= #{gugudan_level} order by word_seq desc limit 1;
+	</select>
+	<select id="wordpdfread1" resultType="com.ld.user.vo.WordcollectionVO" >
+		select * from wordcollection Where  word_seq in
+		<foreach collection="array" item="arr" open="(" close=")" separator=",">
+ #{arr}
+</foreach>
+	</select>
+</mapper>

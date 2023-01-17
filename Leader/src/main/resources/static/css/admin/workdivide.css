@@ -1,0 +1,20 @@
+.selectday{
+    margin-bottom: 15px;
+}
+.workday{
+    width: 130px;
+    text-align: center;
+}
+.workcontents{
+    width: 95%;
+}
+.workdeadline{
+    text-align: center;
+}
+.workheader{
+    font-size: 16px;
+    margin-left: 10px;
+    width: 90.5%;
+    display: flex;
+    justify-content: space-between;
+}

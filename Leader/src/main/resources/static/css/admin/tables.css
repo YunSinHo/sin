@@ -1,0 +1,28 @@
+.filterarea{
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    font-size: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-around;
+}
+.selectclass{
+    width: 22%;
+}
+.selectgrade{
+    width: 22%;
+}
+.selectschool{
+    width: 22%;
+}
+.selectstatus{
+    width: 22%;
+}
+th{
+    vertical-align: middle !important;
+}
+td{
+    font-weight: normal;
+    vertical-align: middle !important;
+}

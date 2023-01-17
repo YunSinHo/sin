@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.ld.admin.dao.IAcademyDao">
+<insert id="academyInsert" parameterType="com.ld.admin.vo.AcademyVO">
+		insert into academy_table(academy_name, academy_phone1, academy_phone2, academy_phone3, academy_postcode, academy_address, academy_detailaddress, academy_extraaddress, academy_date)
+		values(#{academy_name}, #{academy_phone1}, #{academy_phone2}, #{academy_phone3}, #{academy_postcode}, #{academy_address}, #{academy_detailaddress}, #{academy_extraaddress}, now());
+	</insert>
+	<select id="academylist" resultType="com.ld.admin.vo.AcademyVO">
+		select * from academy_table;
+	</select>
+	<select id="academyread" resultType="com.ld.admin.vo.AcademyVO">
+		select * from academy_table Where academy_seq = #{academy_seq}
+	</select>
+</mapper>
