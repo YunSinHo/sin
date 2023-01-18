@@ -197,7 +197,7 @@ img{
 	<c:forEach var="list" items="${showgrammar}" varStatus="status">
 		<c:if test="${list.grammar_content2 == ''}">
 			<div class="bodyarea">
-				<img class="mainheaderimg2" alt="img2" src="/img/user/grammar2.png">
+				<img class="mainheaderimg2" alt="img2" src="img/user/grammar2.png">
 				<div class="contentarea1">
 					<textarea class="contentbox1" readonly>  ${list.grammar_content1}</textarea>
 				</div>
@@ -241,7 +241,7 @@ img{
 		</c:if>
 		<c:if test="${list.grammar_content2 != ''}">
 			<div class="bodyarea">
-				<img class="mainheaderimg1" alt="img1" src="/img/user/grammar1.png">
+				<img class="mainheaderimg1" alt="img1" src="img/user/grammar1.png">
 				<div class="contentarea1">
 					<textarea class="contentbox1" readonly>  ${list.grammar_content1}</textarea>
 				</div>

@@ -273,7 +273,7 @@ th, td {
 <input type="hidden" id="tendency6" value="${schoolmatchresult.schoolmatch_tendency6 }">
 	<div class="img1area">
 		<div class="img-area">
-			<img class="mainheaderimg1" alt="img1" src="/img/user/학교매칭1(수정).png">
+			<img class="mainheaderimg1" alt="img1" src="img/user/학교매칭1(수정).png">
 		</div>
 		<div class="maininfor">
 			<div class="maingrid mainheader">이름</div>
@@ -286,12 +286,12 @@ th, td {
 	</div>
 	<div class="img2area">
 		<div class="img-area">
-			<img class="mainheaderimg2" alt="img2" src="/img/user/학교매칭2.png">
+			<img class="mainheaderimg2" alt="img2" src="img/user/학교매칭2.png">
 		</div>
 	</div>
 	<div class="img3area">
 		<div class="img-area">
-			<img class="mainheaderimg3" alt="img2" src="/img/user/학교매칭3.png">
+			<img class="mainheaderimg3" alt="img2" src="img/user/학교매칭3.png">
 		</div>
 		<div class="schoolheadarea1"><span id="suggestionschool1"></span></div>
 		<div class="schoolheadarea2"><span id="suggestionschool2"></span></div>
@@ -311,7 +311,7 @@ th, td {
 	</div>
 	<div class="img4area">
 		<div class="img-area">
-			<img class="mainheaderimg4" alt="img2" src="/img/user/학교매칭4.png">
+			<img class="mainheaderimg4" alt="img2" src="img/user/학교매칭4.png">
 		</div>
 		<div class="headerarea">
 			추천학교 순위표
@@ -322,7 +322,7 @@ th, td {
 	</div>
 	<div class="img5area">
 		<div class="img-area">
-			<img class="mainheaderimg4" alt="img2" src="/img/user/학교매칭4.png">
+			<img class="mainheaderimg4" alt="img2" src="img/user/학교매칭4.png">
 		</div>
 		<div class="headerarea">
 			나의 학습선행도
@@ -344,7 +344,7 @@ th, td {
 	</div>
 	<div class="img6area">
 		<div class="img-area">
-			<img class="mainheaderimg4" alt="img2" src="/img/user/학교매칭4.png">
+			<img class="mainheaderimg4" alt="img2" src="img/user/학교매칭4.png">
 		</div>
 		<div class="headerarea">
 			학습에 미치는 나의 성향
@@ -365,7 +365,7 @@ th, td {
 	</div>
 	<div class="img7area">
 		<div class="img-area">
-			<img class="mainheaderimg4" alt="img2" src="/img/user/학교매칭4.png">
+			<img class="mainheaderimg4" alt="img2" src="img/user/학교매칭4.png">
 		</div>
 		<div class="headerarea">
 			추천학교 세부 정보

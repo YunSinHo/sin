@@ -187,7 +187,7 @@ p.btn_next {
 <body>
 	<header>
 		<div class="mainlogo">
-			<img class="logo" src="/img/user/userindeximg/피아스학생용 로그인접속중-004.png"
+			<img class="logo" src="img/user/userindeximg/피아스학생용 로그인접속중-004.png"
 			 onclick="location.href='userindex.do';">
 			 <!-- /img/user/userindeximg/피아스학생용 로그인접속중-004.png -->
 		</div>
@@ -218,11 +218,11 @@ p.btn_next {
 				</c:when>
 				<c:otherwise>
 					<div class="myarea" onclick="location.href='userlogout.do';">
-						<img class="mypageimg" src="/img/user/userindeximg/로고(로그아웃).png">
+						<img class="mypageimg" src="img/user/userindeximg/로고(로그아웃).png">
 						<p>로그아웃</p>
 					</div>
 					<div class="myarea">
-						<img class="mypageimg" src="/img/user/userindeximg/로고(강의실).png">
+						<img class="mypageimg" src="img/user/userindeximg/로고(강의실).png">
 						<p>마이페이지</p>
 					</div>
 				</c:otherwise>
@@ -236,9 +236,9 @@ p.btn_next {
 		        <p class="btn_pre"><a href="javascript:slides_next();" style="color:black"><i class="fa-solid fa-circle-chevron-left"></i></a></p>
 		        <div class="main_img">
 		            <div class="content">
-		                <a href="#" idx="0"><img class="bannerimg" src="/img/user/bannerimg/KakaoTalk_20221026_094741199.png" alt="배너1" title="배너1" /></a>
-		                <a href="#" idx="1"><img class="bannerimg" src="/img/user/bannerimg/KakaoTalk_20221026_094741199.png" alt="배너2" title="배너2" /></a>
-		                <a href="#" idx="2"><img class="bannerimg" src="/img/user/bannerimg/KakaoTalk_20221026_094741199.png" alt="배너3" title="배너3" /></a>
+		                <a href="#" idx="0"><img class="bannerimg" src="img/user/bannerimg/KakaoTalk_20221026_094741199.png" alt="배너1" title="배너1" /></a>
+		                <a href="#" idx="1"><img class="bannerimg" src="img/user/bannerimg/KakaoTalk_20221026_094741199.png" alt="배너2" title="배너2" /></a>
+		                <a href="#" idx="2"><img class="bannerimg" src="img/user/bannerimg/KakaoTalk_20221026_094741199.png" alt="배너3" title="배너3" /></a>
 		            </div>
 		        </div>
 		        <p class="btn_next"><a href="javascript:slides_prev();" style="color:black"><i class="fa-solid fa-circle-chevron-right"></i></a></p>
@@ -248,7 +248,7 @@ p.btn_next {
 	<div class="menu">
 		<div class="dropdownoption">
 			<div class="droparea" style="display:flex; flex-direction: column;">
-				<img class="dropimg" src="/img/user/userindeximg/메뉴(위치).png">
+				<img class="dropimg" src="img/user/userindeximg/메뉴(위치).png">
 		        <span class="dropbtn"><i>나의위치</i></span>
 			</div>
 	        <div class="dropdowncontent">
@@ -260,7 +260,7 @@ p.btn_next {
 	    </div>
 		<div class="dropdownoption">
 	        <div class="droparea" style="display:flex; flex-direction: column;">
-				<img class="dropimg" src="/img/user/userindeximg/메뉴(학습상황).png">
+				<img class="dropimg" src="img/user/userindeximg/메뉴(학습상황).png">
 		        <span class="dropbtn"><i>학습상황</i></span>
 			</div>
 	        <div class="dropdowncontent">
@@ -271,7 +271,7 @@ p.btn_next {
 	    </div>
 		<div class="dropdownoption">
 	        <div class="droparea" style="display:flex; flex-direction: column;">
-				<img class="dropimg" src="/img/user/userindeximg/메뉴(교재컨텐츠).png">
+				<img class="dropimg" src="img/user/userindeximg/메뉴(교재컨텐츠).png">
 		        <span class="dropbtn"><i>교재컨텐츠</i></span>
 			</div>
 	        <div class="dropdowncontent">
@@ -284,7 +284,7 @@ p.btn_next {
 	    </div>
 		<div class="dropdownoption">
 	        <div class="droparea" style="display:flex; flex-direction: column;">
-				<img class="dropimg" src="/img/user/userindeximg/메뉴(강의실).png">
+				<img class="dropimg" src="img/user/userindeximg/메뉴(강의실).png">
 		        <span class="dropbtn"><i>내강의실</i></span>
 			</div>
 	        <div class="dropdowncontent">
@@ -318,12 +318,12 @@ p.btn_next {
 	  
 	    var btn_page_html = "";
 	    for(i=0;i<slides_total;i++) {
-	        btn_page_html += "<a href=\"javascript:slides_move_page('"+i+"');\" idx='"+i+"'><img src='./images/jquery_slides/btn_off.png' alt='"+(i+1)+"' /></a>\n";
+	        btn_page_html += "<a href=\"javascript:slides_move_page('"+i+"');\" idx='"+i+"'><img src='.images/jquery_slides/btn_off.png' alt='"+(i+1)+"' /></a>\n";
 	    }
 	  
 	    slides_pagination.html(btn_page_html);
 	  
-	    slides_pagination.find("a img").eq(0).attr("src", "./images/jquery_slides/btn_on.png");
+	    slides_pagination.find("a img").eq(0).attr("src", ".images/jquery_slides/btn_on.png");
 	  
 	    slides_time = setTimeout("slides_prev()", slides_auto_time);
 	}
@@ -339,7 +339,7 @@ p.btn_next {
 	        slides_idx = slides_click_page;
 	        slides_click_page = -1;
 	    }
-	    slides_pagination.find("a img").attr("src", "./images/jquery_slides/btn_off.png");
+	    slides_pagination.find("a img").attr("src", ".images/jquery_slides/btn_off.png");
 	    slides_pagination.find("a img").eq(slides_idx).attr("src", "./images/jquery_slides/btn_on.png");
 	}
 	  
@@ -354,8 +354,8 @@ p.btn_next {
 	        slides_idx = slides_click_page;
 	        slides_click_page = -1;
 	    }
-	    slides_pagination.find("a img").attr("src", "./images/jquery_slides/btn_off.png");
-	    slides_pagination.find("a img").eq(slides_idx).attr("src", "./images/jquery_slides/btn_on.png");
+	    slides_pagination.find("a img").attr("src", ".images/jquery_slides/btn_off.png");
+	    slides_pagination.find("a img").eq(slides_idx).attr("src", ".images/jquery_slides/btn_on.png");
 	}
 	  
 	function slides_next() {

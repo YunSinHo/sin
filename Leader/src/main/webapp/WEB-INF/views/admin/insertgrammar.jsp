@@ -130,7 +130,7 @@ img{
 </head>
 <body>
 	<div class="bodyarea">
-		<img class="mainheaderimg1" alt="img1" src="/img/admin/content8.png">
+		<img class="mainheaderimg1" alt="img1" src="img/admin/content8.png">
 		<div class="namearea">
 			제목 : <input type="text" class="nametext" id="maintitle">
 		</div>
@@ -323,7 +323,7 @@ img{
 				b += 2;
 				var test = '';
 				test += '<div class="bodyarea">';
-				test += '<img class="mainheaderimg1" alt="img1" src="/img/admin/content8.png">';
+				test += '<img class="mainheaderimg1" alt="img1" src="img/admin/content8.png">';
 				test += '<div class="optionarea1">';
 				test += '<select class="categorysel" id="categorysel1_'+ a +'">';
 				test += '<option value="">카테고리 선택</option>';

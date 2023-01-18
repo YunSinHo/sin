@@ -125,7 +125,7 @@ img{
 	<c:forEach var="list" items="${showtrans}" varStatus="status">
 		<c:if test="${list.trans_content2 == ''}">
 			<div class="bodyarea">
-				<img class="mainheaderimg3" alt="img3" src="/img/user/trans1.png">
+				<img class="mainheaderimg3" alt="img3" src="img/user/trans1.png">
 				<div class="categoryarea1">
 					${list.trans_category1}, ${list.trans_category2}
 				</div>
@@ -139,7 +139,7 @@ img{
 		</c:if>
 		<c:if test="${list.trans_content3 == ''}">
 			<div class="bodyarea">
-				<img class="mainheaderimg3" alt="img3" src="/img/user/trans2.png">
+				<img class="mainheaderimg3" alt="img3" src="img/user/trans2.png">
 				<div class="categoryarea1">
 					${list.trans_category1}, ${list.trans_category2}
 				</div>
@@ -162,7 +162,7 @@ img{
 		</c:if>
 		<c:if test="${list.trans_content3 != ''}">
 			<div class="bodyarea">
-				<img class="mainheaderimg3" alt="img3" src="/img/user/trans3.png">
+				<img class="mainheaderimg3" alt="img3" src="img/user/trans3.png">
 				<div class="categoryarea1">
 					${list.trans_category1}, ${list.trans_category2}
 				</div>

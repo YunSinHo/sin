@@ -5,12 +5,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="ko">
 <head>
-<script src="/js/admin/jquery.min.js"></script>
-    <script src="/js/admin/bootstrap.bundle.min.js"></script>
-    <script src="/js/admin/jquery.easing.min.js"></script>
-    <script src="/js/admin/sb-admin-2.min.js"></script>
-    <script src="/air-datepicker/dist/js/datepicker.js"></script> 
-    <script src="/air-datepicker/dist/js/i18n/datepicker.ko.js"></script> <!-- 달력 한글 추가를 위해 커스텀 --> 
+<script src="js/admin/jquery.min.js"></script>
+    <script src="js/admin/bootstrap.bundle.min.js"></script>
+    <script src="js/admin/jquery.easing.min.js"></script>
+    <script src="js/admin/sb-admin-2.min.js"></script>
+    <script src="air-datepicker/dist/js/datepicker.js"></script> 
+    <script src="air-datepicker/dist/js/i18n/datepicker.ko.js"></script> <!-- 달력 한글 추가를 위해 커스텀 --> 
 <script type="text/javascript">
         
         function capture() {
@@ -600,7 +600,7 @@
 	                                    수정인:<input type="text" name="updator_name" value="${updatorList.updator_name}" readonly>
 	                                </div>
 	                                <div class="card-body">
-	<img class="mainheaderimg1" alt="img1" src="/img/admin/carrot3.png">
+	<img class="mainheaderimg1" alt="img1" src="img/admin/carrot3.png">
 <div class="dayarea"><input type="text" class="daybox" id="datepicker" value="${carrot_view.carrot_date}"  name="carrot_date" readonly></div>
 <div class="classarea"><input type="text" class="classbox" id="classbox" name="carrot_class"value="${carrot_view.carrot_class}"></div>
  <div class="namearea"><input type="text" class="namebox" id="namebox" name="carrot_name"value="${carrot_view.carrot_name}"></div>
@@ -826,21 +826,21 @@
     </div>
 
 	<!-- Bootstrap core JavaScript-->
-    <script src="/js/admin/jquery.min.js"></script>
-    <script src="/js/admin/bootstrap.bundle.min.js"></script>
+    <script src="js/admin/jquery.min.js"></script>
+    <script src="js/admin/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="/js/admin/jquery.easing.min.js"></script>
+    <script src="js/admin/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="/js/admin/sb-admin-2.min.js"></script>
+    <script src="js/admin/sb-admin-2.min.js"></script>
 
     <!-- Page level plugins -->
-    <script src="/js/admin/jquery.dataTables.min.js"></script>
-    <script src="/js/admin/dataTables.bootstrap4.min.js"></script>
+    <script src="js/admin/jquery.dataTables.min.js"></script>
+    <script src="js/admin/dataTables.bootstrap4.min.js"></script>
 
     <!-- Page level custom scripts -->
-    <script src="/js/admin/datatables-demo.js"></script>
+    <script src="js/admin/datatables-demo.js"></script>
     <script>
         $(document).ready(function() {
             function addRemoveClass(theRows){

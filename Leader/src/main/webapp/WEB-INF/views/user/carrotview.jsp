@@ -8,11 +8,10 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
-<script src="/js/admin/img.js"></script>
-<script src="/js/admin/html2canvas.min.js"></script>
-<script src="/js/admin/jquery.min.js"></script>
-</head>
-<style>
+<script src="js/admin/img.js"></script>
+<script src="js/admin/html2canvas.min.js"></script>
+<script src="js/admin/jquery.min.js"></script>
+</head><style>
 body{
 	margin:0;
 }
@@ -218,7 +217,7 @@ img{
  <button onclick="history.go(-1);">뒤로가기</button>
 <form name="frm">
 	<div id="card-body" >
-		<img class="mainheaderimg1" alt="img1" src="/img/admin/carrot3.png">
+		<img class="mainheaderimg1" alt="img1" src="img/admin/carrot3.png">
         <div class="dayarea">${carrot_view.carrot_date}</div>
         <div class="classarea">${carrot_view.carrot_class}</div>
         <div class="namearea">${carrot_view.carrot_name}</div>

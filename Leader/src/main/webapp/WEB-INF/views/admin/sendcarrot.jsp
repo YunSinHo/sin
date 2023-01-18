@@ -4,7 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="ko">
 <head>
-<script src="/js/admin/insertCarrot.js"></script>
+<script src="js/admin/insertCarrot.js"></script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -555,7 +555,7 @@
 	                                   부모님번호: <input type="text" name="carrot_number" value="${studentList.student_parentnumber}">
 	                                </div>
 	                                <div class="card-body">
-										<img class="mainheaderimg1" alt="img1" src="/img/admin/carrot3.png">
+										<img class="mainheaderimg1" alt="img1" src="img/admin/carrot3.png">
 	                                    <div class="dayarea"><input type="text" class="daybox" id="datepicker"  name="carrot_date" readonly></div>
 	                                    <div class="classarea"><input type="text" value="${studentList.student_class}" class="classbox" id="classbox" name="carrot_class"></div>
 	                                    <div class="namearea"><input type="text"value="${studentList.student_name}" class="namebox" id="namebox" name="carrot_name"></div>
@@ -682,17 +682,17 @@
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="/js/admin/jquery.min.js"></script>
-    <script src="/js/admin/bootstrap.bundle.min.js"></script>
+    <script src="js/admin/jquery.min.js"></script>
+    <script src="js/admin/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="/js/admin/jquery.easing.min.js"></script>
+    <script src="js/admin/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="/js/admin/sb-admin-2.min.js"></script>
+    <script src="js/admin/sb-admin-2.min.js"></script>
 
-    <script src="/air-datepicker/dist/js/datepicker.js"></script> <!-- Air datepicker js -->
-    <script src="/air-datepicker/dist/js/i18n/datepicker.ko.js"></script> <!-- 달력 한글 추가를 위해 커스텀 -->
+    <script src="air-datepicker/dist/js/datepicker.js"></script> <!-- Air datepicker js -->
+    <script src="air-datepicker/dist/js/i18n/datepicker.ko.js"></script> <!-- 달력 한글 추가를 위해 커스텀 -->
     <script>
         $("#datepicker").datepicker({
             language: 'ko'

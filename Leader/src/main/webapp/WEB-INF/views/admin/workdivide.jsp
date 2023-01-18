@@ -635,17 +635,17 @@
         </div>
     </div>
     <!-- Bootstrap core JavaScript-->
-    <script src="/js/admin/jquery.min.js"></script>
-    <script src="/js/admin/bootstrap.bundle.min.js"></script>
+    <script src="js/admin/jquery.min.js"></script>
+    <script src="js/admin/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="/js/admin/jquery.easing.min.js"></script>
+    <script src="js/admin/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="/js/admin/sb-admin-2.min.js"></script>
+    <script src="js/admin/sb-admin-2.min.js"></script>
 
-    <script src="/air-datepicker/dist/js/datepicker.js"></script> <!-- Air datepicker js -->
-    <script src="/air-datepicker/dist/js/i18n/datepicker.ko.js"></script> <!-- 달력 한글 추가를 위해 커스텀 -->
+    <script src="air-datepicker/dist/js/datepicker.js"></script> <!-- Air datepicker js -->
+    <script src="air-datepicker/dist/js/i18n/datepicker.ko.js"></script> <!-- 달력 한글 추가를 위해 커스텀 -->
     <script>
         function insertTr1(){
             var insertTr = "";

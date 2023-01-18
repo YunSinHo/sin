@@ -127,12 +127,12 @@ body{
 </style>
 <body>
 	<div class="bannerarea">
-		<img class="bannerimg" src="/img/user/bannerimg/banner1.png" onclick="location.href='userindex.do';">
+		<img class="bannerimg" src="img/user/bannerimg/banner1.png" onclick="location.href='userindex.do';">
 	</div>
 	<div class="loginarea">
 		<div class="headerarea">
 			<div class="logoarea">
-				<img class="logo" src="/img/user/userindeximg/피아스학생용 로그인접속중-004.png" onclick="location.href='userindex.do';">
+				<img class="logo" src="img/user/userindeximg/피아스학생용 로그인접속중-004.png" onclick="location.href='userindex.do';">
 			</div>
 		</div>
 		<div class="boxarea">

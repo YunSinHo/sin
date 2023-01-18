@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>학습성향검사</title>
 <script src="//code.jquery.com/jquery-3.6.0.min.js"></script>
-<link href="/css/user/tendencytest.css" rel="stylesheet">
+<link href="css/user/tendencytest.css" rel="stylesheet">
 </head>
 <body>
 	<div class="menubody">
@@ -15,13 +15,13 @@
     </div>
     <div class="mainbody">
         <div id="printarea">
-        	<img src="/img/user/학습성향검사지_(개발자)001.png" style="width:100%;">
+        	<img src="img/user/학습성향검사지_(개발자)001.png" style="width:100%;">
 	        <div class="tendencytestheader">
 				<div class="smallname">
 					누구나 영재가 되는
 				</div>
 				<div class="headerlogo">
-					<img alt="img1" src="/img/user/tendencytestlogo1.png">
+					<img alt="img1" src="img/user/tendencytestlogo1.png">
 				</div>
 				<div class="bigname">
 					학습성향검사
@@ -30,7 +30,7 @@
 			<div class="tendencytestbody">
 				<div class="explanationarea">
 					<div class="explanationlogo">
-						<img class="explanationlogoimg" alt="img2" src="/img/user/tendencytestlogo2.png">
+						<img class="explanationlogoimg" alt="img2" src="img/user/tendencytestlogo2.png">
 					</div>
 					<div class="explanation">
 						<p>본 성향검사는 엘리트 학습자의 다양한 학습법을 검사자가 어느정도 체득화하고 있는지를 확인합니다.</p>

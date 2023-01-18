@@ -120,7 +120,7 @@
         </div>
     </div>
     <!-- Bootstrap core JavaScript-->
-    <script src="/js/admin/jquery.min.js"></script>
+    <script src="js/admin/jquery.min.js"></script>
     <script>
         let date = new Date();
 

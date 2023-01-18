@@ -233,7 +233,7 @@ img{
 </head>
 <body>
 	<div class="bodyarea">
-		<img class="mainheaderimg1" alt="img1" src="/img/admin/trans1.png">
+		<img class="mainheaderimg1" alt="img1" src="img/admin/trans1.png">
 		<div class="namearea">
 			제목 : <input type="text" class="nametext" id="maintitle">
 		</div>
@@ -646,7 +646,7 @@ img{
 			b += 2;
 			var plus = '';
 			plus += '<div class="bodyarea">';
-			plus += '<img class="mainheaderimg1" alt="img1" src="/img/admin/trans1.png">';
+			plus += '<img class="mainheaderimg1" alt="img1" src="img/admin/trans1.png">';
 			plus += '<div class="categoryarea1">';
 			plus += '<select class="categorybox1" onchange="gettingkindchange(this)">';
 			plus += '<option value="">대분류</option>';

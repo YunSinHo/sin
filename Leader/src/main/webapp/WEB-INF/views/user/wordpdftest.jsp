@@ -159,7 +159,7 @@
 		</table>
     <div class="imgarea">
         <div class="mainimg">
-            <img class="mainimg1" alt="img1" src="/img/user/001단어.png">
+            <img class="mainimg1" alt="img1" src="img/user/001단어.png">
         </div>
         <div class="headnamearea">
             <span id="headname1" ></span>
@@ -167,7 +167,7 @@
     </div>
     <div class="imgarea">
         <div class="mainimg">
-            <img class="mainimg2" src="/img/user/002단어.png">
+            <img class="mainimg2" src="img/user/002단어.png">
         </div>
         <div class="namearea">
             <span class='topname'></span>
@@ -243,7 +243,7 @@
             var m = 30;
             var copy = "<div class='imgarea'>\
 		                <div class='mainimg'>\
-		            <img class='mainimg2' src='/img/user/002단어.png'>\
+		            <img class='mainimg2' src='img/user/002단어.png'>\
 		        </div>\
 		        <div class='namearea'>\
 		            <span class='topname'></span>\
@@ -4021,7 +4021,7 @@
             var m = 30;
             var copy = "<div class='imgarea'>\
 		                <div class='mainimg'>\
-		            <img class='mainimg2' src='/img/user/002단어.png'>\
+		            <img class='mainimg2' src='img/user/002단어.png'>\
 		        </div>\
 		        <div class='namearea'>\
 		            <span class='topname'></span>\
