@@ -2,8 +2,10 @@ mybatis:
   mapper-locations: classpath:mybatis/mapper/**/**.xml
 server:
   port: 8080
+
 spring:
-  datasource:
+  profiles:
+    active: prod
     driver-class-name: com.mysql.cj.jdbc.Driver
     password: tt314951
     url: jdbc:mysql://database-1.cxyil04tfi8v.ap-northeast-2.rds.amazonaws.com:3306/leader?characterEncoding=UTF-8&serverTimezone=Asia/Seoul
@@ -15,4 +17,5 @@ spring:
   servlet:
     multipart:
       enabled: false
-test: prod
+
+ 

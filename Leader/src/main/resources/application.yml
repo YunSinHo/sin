@@ -1,4 +1,4 @@
-core: core
+
 mybatis:
   mapper-locations: classpath:mybatis/mapper/**/**.xml
 server:
@@ -13,8 +13,12 @@ spring:
     view:
       prefix: /WEB-INF/views/
       suffix: .jsp
-  profiles:
-    active: core
   servlet:
     multipart:
       enabled: false
+
+
+ 
+
+ 
+        

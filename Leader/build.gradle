@@ -43,15 +43,7 @@ implementation group: 'org.mindrot', name: 'jbcrypt', version: '0.4'
 bootWar {
        archiveName("Leader.war")
 }
-ext.profile = (!project.hasProperty('profile') || !profile) ? 'dev' : profile
 
-sourceSets {
-	main {
-		resources {
-			srcDirs "src/main/resources", "src/main/resources-env/${profile}"
-		}
-	}
-}
 
 
 tasks.named('test') {

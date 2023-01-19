@@ -1,7 +1,8 @@
+
 mybatis:
   mapper-locations: classpath:mybatis/mapper/**/**.xml
 server:
-  port: 8080
+  port: 8070
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -15,4 +16,9 @@ spring:
   servlet:
     multipart:
       enabled: false
-test: dev
+
+
+ 
+
+ 
+        
