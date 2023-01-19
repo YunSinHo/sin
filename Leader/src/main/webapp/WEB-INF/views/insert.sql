@@ -75,6 +75,7 @@ insert into carrot_table(carrot_class, carrot_seq,
    insert into updator(updator_name) values('');
    select * from updator
    ALTER TABLE updator AUTO_INCREMENT = 1; 
+   drop table wordgugudan;
    insert into wordgugudan values('1단',1);
    insert into wordgugudan values('2단',2);
    insert into wordgugudan values('3단',3);

@@ -43,6 +43,24 @@ implementation group: 'org.mindrot', name: 'jbcrypt', version: '0.4'
 bootWar {
        archiveName("Leader.war")
 }
+sourceSets {
+    main.java.srcDirs=['src/main/java']
+    main.resources.srcDirs=['src/main/resources']
+}
+sourceSets {
+    if (!project.hasProperty('profile') || !profile) {
+        ext.profile = 'dev'
+    }
+    main {
+        java {
+            srcDirs "src/main/java"
+        }
+        resources {
+            srcDirs "src/main/resources", "src/main/resources-env/${profile}"
+        }
+    }
+}
+
 
 tasks.named('test') {
 	useJUnitPlatform()
