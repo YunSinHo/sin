@@ -6,7 +6,9 @@
  <select id="studentList" resultType="com.ld.admin.vo.StudentVO">
    select * from student
    </select>
-   
+   <select id="carrotList1" resultType="com.ld.admin.vo.CarrotVO" parameterType="String">
+   select * from carrot_table where carrot_number=#{param1}
+   </select>
     <select id="studentList1" resultType="com.ld.admin.vo.StudentVO" parameterType="String">
    select * from student where student_parentnumber=#{student_parentnumber}
    </select>

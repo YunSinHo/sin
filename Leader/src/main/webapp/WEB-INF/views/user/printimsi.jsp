@@ -12,7 +12,7 @@
 	rel="stylesheet"
 	integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
 	crossorigin="anonymous">
-<link href="/css/user/printimsi.css" rel="stylesheet" />
+<link href="css/user/printimsi.css" rel="stylesheet" />
 <title>Document</title>
 </head>
 <body>
