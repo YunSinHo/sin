@@ -27,4 +27,8 @@ public class StudentService {
 		return studentDao.studentList();
 	}
 
+	public List<StudentVO> studentListSelect(String[] student_parentnumber) {
+		return studentDao.studentListSelect(student_parentnumber);
+	}
+
 }

@@ -5,7 +5,7 @@ select * from carrot_table;
 drop table carrot_table;
 select * from student;
 select * from admin_table;
-
+select * from student where student_parentnumber regexp ('010-5555-5555'|'010-2222-2222');
 insert into carrot_table(carrot_class, carrot_seq,
     carrot_name,
     carrot_date,

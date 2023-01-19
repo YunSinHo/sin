@@ -27,7 +27,7 @@ import com.ld.user.service.CarrotService;
 @Controller
 public class AdminCarrotController {
 
-
+	
 	@Autowired
 	private UpdatorService updatorService;
 	@Autowired
@@ -82,5 +82,16 @@ public class AdminCarrotController {
 		model.addAttribute("updatorList",updatorVO1);
 		System.out.println(updator_name);
 		return "redirect:/carrotList.mdo?student_parentnumber="+carrot_number1;
+	}
+	@RequestMapping(value="/selectStudent.mdo", method= {RequestMethod.GET})
+	public ModelAndView selectStudent(@RequestParam("student_parentnumber") String[] student_parentnumber) {
+		//student_parentnumber=student_parentnumber.replaceAll(",", "|");
+		System.out.println(student_parentnumber);
+		ModelAndView mav=new ModelAndView();
+		List<StudentVO> studentVO=new ArrayList();
+		studentVO=studentService.studentListSelect(student_parentnumber);
+		mav.addObject("studentList",studentVO);
+		mav.setViewName("admin/todaycarrot");
+		return mav;
 	}
 }

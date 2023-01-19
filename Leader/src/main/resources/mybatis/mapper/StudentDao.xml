@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-    
 <mapper namespace="com.ld.admin.dao.IStudentDao">
  <select id="studentList" resultType="com.ld.admin.vo.StudentVO">
    select * from student
+   </select>
+   <select id="studentListSelect" resultType="com.ld.admin.vo.StudentVO" parameterType="String">
+   select * from student where student_parentnumber in
+   <foreach collection="array" item="arr" open="(" close=")" separator=",">
+ #{arr}
+</foreach>
    </select>
    <select id="carrotList1" resultType="com.ld.admin.vo.CarrotVO" parameterType="String">
    select * from carrot_table where carrot_number=#{param1}

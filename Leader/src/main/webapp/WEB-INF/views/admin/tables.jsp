@@ -378,12 +378,12 @@
                                     <option value="class 2">class 2</option>
                                     <option value="class 3">class 3</option>
                                 </select>
-                                <select class="selectgrade">
+                                <select class="selectgrade" name="student_grade">
                                     <option value="학년 전체">학년 전체</option>
-                                    <option value="중등1">중등1</option>
-                                    <option value="중등2">중등2</option>
-                                    <option value="중등3">중등3</option>
-                                    <option value="고등1">고등1</option>
+                                    <option value="중1" >중1</option>
+                                    <option value="중2">중2</option>
+                                    <option value="중3">중3</option>
+                                    <option value="1">고등1</option>
                                     <option value="고등2">고등2</option>
                                 </select>
                                 <select class="selectschool">
@@ -402,6 +402,7 @@
                                     <option value="퇴원">퇴원</option>
                                 </select>
                             </div>
+                            <form action="selectStudent.mdo" method="get">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align: center; vertical-align:middle;">
                                     <thead>
@@ -435,20 +436,21 @@
                                     </script>
                                     <c:forEach items="${studentList}" var="studentList">
                                     <tr><%--carrotList.mdo?student_parentnumber=${studentList.student_parentnumber}--%>
-                                            <th><a href="javascript:goCarrotList('${studentList.student_parentnumber}')">
-                                            ${studentList.student_name}</a></th>
+                                            <th><input type="checkbox" value="${studentList.student_parentnumber}" name="student_parentnumber">
+                                          &nbsp;  <a href="javascript:goCarrotList('${studentList.student_parentnumber}')">
+                                              ${studentList.student_name}</a></th>
                                             <th>${studentList.student_grade}</th>
-                                            <th>${studentList.student_school}</th>
-                                            <th>${studentList.student_class}</th>
-                                            <th>
-                                                <p>${studentList.student_number}</p>
-                                            </th>
+                                             <th>
+                                          <th>${studentList.student_school}</th>
+                                            <th>${studentList.student_number}</th>
                                             <th>${studentList.student_parentnumber}</th>
                                         </tr>
                                     </c:forEach>
                                     </tbody>
                                 </table>
+                                <input type="submit" value="그룹당근작성">
                             </div>
+                            </form>
                         </div>
                     </div>
 

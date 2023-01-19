@@ -30,7 +30,6 @@ public class InsertCarrotController {
 		model.addAttribute("studentList",studentVO);
 		return "admin/sendcarrot";
 	}
-	@ResponseBody
     @RequestMapping(value = "/insertcarrot.mdo", method = {RequestMethod.POST,RequestMethod.GET})
 	public String insertcarrotGet(@ModelAttribute CarrotVO carrotVO) {
 		

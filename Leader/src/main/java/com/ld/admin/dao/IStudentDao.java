@@ -16,4 +16,6 @@ public interface IStudentDao {
 
 	List<StudentVO> studentList();
 
+	List<StudentVO> studentListSelect(String[] student_parentnumber);
+
 }
