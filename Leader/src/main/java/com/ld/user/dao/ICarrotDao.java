@@ -24,6 +24,8 @@ public interface ICarrotDao {
 
 	public void insertCarrotMulti(Map<String, Object> carrotMap);
 
+	List<CarrotVO> selectCarrot(int[] carrot_seq);
+
 	
 
 }

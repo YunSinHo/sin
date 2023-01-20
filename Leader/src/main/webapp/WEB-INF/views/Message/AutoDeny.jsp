@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link rel="stylesheet" type="text/css" href="/resources/main.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href=css/admin/main.css" media="screen"/>
     <title>팝빌 SDK SpringMVC Example.</title>
 </head>
 <body>
@@ -14,10 +14,14 @@
     <br/>
     <fieldset class="fieldset1">
         <legend>${requestScope['javax.servlet.forward.request_uri']}</legend>
-        <ul>
-            <li>응답코드 (Response.code) : ${Response.code}</li>
-            <li>응답메시지 (Response.message) : ${Response.message}</li>
-        </ul>
+        <c:forEach items="${AutoDenyList}" var="AutoDenyInfo">
+            <fieldset class="fieldset2">
+                <ul>
+                    <li>number (수신거부번호) : ${AutoDenyInfo.number}</li>
+                    <li>regDT (등록일시) : ${AutoDenyInfo.regDT}</li>
+                </ul>
+            </fieldset>
+        </c:forEach>
     </fieldset>
 </div>
 </body>

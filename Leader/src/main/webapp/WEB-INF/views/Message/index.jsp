@@ -5,10 +5,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link rel="stylesheet" type="text/css" href="/resources/main.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="css/admin/main.css" media="screen"/>
     <title>팝빌 SDK SpringMVC Example.</title>
 </head>
 <body>
+<form action="sendSMS.mdo">
 <div id="content">
     <p class="heading1">팝빌 문자메시지 API SDK SpringMVC Example.</p>
     <br/>
@@ -19,11 +20,16 @@
             <li><a href="getSenderNumberMgtURL.mdo">getSenderNumberMgtURL</a> - 발신번호 관리 팝업 URL</li>
             <li><a href="getSenderNumberList.mdo">getSenderNumberList</a> - 발신번호 목록 확인</li>
         </ul>
+        
     </fieldset>
     <fieldset class="fieldset1">
         <legend>문자 전송</legend>
         <ul>
-            <li><a href="sendSMS.mdo">sendSMS</a> - 단문 전송</li>
+        <c:forEach items="${carrotList}" var="carrotList" >
+        <input type="hidden" name="carrot_seq" value="${carrotList.carrot_seq}">
+        </c:forEach>
+            <li><input type="submit" value="sendSMS"></li>
+            
             <li><a href="sendSMS_Multi.mdo">sendSMS</a> - 단문 전송 [대량]</li>
             <li><a href="sendLMS.mdo">sendLMS</a> - 장문 전송</li>
             <li><a href="sendLMS_Multi.mdo">sendLMS</a> - 장문 전송 [대량]</li>
@@ -82,5 +88,6 @@
         </ul>
     </fieldset>
 </div>
+</form>
 </body>
 </html>

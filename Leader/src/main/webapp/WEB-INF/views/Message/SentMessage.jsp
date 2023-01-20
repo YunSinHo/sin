@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link rel="stylesheet" type="text/css" href="/resources/main.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="css/admin/main.css" media="screen"/>
     <title>팝빌 SDK SpringMVC Example.</title>
 </head>
 <body>

@@ -53,6 +53,8 @@ insert into carrot_table(carrot_class, carrot_seq,
    <--학생 insert -->
    select * from student
    insert into student(student_name,student_number ,student_parentnumber ,student_class ,student_grade)
+   values('김가가','010-2866-8421','010-2866-8428','A','중3');
+   insert into student(student_name,student_number ,student_parentnumber ,student_class ,student_grade)
    values('윤신호','010-2866-8428','010-1234-1234','A','중3');
    insert into student(student_name,student_number ,student_parentnumber ,student_class ,student_grade)
    values('홍길동','010-1111-1111','010-2222-2222','B','중1');

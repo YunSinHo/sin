@@ -43,4 +43,9 @@ public class CarrotService {
 		
 	}
 
+	public List<CarrotVO> selectCarrot(int[] carrot_seq) {
+		// TODO Auto-generated method stub
+		return carrotDao.selectCarrot(carrot_seq);
+	}
+
 }

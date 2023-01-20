@@ -36,4 +36,10 @@
 	 #{item.carrot_showdown}, #{item.carrot_report}, #{item.carrot_perfection},#{item. carrot_result}
 	</foreach>
 	</insert>
+	<select id="selectCarrot" resultType="com.ld.admin.vo.CarrotVO" parameterType="int">
+	select * from carrot_table where carrot_seq in 
+	<foreach collection="array" item="arr" open="(" close=")" separator=",">
+ #{arr}
+</foreach>
+	</select>
 </mapper>

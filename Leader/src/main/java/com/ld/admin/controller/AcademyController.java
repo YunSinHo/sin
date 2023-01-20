@@ -30,6 +30,12 @@ public class AcademyController {
 	public AcademyController(AcademyService academyService) {
 		this.academyService = academyService;
 	}
+	@RequestMapping(value="sung")
+	public String aa() {
+		
+		return "admin/NewFile";
+	}
+	
 	@RequestMapping(value = "/accessacademy.mdo")
 	public ModelAndView accessacademyGet(Model model,HttpSession session) throws Exception {
 		ModelAndView mav = new ModelAndView();

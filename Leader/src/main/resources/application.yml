@@ -15,8 +15,22 @@ spring:
   servlet:
     multipart:
       enabled: false
+      
+      
 
-
+popbill:
+  #링크아이디
+  linkId: LEADERS
+  #비밀키
+  secretKey: eLUPf1ezUg6CX9bQWUMG5Rwzqa3QZANCzVXwHewDtSM=
+  #연동환경 설정값 true(개발용), false(상업용)
+  isTest: true
+  #인증토큰 아이피 제한 기능 사용여부 true(사용-권장), false(미사용)
+  isIpRestrictOnOff: true
+  #팝빌 API 서비스 고정 IP 사용여부 true(사용), false(미사용)
+  useStaticIp: false
+  #로컬시스템 시간 사용여부 true(사용-권장), false(미사용)
+  useLocalTimeYn: true
  
 
  
