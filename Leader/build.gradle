@@ -21,7 +21,7 @@ repositories {
 	maven { url 'https://repo.spring.io/milestone' }
 	maven { url 'https://repo.spring.io/snapshot' }
 }
-bootWar.enabled = false
+bootWar.enabled = true
 war.enabled = true
 dependencies {
 // https://mvnrepository.com/artifact/javax.inject/javax.inject
