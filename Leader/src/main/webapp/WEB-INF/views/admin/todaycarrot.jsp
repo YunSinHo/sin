@@ -8,11 +8,18 @@
 <title>Insert title here</title>
 </head>
 <body>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%
+	Date nowTime = new Date();
+	SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+%>
 <form action="insertCarrotGroup.mdo">
     <table  >
                                     <thead>
                                         <tr>
                                             <th>이름</th>
+                                            <th>책제목</th>
                                             <th>단어테스트</th>
                                             <th>독후감</th>
                                             <th>원음눈으로읽기</th>
@@ -47,10 +54,14 @@
                                     }
                                     </script>
                                     <c:forEach items="${studentList}" var="studentList">
+                                    <input type="hidden" name="carrot_date" value="<%= sf.format(nowTime) %>">
+                                    <input type="text" name="student_parentnumber" value="${studentList.student_parentnumber}" style="display:none;">
+                                    <input type="text" name="student_class" value="${studentList.student_class}" style="display:none;">
+                                    <input type="text" name="student_name" value="${studentList.student_name}" style="display:none;">
                                     <tr><%--carrotList.mdo?student_parentnumber=${studentList.student_parentnumber}--%>
-                                            <th><input type="checkbox" value="${studentList.student_parentnumber}" name="student_parentnumber">
-                                          &nbsp;  <a href="javascript:goCarrotList('${studentList.student_parentnumber}')">
+                                            <th><a href="javascript:goCarrotList('${studentList.student_parentnumber}')">
                                               ${studentList.student_name}</a></th>
+                                             <th><input type="text" class="booksbox" id="booksbox" name="carrot_books"></th>
                                             <th><input type="text" name="carrot_memorization"></th>
                                              <th><input type="text" name="carrot_report"></th>
                                           <th><input type="text" name="carrot_read"></th>

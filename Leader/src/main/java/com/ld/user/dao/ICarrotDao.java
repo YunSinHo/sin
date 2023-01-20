@@ -1,6 +1,7 @@
 package com.ld.user.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -20,6 +21,8 @@ public interface ICarrotDao {
 	public void updateCarrot(CarrotVO carrotVO);
 
 	public void carrotinsert(CarrotVO carrotVO);
+
+	public void insertCarrotMulti(Map<String, Object> carrotMap);
 
 	
 

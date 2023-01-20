@@ -372,35 +372,6 @@
                         </div>
                         <div class="card-body">
                             <div class="filterarea">
-                                <select class="selectclass">
-                                    <option value="클래스 전체">클래스 전체</option>
-                                    <option value="class 1">class 1</option>
-                                    <option value="class 2">class 2</option>
-                                    <option value="class 3">class 3</option>
-                                </select>
-                                <select class="selectgrade" name="student_grade">
-                                    <option value="학년 전체">학년 전체</option>
-                                    <option value="중1" >중1</option>
-                                    <option value="중2">중2</option>
-                                    <option value="중3">중3</option>
-                                    <option value="1">고등1</option>
-                                    <option value="고등2">고등2</option>
-                                </select>
-                                <select class="selectschool">
-                                    <option value="학교 전체">학교 전체</option>
-                                    <option value="중계중">중계중</option>
-                                    <option value="불암중">불암중</option>
-                                    <option value="상명중">상명중</option>
-                                    <option value="서라벌고">서라벌고</option>
-                                    <option value="재현고">재현고</option>
-                                </select>
-                                <select class="selectstatus">
-                                    <option value="현황 전체">현황 전체</option>
-                                    <option value="재원">재원</option>
-                                    <option value="대기">대기</option>
-                                    <option value="휴원">휴원</option>
-                                    <option value="퇴원">퇴원</option>
-                                </select>
                             </div>
                             <form action="selectStudent.mdo" method="get">
                             <div class="table-responsive">
@@ -540,57 +511,6 @@
 
     <!-- Page level custom scripts -->
     <script src="js/admin/datatables-demo.js"></script>
-    <script>
-        $(document).ready(function() {
-            function addRemoveClass(theRows){
-                theRows.removeClass("odd even");
-                theRows.filter(":odd").addClass("add");
-                theRows.filter(":even").addClass("even");
-            }
-            var rows = $("table.table tr:not(:first)");
-            addRemoveClass(rows);
-            $(".selectclass").on("change",function(){
-                var selected = $('.selectclass').val();
-                if(selected != "클래스 전체"){
-                    rows.filter(":has(td:nth-child(2):contains("+selected+"))").show();
-                    rows.not(":has(td:nth-child(2):contains("+selected+"))").hide();
-                }else{
-                    rows.show();
-                    addRemoveClass(rows);
-                }  
-            });
-            $(".selectgrade").on("change",function(){
-                var selected = $('.selectgrade').val();
-                if(selected != "학년 전체"){
-                    rows.filter(":has(td:nth-child(4):contains("+selected+"))").show();
-                    rows.not(":has(td:nth-child(4):contains("+selected+"))").hide();
-                }else{
-                    rows.show();
-                    addRemoveClass(rows);
-                }
-            });
-            $(".selectschool").on("change",function(){
-                var selected = $('.selectschool').val();
-                if(selected != "학교 전체"){
-                    rows.filter(":has(td:nth-child(5):contains("+selected+"))").show();
-                    rows.not(":has(td:nth-child(5):contains("+selected+"))").hide();
-                }else{
-                    rows.show();
-                    addRemoveClass(rows);
-                }  
-            });
-            $(".selectstatus").on("change",function(){
-                var selected = $('.selectstatus').val();
-                if(selected != "현황 전체"){
-                    rows.filter(":has(td:nth-child(6):contains("+selected+"))").show();
-                    rows.not(":has(td:nth-child(6):contains("+selected+"))").hide();
-                }else{
-                    rows.show();
-                    addRemoveClass(rows);
-                }  
-            });
-        });
-    </script>
 </body>
 
 </html>

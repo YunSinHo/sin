@@ -25,4 +25,15 @@
 	carrot_solving, carrot_listen, carrot_getting, carrot_showdown, carrot_report, carrot_perfection, carrot_result)
 		values(#{carrot_number},#{carrot_class}, #{carrot_name}, #{carrot_date}, #{carrot_books}, #{carrot_memorization}, #{carrot_speech}, #{carrot_read}, #{carrot_trans}, #{carrot_solving}, #{carrot_listen}, #{carrot_getting}, #{carrot_showdown}, #{carrot_report}, #{carrot_perfection}, #{carrot_result});
 	</insert>
+	<insert id="insertCarrotMulti" parameterType="java.util.List">
+	insert into carrot_table(
+	carrot_number, carrot_class, carrot_name, carrot_date, carrot_books, carrot_memorization, carrot_speech, carrot_read, carrot_trans, 
+	carrot_solving, carrot_listen, carrot_getting, carrot_showdown, carrot_report, carrot_perfection, carrot_result) values
+	<foreach collection="list"  item="item" open="(" close=")" separator=",">
+	#{item.carrot_number}, #{item.carrot_class}, #{item.carrot_name}, #{item.carrot_date}, #{item.carrot_books}, 
+	#{item.carrot_memorization}, #{item.carrot_speech}, #{item.carrot_read}, #{item.carrot_trans}, 
+	#{item.carrot_solving}, #{item.carrot_listen},#{item.carrot_getting},
+	 #{item.carrot_showdown}, #{item.carrot_report}, #{item.carrot_perfection},#{item. carrot_result}
+	</foreach>
+	</insert>
 </mapper>

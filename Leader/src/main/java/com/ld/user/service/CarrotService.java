@@ -1,6 +1,7 @@
 package com.ld.user.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,6 +36,11 @@ public class CarrotService {
 
 	public List<CarrotVO> carrotlist(Criteria cr) {
 		return carrotDao.carrotlist( cr);
+	}
+
+	public void insertCarrotMulti(Map<String, Object> carrotMap) {
+		carrotDao.insertCarrotMulti(carrotMap);
+		
 	}
 
 }
