@@ -6,7 +6,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -92,6 +91,15 @@ public class AdminCarrotController {
 		studentVO=studentService.studentListSelect(student_parentnumber);
 		mav.addObject("studentList",studentVO);
 		mav.setViewName("admin/todaycarrot");
+		return mav;
+	}
+	@RequestMapping("/todayCarrotList.mdo")
+	public ModelAndView todayCarrotList(@RequestParam("carrot_date")String carrot_date) {
+		ModelAndView mav= new ModelAndView();
+		List<CarrotVO> carrotVO =new ArrayList();
+		carrotVO=carrotService.todayCarrot(carrot_date);
+		mav.setViewName("admin/todayCarrotList");
+		mav.addObject("carrotList",carrotVO);
 		return mav;
 	}
 }

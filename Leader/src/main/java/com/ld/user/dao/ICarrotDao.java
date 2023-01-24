@@ -26,6 +26,8 @@ public interface ICarrotDao {
 
 	List<CarrotVO> selectCarrot(int[] carrot_seq);
 
+	List<CarrotVO> todayCarrot(String carrot_date);
+
 	
 
 }

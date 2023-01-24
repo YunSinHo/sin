@@ -115,26 +115,31 @@ public class MessageServiceController {
          * 최대 90byte의 단문(SMS) 메시지 1건 전송을 팝빌에 접수합니다.
          * - https://developers.popbill.com/reference/sms/java/api/send#SendSMSOne
          */
+    	String number[]=new String[carrot_seq.length];
+    	String name[]=new String[carrot_seq.length];
+    	int seq[]=new int[carrot_seq.length];
     	List<CarrotVO> carrotVO=new ArrayList();
     	carrotVO=carrotService.selectCarrot(carrot_seq);
-    	int seq1=carrotVO.get(0).getCarrot_seq();
-    	int seq2=carrotVO.get(1).getCarrot_seq();
-    	String name1=carrotVO.get(0).getCarrot_name();
-    	String name2=carrotVO.get(1).getCarrot_name();
-    	String number=carrotVO.get(0).getCarrot_number();
-    	number=number.replaceAll("-","");
+    	for(int i=0; i<carrot_seq.length;i++) {
+    		carrotVO=carrotService.selectCarrot(carrot_seq);
+    		number[i]=carrotVO.get(i).getCarrot_number();
+    		name[i]=carrotVO.get(i).getCarrot_name();
+    		seq[i]=carrotVO.get(i).getCarrot_seq();
+    	}
+    	System.out.println(number+" "+name+" "+seq);
         // 발신번호 (팝빌에 등록된 발신번호만 이용가능)
         String sender = "01028668428";
-
         // 수신번호
-        String receiver = number;
+        String receiver = number[0];
 
         // 수신자명
         String receiverName = "수신자명";
 
         // 메시지 내용, 90byte 초과된 내용은 삭제되어 전송
         // └ 한글, 한자, 특수문자 2byte / 영문, 숫자, 공백 1byte
-        String content = name1+"학생"+" "+"당근주소입니다"+"\rnaver"+seq1;
+        String content = "";
+        if(carrot_seq.length==1) {content=name[0]+"학생"+" "+"당근주소입니다"+"\rhttp://13.209.136.192:8080/Leader-0.0.1-SNAPSHOT-plain/carrotview?carrot_seq="+seq; }
+        else {content=name[0]+"학생"+" "+"당근주소입니다"+"\rnaver"+seq[0]+"\rhttp://13.209.136.192:8080/Leader-0.0.1-SNAPSHOT-plain/carrotview?carrot_seq="+seq[1];} 
         //if(name2==null)content="";
         // 전송예약일시, null인 경우 즉시전송
         Date reserveDT = null;
@@ -172,7 +177,7 @@ public class MessageServiceController {
          */
 
         // [동보전송시 필수] 발신번호, 개별문자 전송정보에 발신자번호 없는 경우 적용
-        String sender = "07043042991";
+        String sender = "01028668428";
 
         // [동보전송시 필수] 메시지 내용, 개별문자 전송정보에 문자내용이 없는 경우 적용
         // └ 한글, 한자, 특수문자 2byte / 영문, 숫자, 공백 1byte
@@ -182,9 +187,9 @@ public class MessageServiceController {
         Message[] messages = new Message[2];
 
         Message msg1 = new Message();
-        msg1.setSender("07043042991");    // 발신번호
-        msg1.setSenderName("발신자1");    // 발신자명
-        msg1.setReceiver("010111222");    // 수신번호
+        msg1.setSender("01028668428");    // 발신번호
+        msg1.setSenderName("김지민영어학원");    // 발신자명
+        msg1.setReceiver("01028668428");    // 수신번호
         msg1.setReceiverName("수신자1");    // 수신자명
         msg1.setContent("메시지 내용1");    // 메시지내용
         msg1.setInterOPRefKey("20221006-SMS001");    // 파트너 지정키

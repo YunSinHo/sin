@@ -42,4 +42,7 @@
  #{arr}
 </foreach>
 	</select>
+	<select id="todayCarrot"  resultType="com.ld.admin.vo.CarrotVO" parameterType="String">
+	select * from carrot_table where carrot_date=#{carrot_date}
+		</select>
 </mapper>

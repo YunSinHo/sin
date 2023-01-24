@@ -48,4 +48,8 @@ public class CarrotService {
 		return carrotDao.selectCarrot(carrot_seq);
 	}
 
+	public List<CarrotVO> todayCarrot(String carrot_date) {
+		return carrotDao.todayCarrot(carrot_date);
+	}
+
 }

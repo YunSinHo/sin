@@ -214,7 +214,6 @@ img{
 </script>
 <body>
  <button class="shot">이미지저장</button>
- <button onclick="history.go(-1);">뒤로가기</button>
 <form name="frm">
 	<div id="card-body" >
 		<img class="mainheaderimg1" alt="img1" src="img/admin/carrot3.png">

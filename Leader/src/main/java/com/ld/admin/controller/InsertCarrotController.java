@@ -37,7 +37,7 @@ public class InsertCarrotController {
 	}
     @RequestMapping(value = "/insertcarrot.mdo", method = {RequestMethod.POST,RequestMethod.GET})
 	public String insertcarrotGet(@ModelAttribute CarrotVO carrotVO) {
-		
+		System.out.println(carrotVO.getCarrot_date());
     	carrotService.carrotinsert(carrotVO);
 		//sqlSessionTemplate.insert("carrot.carrotinsert",carrotVO);
 		return "redirect:/carrotList.mdo?student_parentnumber="+carrotVO.getCarrot_number();

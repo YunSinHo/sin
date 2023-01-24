@@ -76,6 +76,7 @@ insert into carrot_table(carrot_class, carrot_seq,
    insert into updator(updator_name) values('');
    insert into updator(updator_name) values('');
    select * from updator
+   select * from carrot_table
    ALTER TABLE updator AUTO_INCREMENT = 1; 
    drop table wordgugudan;
    insert into wordgugudan values('1단',1);
@@ -92,3 +93,22 @@ insert into carrot_table(carrot_class, carrot_seq,
    select count(*) from wordcollection where word_difficulty=2
    select * from wordcollection where word_name='big'
    select word_seq from wordcollection where word_difficulty =2 order by word_seq desc limit 1;
+   drop table student;
+   delete from carrot_table;
+   CREATE TABLE `edu`.`student` (
+  `id` bigint NOT NULL AUTO_INCREMENT ,
+  `student_id` VARCHAR(45) NOT NULL,
+  `student_password` VARCHAR(45) NOT NULL,
+  `parentnumber` VARCHAR(45) NOT NULL,
+  `number` VARCHAR(45) NULL,
+  `grade` VARCHAR(45) NOT NULL,
+  `school` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `parentnumber_UNIQUE` (`parentnumber` ASC) VISIBLE,
+  UNIQUE INDEX `student_id_UNIQUE` (`student_id` ASC) VISIBLE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_bin
+COMMENT = '학생테이블';
+alter table student add name varchar(20) not null;
+ SET foreign_key_checks = 1;

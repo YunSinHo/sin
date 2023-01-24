@@ -27,7 +27,12 @@
 	<link href="css/admin/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 </head>
-
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%
+	Date nowTime = new Date();
+	SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+%>
 <body id="page-top">
 
     <!-- Page Wrapper -->
@@ -419,7 +424,8 @@
                                     </c:forEach>
                                     </tbody>
                                 </table>
-                                <input type="submit" value="그룹당근작성">
+ <input type="submit" value="그룹당근작성">
+ <input type="button" value="오늘당근목록" onclick="location.href='todayCarrotList.mdo?carrot_date=<%= sf.format(nowTime) %>'">
                             </div>
                             </form>
                         </div>

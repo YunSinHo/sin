@@ -4,10 +4,12 @@ import lombok.Data;
 
 @Data
 public class StudentVO {
-	private String student_name;
-	private String student_grade;
-	private String student_parentnumber;
-	private String student_number;
-	private String student_class;
-	private String student_school;
+	private int id;
+	private String student_id;
+	private String parentnumber;
+	private String number;
+	private String grade;
+	private String school;
+	private String student_password;
+	private String name;
 }
