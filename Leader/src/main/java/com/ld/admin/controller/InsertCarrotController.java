@@ -18,8 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ld.admin.service.StudentService;
 import com.ld.admin.vo.CarrotVO;
-import com.ld.admin.vo.StudentVO;
 import com.ld.user.service.CarrotService;
+import com.ld.user.vo.StudentVO;
 
 @Controller
 public class InsertCarrotController {
@@ -28,10 +28,10 @@ public class InsertCarrotController {
 	@Autowired
 	private CarrotService carrotService;
 	@GetMapping("/sendcarrot.mdo")
-	public String sendcarrotGet(@RequestParam("student_parentnumber") String student_parentnumber,
+	public String sendcarrotGet(@RequestParam("parentnumber") String parentnumber,
 			Model model) {
 		 StudentVO studentVO=new StudentVO();
-		studentVO=studentService.studentList1(student_parentnumber);
+		studentVO=studentService.studentList1(parentnumber);
 		model.addAttribute("studentList",studentVO);
 		return "admin/sendcarrot";
 	}
@@ -40,13 +40,12 @@ public class InsertCarrotController {
 		System.out.println(carrotVO.getCarrot_date());
     	carrotService.carrotinsert(carrotVO);
 		//sqlSessionTemplate.insert("carrot.carrotinsert",carrotVO);
-		return "redirect:/carrotList.mdo?student_parentnumber="+carrotVO.getCarrot_number();
+		return "redirect:/carrotList.mdo?parentnumber="+carrotVO.getCarrot_number();
 	}
 	@RequestMapping("/insertCarrotGroup.mdo")
 	public ModelAndView insertCarrotGroup(@RequestParam("carrot_books")String []carrot_books,
-			@RequestParam("student_parentnumber")String []carrot_number,
-			@RequestParam("student_name")String []carrot_name,
-			@RequestParam("student_class")String []carrot_class,
+			@RequestParam("parentnumber")String []carrot_number,
+			@RequestParam("name")String []carrot_name,
 			@RequestParam("carrot_date")String []carrot_date,
 			@RequestParam("carrot_memorization")String []carrot_memorization,
 			@RequestParam("carrot_report")String []carrot_report,
@@ -65,7 +64,6 @@ public class InsertCarrotController {
 			carrotVO.setCarrot_name(carrot_name[i]);
 		carrotVO.setCarrot_books(carrot_books[i]);
 		carrotVO.setCarrot_number(carrot_number[i]);
-		carrotVO.setCarrot_class(carrot_class[i]);
 		carrotVO.setCarrot_memorization(carrot_memorization[i]);
 		carrotVO.setCarrot_report(carrot_report[i]);
 		carrotVO.setCarrot_read(carrot_read[i]);

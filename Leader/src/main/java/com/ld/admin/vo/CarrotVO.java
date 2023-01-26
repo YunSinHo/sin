@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class CarrotVO {
+	private int student_id;
 	private int carrot_seq;
 	private String carrot_class;
 	private String carrot_name;

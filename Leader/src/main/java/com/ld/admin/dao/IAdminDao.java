@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.ld.admin.vo.AdminVO;
 import com.ld.admin.vo.AdminworkVO;
+import com.ld.user.vo.ClassAllVO;
+import com.ld.user.vo.TeacherVO;
 
 @Mapper
 public interface IAdminDao {
@@ -21,5 +23,13 @@ public interface IAdminDao {
 	List<AdminworkVO> adminworkdayview(AdminworkVO adminworkVO);
 
 	List<AdminworkVO> adminworkmonthlyview(AdminworkVO adminworkVO);
+
+	TeacherVO loginTeacher(String id, String password);
+
+	List<ClassAllVO> getClassAll();
+
+	List<TeacherVO> teacherList();
+
+	void insertTeacher(TeacherVO teacherVO2);
 
 }

@@ -50,4 +50,9 @@ public class WordpdfService {
 		
 	}
 
+	public List<WordgugudanVO> wordpdflist_pageSelect(int[] level) {
+		// TODO Auto-generated method stub
+		return IwordpdfDao.wordpdflist_pageSelect(level);
+	}
+
 }

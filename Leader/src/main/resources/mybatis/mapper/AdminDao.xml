@@ -23,4 +23,18 @@
 	<select id="adminworkmonthlyview" resultType="com.ld.admin.vo.AdminworkVO">
 		select * from adminwork_table where adminwork_type = 'monthly';
 	</select>
+	<select id="loginTeacher" resultType="com.ld.user.vo.TeacherVO" parameterType="String">
+		select * from teacher where teaid=#{param1} and CONVERT(AES_DECRYPT(unhex(password), SHA2('bockgipoog541354',256)) USING utf8)=#{param2};
+	</select>
+	
+	<select id="getClassAll" resultType="String">
+		select name from class
+	</select>
+	<select id="teacherList" resultType="com.ld.user.vo.TeacherVO">
+		select * from teacher
+	</select>
+	<insert id="insertTeacher" parameterType="com.ld.user.vo.TeacherVO">
+   	insert into teacher(teaid,password,number,name) values
+   	(#{teaid},hex(aes_encrypt(#{password}, SHA2('bockgipoog541354',256))),#{number},#{name})
+   </insert>
 </mapper>

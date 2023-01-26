@@ -36,6 +36,7 @@ public class BoardController {
 		List<GrammarVO> showList = new ArrayList<GrammarVO>();
 		showList = boardService.showgrammar_page(Criteria);
 		mav.addObject("GrammarList", showList);
+		mav.setViewName("user/grammarlist");
 		return mav;
 	}
 	
@@ -49,6 +50,7 @@ public class BoardController {
 		showList = boardService.wordcollection(Criteria);
 		mav.addObject("showgrammar", grammarVO);
 		mav.addObject("showword", showList);
+		mav.setViewName("user/grammarsel");
 		return mav;
 	}
 	@RequestMapping(value = "/translist.do")
@@ -58,6 +60,7 @@ public class BoardController {
 		List<TransVO> showList = new ArrayList<TransVO>();
 		showList = boardService.showtrans_page(Criteria);
 		mav.addObject("TransList", showList);
+		mav.setViewName("user/translist");
 		return mav;
 	}
 	
@@ -67,6 +70,7 @@ public class BoardController {
 		List<Object> transVO;
 		transVO = boardService.transread(trans_title);
 		mav.addObject("showtrans", transVO);
+		mav.setViewName("user/transview");
 		return mav;
 	}
 }

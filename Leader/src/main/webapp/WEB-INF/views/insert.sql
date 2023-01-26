@@ -1,11 +1,19 @@
+ALTER TABLE wordcollection AUTO_INCREMENT = 1;
+ALTER TABLE student AUTO_INCREMENT = 1;
+ALTER TABLE carrot_table AUTO_INCREMENT = 1;
+ALTER TABLE teacher AUTO_INCREMENT = 1;
+TRUNCATE wordcollection;
 alter table carrot_table drop primary key;
 alter table student add student_school varchar(20) not null;
 delete from carrot_table;
 select * from carrot_table;
+alter table carrot_table add student_id bigint;
 drop table carrot_table;
 select * from student;
 select * from admin_table;
 select * from student where student_parentnumber regexp ('010-5555-5555'|'010-2222-2222');
+insert into student values(1,'asdf','asdf','010-2866-8428','010-2866-8428','중1','신곡중','시농');
+insert into teacher values(1,'asd','asd','김똥','010-1234-1234','o');
 insert into carrot_table(carrot_class, carrot_seq,
     carrot_name,
     carrot_date,
@@ -40,30 +48,7 @@ insert into carrot_table(carrot_class, carrot_seq,
     carrot_perfection,
     carrot_result )
    values ('1ㅇ','2333이','3ㅇ','4ㅇ','5ㅇ','6ㅇ','7ㅇ','ㅇ8','ㅇ9','ㅇ0','ㅇ1','ㅇ2','ㅇ3','ㅇ4','ㅇ5');
-   select * from admin_table;
-   update admin_table set admin_access ='yes' where admin_id='관리';
-   update admin_table set admin_access ='yes', admin_tier ='super' where admin_id='학원장';
-   update admin_table set admin_access ='yes', admin_tier ='teacher' where admin_id='선생';
-   <-- 학생 업데이트-->
-   update student set student_school='불암중' where student_name='윤신호';
-   update student set student_school='불암중' where student_name='홍길동';
-   update student set student_school='불암중' where student_name='이대호';
-   update student set student_school='불암중' where student_name='박지성';
-   update student set student_school='불암중' where student_name='손흥민';
-   <--학생 insert -->
-   select * from student
-   insert into student(student_name,student_number ,student_parentnumber ,student_class ,student_grade)
-   values('김가가','010-2866-8421','010-2866-8428','A','중3');
-   insert into student(student_name,student_number ,student_parentnumber ,student_class ,student_grade)
-   values('윤신호','010-2866-8428','010-1234-1234','A','중3');
-   insert into student(student_name,student_number ,student_parentnumber ,student_class ,student_grade)
-   values('홍길동','010-1111-1111','010-2222-2222','B','중1');
-   insert into student(student_name,student_number ,student_parentnumber ,student_class ,student_grade)
-   values('이대호','010-3333-3333','010-4444-4444','B','중3');
-   insert into student(student_name,student_number ,student_parentnumber ,student_class ,student_grade)
-   values('박지성','010-5555-8428','010-5555-5555','A','중2');
-   insert into student(student_name,student_number ,student_parentnumber ,student_class ,student_grade)
-   values('손흥민','010-6666-8428','010-6666-6666','C','중3');
+   
    delete from updator
    insert into updator(updator_name) values(' ');
    insert into updator(updator_name) values('');
@@ -94,21 +79,7 @@ insert into carrot_table(carrot_class, carrot_seq,
    select * from wordcollection where word_name='big'
    select word_seq from wordcollection where word_difficulty =2 order by word_seq desc limit 1;
    drop table student;
+   drop table carrot_table;
    delete from carrot_table;
-   CREATE TABLE `edu`.`student` (
-  `id` bigint NOT NULL AUTO_INCREMENT ,
-  `student_id` VARCHAR(45) NOT NULL,
-  `student_password` VARCHAR(45) NOT NULL,
-  `parentnumber` VARCHAR(45) NOT NULL,
-  `number` VARCHAR(45) NULL,
-  `grade` VARCHAR(45) NOT NULL,
-  `school` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE INDEX `parentnumber_UNIQUE` (`parentnumber` ASC) VISIBLE,
-  UNIQUE INDEX `student_id_UNIQUE` (`student_id` ASC) VISIBLE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8
-COLLATE = utf8_bin
-COMMENT = '학생테이블';
 alter table student add name varchar(20) not null;
  SET foreign_key_checks = 1;

@@ -552,40 +552,40 @@
 	                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
 	                                    <h4 class="m-0 font-weight-bold text-primary">CARROT library</h4>
 	                                    <input type="button" class="shadow-sm bg-body rounded" onclick="insertCarrot();" value="등록">
-	                                   부모님번호: <input type="text" name="carrot_number" value="${studentList.student_parentnumber}">
+	                                   부모님번호: <input type="text" name="carrot_number" value="${studentList.parentnumber}">
 	                                </div>
 	                                <div class="card-body">
 										<img class="mainheaderimg1" alt="img1" src="img/admin/carrot3.png">
 	                                    <div class="dayarea"><input type="text" class="daybox" id="datepicker"  name="carrot_date" readonly></div>
-	                                    <div class="classarea"><input type="text" value="${studentList.student_class}" class="classbox" id="classbox" name="carrot_class"></div>
-	                                    <div class="namearea"><input type="text"value="${studentList.student_name}" class="namebox" id="namebox" name="carrot_name"></div>
+	                                    
+	                                    <div class="namearea"><input type="text"value="${studentList.name}" class="namebox" id="namebox" name="carrot_name"></div>
 	                                    <div class="booksarea"><input type="text" class="booksbox" id="booksbox" name="carrot_books"></div>
 	                                    <div class="memorization">
-	                                    	<input type="radio" name="carrot_memorization" value="pass"> P / 1
+	                                    	<input type="radio" name="carrot_memorization" value="pass"> P / 
 	                                    	<input type="radio" name="carrot_memorization" value="non-pass"> N /
 	                                    	<input type="radio" name="carrot_memorization" value="holding"> H
 	                                    </div>
 	                                    <div class="reportcheck">
-	                                    	<input type="radio" name="carrot_report" value="pass"> P / 2
+	                                    	<input type="radio" name="carrot_report" value="pass"> P / 
 	                                    	<input type="radio" name="carrot_report" value="non-pass"> N /
 	                                    	<input type="radio" name="carrot_report" value="holding"> H
 	                                    </div>
 	                                    <div class="readcheck">
-	                                    	<input type="radio" name="carrot_read" value="pass"> P / 3
+	                                    	<input type="radio" name="carrot_read" value="pass"> P / 
 	                                    	<input type="radio" name="carrot_read" value="non-pass"> N /
 	                                    	<input type="radio" name="carrot_read" value="holding"> H
 	                                    </div>
 	                                    <div class="transcheck">
-	                                    	<input type="radio" name="carrot_trans" value="pass"> P / 4
+	                                    	<input type="radio" name="carrot_trans" value="pass"> P / 
 	                                    	<input type="radio" name="carrot_trans" value="non-pass"> N /
 	                                    	<input type="radio" name="carrot_trans" value="holding"> H
 	                                    </div>
 	                                    <div class="solvingcheck">
-	                                    	<input type="radio" name="carrot_solving" value="pass"> P / 5
+	                                    	<input type="radio" name="carrot_solving" value="pass"> P / 
 	                                    	<input type="radio" name="carrot_solving" value="non-pass"> N /
 	                                    	<input type="radio" name="carrot_solving" value="holding"> H
 	                                    </div>
-	                                    <div class="listencheck"><input type="text" class="pagebox" name="carrot_listen">6</div>
+	                                    <div class="listencheck"><input type="text" class="pagebox" name="carrot_listen"></div>
 	                                    <div class="gettingcheck">
 	                                    	<select class="gettingbox" name="gettingselect1" id="gettingselect1" onchange="gettingkindchange(this)">
 	                                    		<option value="">대분류</option>
@@ -614,7 +614,7 @@
 	                                    </div>
 	                                    <div class="showdowncheck"><input type="text" class="pagebox" name="carrot_showdown">7</div>
 	                                    <div class="speechcheck">
-	                                    	<input type="radio" name="carrot_speech" value="pass"> P / 8
+	                                    	<input type="radio" name="carrot_speech" value="pass"> P / 
 	                                    	<input type="radio" name="carrot_speech" value="non-pass"> N /
 	                                    	<input type="radio" name="carrot_speech" value="holding"> H
 	                                    </div>

@@ -33,4 +33,10 @@
  #{arr}
 </foreach>
 	</select>
+	<select id="wordpdflist_pageSelect" resultType="com.ld.user.vo.WordgugudanVO">
+		select * from wordgugudan where gugudan_level in
+		<foreach collection="array" item="arr" open="(" close=")" separator=",">
+ #{arr}
+</foreach>
+	</select>
 </mapper>

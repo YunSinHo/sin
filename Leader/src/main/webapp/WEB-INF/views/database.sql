@@ -68,9 +68,10 @@ create table trans_table(
 );
 insert into trans_table values(1,'1','1','1','1','1','1','1','1','1','1','1','1','1')
 당근라이브러리
+drop table carrot_table
 create table carrot_table(
 	carrot_seq int auto_increment,
-    carrot_class varchar(20) not null,
+    carrot_class varchar(20) ,
     carrot_name varchar(10) not null,
     carrot_date varchar(20) not null,
     carrot_books varchar(20) ,
@@ -86,13 +87,7 @@ create table carrot_table(
     carrot_perfection varchar(20) ,
     carrot_result varchar(200),
     carrot_number varchar(20) not null,
-	primary key(carrot_seq),
-	 INDEX `fk_carrot_table_idx` (`carrot_number` ASC) VISIBLE,
-  CONSTRAINT `fk_carrot_table`
-    FOREIGN KEY (`carrot_number`)
-    REFERENCES `edu`.`student` (`student_parentnumber`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION
+	primary key(carrot_seq)
 );
 alter table student modify student_number varchar(20);
 create table student(
@@ -103,10 +98,11 @@ student_class varchar(20) not null,
 student_grade  varchar(20) not null,
 primary key(student_parentnumber)
 );
+
  그래머 옆 단어
 create table wordcollection(
 word_seq int auto_increment,
-word_name varchar(100) not null unique,
+word_name varchar(100) not null ,
 word_trans varchar(100) not null,
 word_difficulty int not null,
 primary key(word_seq)
@@ -340,7 +336,11 @@ create table arrangementresult(
     primary key(arr_id)
 );
 select * from wordcollection
+delete from wordcollection;
 
+
+insert into wordcollection (word_name, word_trans, word_difficulty)
+values ('welcome','환영하다',1);
 
 insert into wordcollection (word_name, word_trans, word_difficulty)
 values

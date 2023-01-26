@@ -44,6 +44,7 @@ public class SchoolmatchController {
 		List<SchoolmatchVO> schoolmatchList = new ArrayList<SchoolmatchVO>();
 		schoolmatchList = schoolmatchService.schoolmatchlist(Criteria);
 		mav.addObject("SchoolmatchList", schoolmatchList);
+		mav.setViewName("user/schoolmatchlist");
 		return mav;
 	}
 	@RequestMapping("schoolmatchresult.do")
@@ -52,6 +53,7 @@ public class SchoolmatchController {
 		SchoolmatchVO schoolmatchVO;
 		schoolmatchVO = schoolmatchService.schoolmatchresult(schoolmatch_seq);
 		mav.addObject("schoolmatchresult", schoolmatchVO);
+		mav.setViewName("user/schoolmatchresult");
 		return mav;
 	}
 }

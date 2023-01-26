@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ld.admin.service.StudentService;
-import com.ld.admin.vo.StudentVO;
+import com.ld.user.vo.StudentVO;
 
 @Controller
 public class AdminCommonController {

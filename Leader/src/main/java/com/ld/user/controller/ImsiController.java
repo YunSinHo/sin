@@ -44,6 +44,7 @@ public class ImsiController {
 		List<ImsiVO> showList = new ArrayList<ImsiVO>();
 		showList = imsiService.imsilist(cr);
 		mav.addObject("ImsiList", showList);
+		mav.setViewName("user/imsipage");
 		return mav;
 	}
 	
@@ -53,6 +54,7 @@ public class ImsiController {
 		ImsiVO imsiVO;
 		imsiVO = imsiService.imsiread(imsi_seq);
 		mav.addObject("imsi_view", imsiVO);
+		mav.setViewName("user/imsiview");
 		return mav;
 	}
 }

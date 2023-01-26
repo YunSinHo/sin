@@ -385,10 +385,10 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h4 class="m-0 font-weight-bold text-primary">${studentList.student_name}</h4>
+                            <h4 class="m-0 font-weight-bold text-primary">${studentList.name}</h4>
                         </div>
                         <div class="card-body">
-<input type="button" value="당근 등록하기" onclick="location.href='sendcarrot.mdo?student_parentnumber=${studentList.student_parentnumber}'">
+<input type="button" value="당근 등록하기" onclick="location.href='sendcarrot.mdo?parentnumber=${studentList.parentnumber}'">
 		<form action="MessageService.mdo">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align: center; vertical-align:middle;">

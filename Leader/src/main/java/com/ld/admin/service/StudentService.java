@@ -7,7 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.ld.admin.dao.IStudentDao;
 import com.ld.admin.vo.CarrotVO;
-import com.ld.admin.vo.StudentVO;
+import com.ld.user.vo.StudentClassVO;
+import com.ld.user.vo.StudentVO;
 
 @Service
 public class StudentService {
@@ -29,6 +30,27 @@ public class StudentService {
 
 	public List<StudentVO> studentListSelect(String[] student_parentnumber) {
 		return studentDao.studentListSelect(student_parentnumber);
+	}
+
+	public StudentVO loginStudent(String id, String password) {
+		return studentDao.loginStudent(id,password);
+	}
+
+	public List<StudentClassVO> studentClassList(int id) {
+		return studentDao.studentClassList(id);
+	}
+
+	public void insertStudent(StudentVO studentVO) {
+		studentDao.insertStudent(studentVO);
+		
+	}
+
+	public List<StudentClassVO> studentClassListAll(int id) {
+		return studentDao.studentClassListAll(id);
+	}
+
+	public List<StudentClassVO> studentClassName(int id) {
+		return studentDao.studentClassName(id);
 	}
 
 }

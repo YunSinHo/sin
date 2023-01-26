@@ -378,7 +378,7 @@
                                     <option value="class 2">class 2</option>
                                     <option value="class 3">class 3</option>
                                 </select>
-                                <select class="selectgrade" name="student_grade">
+                                <select class="selectgrade" name="grade">
                                     <option value="학년 전체">학년 전체</option>
                                     <option value="중1" >중1</option>
                                     <option value="중2">중2</option>
@@ -424,7 +424,7 @@
                                     	    let obj;
                                     	    obj = document.createElement('input');
                                     	    obj.setAttribute('type', 'hidden');
-                                    	    obj.setAttribute('name', 'student_parentnumber');
+                                    	    obj.setAttribute('name', 'parentnumber');
                                     	    obj.setAttribute('value', number);
                                     	    
                                     	    f.appendChild(obj);
@@ -435,15 +435,15 @@
                                     }
                                     </script>
                                     <c:forEach items="${studentList}" var="studentList">
-                                    <tr><%--carrotList.mdo?student_parentnumber=${studentList.student_parentnumber}--%>
-                                            <th><input type="checkbox" value="${studentList.student_parentnumber}" name="student_parentnumber">
-                                          &nbsp;  <a href="javascript:goCarrotList('${studentList.student_parentnumber}')">
-                                              ${studentList.student_name}</a></th>
-                                            <th>${studentList.student_grade}</th>
+                                    <tr><%--carrotList.mdo?studentparentnumber=${studentList.studentparentnumber}--%>
+                                            <th><input type="checkbox" value="${studentList.parentnumber}" name="parentnumber">
+                                          &nbsp;  <a href="javascript:goCarrotList('${studentList.parentnumber}')">
+                                              ${studentList.name}</a></th>
+                                            <th>${studentList.grade}</th>
                                              <th>
-                                          <th>${studentList.student_school}</th>
-                                            <th>${studentList.student_number}</th>
-                                            <th>${studentList.student_parentnumber}</th>
+                                          <th>${studentList.school}</th>
+                                            <th>${studentList.tnumber}</th>
+                                            <th>${studentList.parentnumber}</th>
                                         </tr>
                                     </c:forEach>
                                     </tbody>

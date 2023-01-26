@@ -17,9 +17,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ld.admin.service.StudentService;
 import com.ld.admin.service.UpdatorService;
-import com.ld.admin.vo.AdminVO;
+import com.ld.user.vo.StudentVO;
+import com.ld.user.vo.TeacherVO;
 import com.ld.admin.vo.CarrotVO;
-import com.ld.admin.vo.StudentVO;
 import com.ld.admin.vo.UpdatorVO;
 import com.ld.user.service.CarrotService;
 
@@ -34,12 +34,12 @@ public class AdminCarrotController {
 	@Autowired
 	private CarrotService carrotService;
 	@RequestMapping(value="/carrotList.mdo" ,method= {RequestMethod.GET ,RequestMethod.POST})
-	public ModelAndView carrotList(@RequestParam("student_parentnumber")String student_parentnumber) {
+	public ModelAndView carrotList(@RequestParam("parentnumber")String parentnumber) {
 		ModelAndView mav=new ModelAndView();
 		List<CarrotVO> carrotVO=new ArrayList();
-		carrotVO=studentService.carrotList1(student_parentnumber);
+		carrotVO=studentService.carrotList1(parentnumber);
 		StudentVO studentVO=new StudentVO();
-		studentVO=studentService.studentList1(student_parentnumber);
+		studentVO=studentService.studentList1(parentnumber);
 		mav.addObject("studentList",studentVO);
 		mav.addObject("carrotList",carrotVO);
 		mav.setViewName("admin/carrotList");
@@ -66,12 +66,12 @@ public class AdminCarrotController {
 			@RequestParam("getting") String getting) {
 		if(carrotVO.getCarrot_getting().equals("대분류 우선 선택"))carrotVO.setCarrot_getting(getting);
 		HttpSession session=request.getSession ();
-		AdminVO adminVO=(AdminVO)session.getAttribute("admin");
-		if(adminVO==null)return "adminlogin";
+		TeacherVO TeacherVO=(TeacherVO)session.getAttribute("loginTeacher");
+		if(TeacherVO==null)return "user/login";
 		UpdatorVO updatorVO=new UpdatorVO();
 		UpdatorVO updatorVO1=new UpdatorVO();
 		updatorVO.setCarrot_seq(carrotVO.getCarrot_seq());
-		updator_name=updator_name+","+adminVO.getAdmin_name();
+		//updator_name=updator_name+","+TeacherVO.getAdmin_name();
 		updatorVO.setUpdator_name(updator_name);
 		updatorService.updateUpdator(updatorVO);
 		carrotService.updateCarrot(carrotVO);
@@ -80,15 +80,15 @@ public class AdminCarrotController {
 		updatorVO1=carrotService.getUpdator(carrotVO.getCarrot_seq());
 		model.addAttribute("updatorList",updatorVO1);
 		System.out.println(updator_name);
-		return "redirect:/carrotList.mdo?student_parentnumber="+carrot_number1;
+		return "redirect:/carrotList.mdo?parentnumber="+carrot_number1;
 	}
 	@RequestMapping(value="/selectStudent.mdo", method= {RequestMethod.GET})
-	public ModelAndView selectStudent(@RequestParam("student_parentnumber") String[] student_parentnumber) {
+	public ModelAndView selectStudent(@RequestParam("parentnumber") String[] parentnumber) {
 		//student_parentnumber=student_parentnumber.replaceAll(",", "|");
-		System.out.println(student_parentnumber);
+		System.out.println(parentnumber);
 		ModelAndView mav=new ModelAndView();
 		List<StudentVO> studentVO=new ArrayList();
-		studentVO=studentService.studentListSelect(student_parentnumber);
+		studentVO=studentService.studentListSelect(parentnumber);
 		mav.addObject("studentList",studentVO);
 		mav.setViewName("admin/todaycarrot");
 		return mav;

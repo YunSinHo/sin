@@ -2,11 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ld.admin.dao.IStudentDao">
- <select id="studentList" resultType="com.ld.admin.vo.StudentVO">
+ <select id="studentList" resultType="com.ld.user.vo.StudentVO">
    select * from student
    </select>
-   <select id="studentListSelect" resultType="com.ld.admin.vo.StudentVO" parameterType="String">
-   select * from student where student_parentnumber in
+   <select id="studentListSelect" resultType="com.ld.user.vo.StudentVO" parameterType="String">
+   select * from student where parentnumber in
    <foreach collection="array" item="arr" open="(" close=")" separator=",">
  #{arr}
 </foreach>
@@ -14,7 +14,29 @@
    <select id="carrotList1" resultType="com.ld.admin.vo.CarrotVO" parameterType="String">
    select * from carrot_table where carrot_number=#{param1} order by carrot_date desc
    </select>
-    <select id="studentList1" resultType="com.ld.admin.vo.StudentVO" parameterType="String">
-   select * from student where student_parentnumber=#{student_parentnumber}
+    <select id="studentList1" resultType="com.ld.user.vo.StudentVO" parameterType="String">
+   select * from student where parentnumber=#{parentnumber}
    </select>
+   <select id="loginStudent" resultType="com.ld.user.vo.StudentVO" parameterType="String">
+    select * from student where stuid=#{param1} and CONVERT(AES_DECRYPT(unhex(password), SHA2('bockgipoog541354',256)) USING utf8)=#{param2};
+   </select>
+   
+   <select id="studentClassList" resultType="com.ld.user.vo.StudentClassVO" parameterType="int">
+   	select * from student_class where student_id=#{param1} 
+   </select>
+   <!--  <select id="studentClassListAll" resultType="String" parameterType="int">
+   	select class.name from class join student_class on student_class.name=class.name join student on student_class.student_id=student.id
+where student.id=#{param1}
+   </select>-->
+    <select id="studentClassListAll" resultType="com.ld.user.vo.StudentClassVO" parameterType="int">
+   	select * from student_class where student_id=#{param1}
+   </select>
+   <select id="studentClassName" resultType="String" parameterType="int">
+   	select name from student_class where student_id=#{param1}
+   </select>
+   
+   <insert id="insertStudent" parameterType="com.ld.user.vo.StudentVO">
+   	insert into student(stuid,password,parentnumber,number,grade,school,name) values
+   	(#{stuid},hex(aes_encrypt(#{password}, SHA2('bockgipoog541354',256))),#{parentnumber},#{number},#{grade},#{school},#{name})
+   </insert>
 </mapper>

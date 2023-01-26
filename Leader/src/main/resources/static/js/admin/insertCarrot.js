@@ -9,10 +9,7 @@ function insertCarrot(){
 	} else if (theForm.carrot_date.value == "") {
 		alert('날짜를 선택하세요.'); 		
 		theForm.carrot_date.focus();
-	}else if (theForm.carrot_class.value == "") {
-		alert('반을 입력하세요.'); 		
-		theForm.carrot_class.focus();
-	} else if (theForm.carrot_name.value == "") {
+	}else if (theForm.carrot_name.value == "") {
 		alert('이름을 입력하세요.'); 		
 		theForm.carrot_name.focus();
 	} else if (theForm.carrot_books.value == "") {

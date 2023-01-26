@@ -43,7 +43,7 @@
                                     	    let obj;
                                     	    obj = document.createElement('input');
                                     	    obj.setAttribute('type', 'hidden');
-                                    	    obj.setAttribute('name', 'student_parentnumber');
+                                    	    obj.setAttribute('name', 'parentnumber');
                                     	    obj.setAttribute('value', number);
                                     	    
                                     	    f.appendChild(obj);
@@ -55,12 +55,11 @@
                                     </script>
                                     <c:forEach items="${studentList}" var="studentList">
                                     <input type="hidden" name="carrot_date" value="<%= sf.format(nowTime) %>">
-                                    <input type="text" name="student_parentnumber" value="${studentList.student_parentnumber}" style="display:none;">
-                                    <input type="text" name="student_class" value="${studentList.student_class}" style="display:none;">
-                                    <input type="text" name="student_name" value="${studentList.student_name}" style="display:none;">
+                                    <input type="text" name="parentnumber" value="${studentList.parentnumber}" style="display:none;">
+                                    <input type="text" name="name" value="${studentList.name}" style="display:none;">
                                     <tr><%--carrotList.mdo?student_parentnumber=${studentList.student_parentnumber}--%>
-                                            <th><a href="javascript:goCarrotList('${studentList.student_parentnumber}')">
-                                              ${studentList.student_name}</a></th>
+                                            <th><a href="javascript:goCarrotList('${studentList.parentnumber}')">
+                                              ${studentList.name}</a></th>
                                              <th><input type="text" class="booksbox" id="booksbox" name="carrot_books"></th>
                                             <th><input type="text" name="carrot_memorization"></th>
                                              <th><input type="text" name="carrot_report"></th>

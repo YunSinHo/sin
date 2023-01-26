@@ -385,7 +385,7 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h4 class="m-0 font-weight-bold text-primary">${studentList.student_name}</h4>
+                            <h4 class="m-0 font-weight-bold text-primary">${studentList.name}</h4>
                         </div>
                         <div class="card-body">
 		<form action="MessageService.mdo">

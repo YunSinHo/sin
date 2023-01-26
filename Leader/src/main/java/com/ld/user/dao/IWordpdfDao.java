@@ -25,4 +25,6 @@ public interface IWordpdfDao {
 
 	public void wordpdfinsert(List<Map<String, Object>> param);
 
+	List<WordgugudanVO> wordpdflist_pageSelect(int[] level);
+
 }
