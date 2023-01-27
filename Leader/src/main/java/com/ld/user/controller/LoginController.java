@@ -171,8 +171,11 @@ public class LoginController {
 			else if(studentVO.getAvailable().equals("o")) {
 			session.setAttribute("loginStudent",studentVO);
 			//클래스 목록
+			int checkClass=studentService.studentClassCount(studentVO.getId());
+			if(checkClass!=0) {
 			studentClassVO=studentService.studentClassList(studentVO.getId());
 			session.setAttribute("studentClass",studentClassVO);
+			}
 			url="redirect:/tables.mdo";
 			}
 		}

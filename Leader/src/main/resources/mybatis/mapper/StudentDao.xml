@@ -24,10 +24,6 @@
    <select id="studentClassList" resultType="com.ld.user.vo.StudentClassVO" parameterType="int">
    	select * from student_class where student_id=#{param1} 
    </select>
-   <!--  <select id="studentClassListAll" resultType="String" parameterType="int">
-   	select class.name from class join student_class on student_class.name=class.name join student on student_class.student_id=student.id
-where student.id=#{param1}
-   </select>-->
     <select id="studentClassListAll" resultType="com.ld.user.vo.StudentClassVO" parameterType="int">
    	select * from student_class where student_id=#{param1}
    </select>
@@ -39,4 +35,23 @@ where student.id=#{param1}
    	insert into student(stuid,password,parentnumber,number,grade,school,name) values
    	(#{stuid},hex(aes_encrypt(#{password}, SHA2('bockgipoog541354',256))),#{parentnumber},#{number},#{grade},#{school},#{name})
    </insert>
+   
+   <select id="studentClassId" resultType="com.ld.admin.vo.StudentClassAllVO" >
+   		select student.id as id,student.name as name,student.stuid as stuid,student.grade as grade,group_concat(student_class.name) as class_name from student
+   		 left join
+ student_class on student.id=student_class.student_id
+ group by student.name,student.stuid;
+   </select>
+   
+   <select id="studentClassCount" resultType="int" parameterType="int">
+   	select count(*) from student_class where student_id=#{param1}
+   </select>
+   <!-- 학생 클래스 추가 -->
+   <insert id="insertStudentClass">
+   insert into student_class (student_id,name) values(#{param1},#{param2})
+   </insert>
+   <!-- 학생 클래스 삭제 -->
+   <delete id="deleteStudentClass">
+   	delete from student_class where student_id=#{param1} and name=#{param2}
+   </delete>
 </mapper>

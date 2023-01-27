@@ -20,35 +20,30 @@
                             <h4 class="m-0 font-weight-bold text-primary">학습자 관리</h4>
                         </div>
                         <div class="card-body">
+                        <form method="get" name="studentClass">
+                            <input type="hidden" name="id" value="${id}">
+                            	<button type="button" class="btn btn-success"  onclick="addClass();">클래스 추가</button>
+                            	<button type="button" class="btn btn-danger" onclick="deleteClass();">클래스 삭제</button>
                             <div class="filterarea">
                             </div>
-                            <form action="selectStudent.mdo" method="get">
+                            
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align: center; vertical-align:middle;">
                                     <thead>
                                         <tr>
                                             <th>이름</th>
                                             <th>학년</th>
-                                            <th>학교</th>
                                             <th>클래스</th>
-                                            <th>학생 번호</th>
-                                            <th>부모님번호</th>
                                             
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    </script>
-                                    <c:forEach items="${studentList}" var="studentList">
+                                    <c:forEach items="${studentClassList}" var="studentClassList">
                                     <tr><%--carrotList.mdo?student_parentnumber=${studentList.student_parentnumber}--%>
-                                            <th><a href="studentInfo.mdo?id=${studentList.id}">
-                                              ${studentList.name}</a><br>${studentList.stuid}</th>
-                                            <th>${studentList.grade}</th>
-                                          <th>${studentList.school}</th>
-                                          <c:forEach items="${studentClass}" var="studentClass">
-                                          <th>${studentClass.name}</th>
-                                          </c:forEach>
-                                            <th>${studentList.number}</th>
-                                            <th>${studentList.parentnumber}</th>
+                                        <%--    <th><a href="studentInfo.mdo?id=${studentClass.id}"> --%> 
+<th><input type="radio" name="id" value="${studentClassList.id}">  ${studentClassList.name}<br>${studentClassList.stuid}</th>
+<th>${studentClassList.grade}</th>
+<th>${studentClassList.class_name}</th>
                                         </tr>
                                     </c:forEach>
                                     </tbody>

@@ -12,7 +12,7 @@ drop table carrot_table;
 select * from student;
 select * from admin_table;
 select * from student where student_parentnumber regexp ('010-5555-5555'|'010-2222-2222');
-insert into student values(1,'asdf','asdf','010-2866-8428','010-2866-8428','중1','신곡중','시농');
+insert into student values(1,'샘플',' ',' ',' ',' ',' ',' ',' ');
 insert into teacher values(1,'asd','asd','김똥','010-1234-1234','o');
 insert into carrot_table(carrot_class, carrot_seq,
     carrot_name,

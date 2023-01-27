@@ -13,6 +13,10 @@
 	<select id="wordpdfread" resultType="com.ld.user.vo.WordcollectionVO" parameterType="int">
 		select * from wordcollection Where  word_difficulty= #{gugudan_level};
 	</select>
+	<select id="randomWordTrans" resultType="String">
+		select word_trans from wordcollection
+	</select>
+	
 	<select id="wordpdflist_page" resultType="com.ld.user.vo.WordgugudanVO">
 		select * from wordgugudan;
 	</select>

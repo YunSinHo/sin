@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.ld.admin.vo.CarrotVO;
+import com.ld.admin.vo.StudentClassAllVO;
 import com.ld.user.vo.StudentClassVO;
 import com.ld.user.vo.StudentVO;
 
@@ -28,6 +29,14 @@ public interface IStudentDao {
 	List<StudentClassVO> studentClassListAll(int id);
 
 	List<StudentClassVO> studentClassName(int id);
+
+	List<StudentClassAllVO> studentClassId();
+
+	int studentClassCount(int id);
+
+	void insertStudentClass(int id, String string);
+
+	void deleteStudentClass(int id, String string);
 
 
 }

@@ -55,4 +55,9 @@ public class WordpdfService {
 		return IwordpdfDao.wordpdflist_pageSelect(level);
 	}
 
+	public List<WordcollectionVO> randomWordTrans(int[] index1) {
+		// TODO Auto-generated method stub
+		return IwordpdfDao.randomWordTrans(index1);
+	}
+
 }

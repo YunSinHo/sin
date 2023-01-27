@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.ld.admin.dao.IStudentDao;
 import com.ld.admin.vo.CarrotVO;
+import com.ld.admin.vo.StudentClassAllVO;
 import com.ld.user.vo.StudentClassVO;
 import com.ld.user.vo.StudentVO;
 
@@ -51,6 +52,22 @@ public class StudentService {
 
 	public List<StudentClassVO> studentClassName(int id) {
 		return studentDao.studentClassName(id);
+	}
+
+	public List<StudentClassAllVO> studentClassId() {
+		return studentDao.studentClassId();
+	}
+
+	public int studentClassCount(int id) {
+		return studentDao.studentClassCount(id);
+	}
+
+	public void insertStudentClass(int id, String string) {
+			studentDao.insertStudentClass(id, string);
+	}
+
+	public void deleteStudentClass(int id, String string) {
+		studentDao.deleteStudentClass(id, string);
 	}
 
 }

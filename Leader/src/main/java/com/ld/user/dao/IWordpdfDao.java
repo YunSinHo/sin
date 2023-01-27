@@ -27,4 +27,6 @@ public interface IWordpdfDao {
 
 	List<WordgugudanVO> wordpdflist_pageSelect(int[] level);
 
+	List<WordcollectionVO> randomWordTrans(int[] index1);
+
 }
