@@ -24,6 +24,9 @@ repositories {
 bootWar.enabled = true
 war.enabled = true
 dependencies {
+implementation 'org.json:json:20200518'
+// https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple
+implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
 // 팝빌 연동
     implementation 'kr.co.linkhub:popbill-spring-boot-starter:1.7.1'
 // https://mvnrepository.com/artifact/javax.inject/javax.inject

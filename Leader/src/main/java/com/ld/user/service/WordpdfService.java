@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ld.user.dao.IWordpdfDao;
+import com.ld.user.vo.ExamVO;
 import com.ld.user.vo.WordcollectionVO;
 import com.ld.user.vo.WordgugudanVO;
 
@@ -58,6 +59,16 @@ public class WordpdfService {
 	public List<WordcollectionVO> randomWordTrans(int[] index1) {
 		// TODO Auto-generated method stub
 		return IwordpdfDao.randomWordTrans(index1);
+	}
+
+	public void insertExamGugudan(ExamVO examVO) {
+		IwordpdfDao.insertExamGugudan(examVO);
+		
+	}
+
+	public ExamVO getExamGugudanContent(int i) {
+		// TODO Auto-generated method stub
+		return IwordpdfDao.getExamGugudanContent(i);
 	}
 
 }

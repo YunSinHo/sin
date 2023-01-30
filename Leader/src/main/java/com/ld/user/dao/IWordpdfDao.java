@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.ld.user.vo.ExamVO;
 import com.ld.user.vo.WordcollectionVO;
 import com.ld.user.vo.WordgugudanVO;
 
@@ -28,5 +29,9 @@ public interface IWordpdfDao {
 	List<WordgugudanVO> wordpdflist_pageSelect(int[] level);
 
 	List<WordcollectionVO> randomWordTrans(int[] index1);
+
+	void insertExamGugudan(ExamVO examVO);
+
+	ExamVO getExamGugudanContent(int i);
 
 }

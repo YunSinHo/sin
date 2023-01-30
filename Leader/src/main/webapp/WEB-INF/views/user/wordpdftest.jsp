@@ -13,7 +13,7 @@
     <script src="http://code.jquery.com/jquery-3.6.1.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
-    <style>
+     <style>
         @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
         * {
             margin: 0;
@@ -105,6 +105,8 @@
             overflow: hidden;
         }
         .bodycontent{
+            overflow: hidden;
+        
             border-bottom: 1px solid #12887A;
             height: 3.333333333333332%;
             display: flex;
@@ -125,11 +127,6 @@
             width: 50%;
             line-height: 3.7396vw;
         }
-        .testarea{
-		    height: 2.4648vw;
-		    width: 95%;
-		    text-align: center;
-	    }
         </style>
       
 </head>
@@ -143,24 +140,15 @@
 				<td>해석</td>
 			</tr>
 		</thead>
-	   	<c:forEach var="list" items="${wpdf_view}" varStatus="status" >
+	   	<c:forEach var="list" items="${wpdf_view}" varStatus="status">
 			<tr>
-				<td><c:out value="${list.word_seq}" /></td>
-				<c:choose>
-				<c:when test="${status.count <= 30}">
-				<td><c:out value="${list.word_name}" /></td>
-				<td></td>
-				</c:when>
-				<c:otherwise>
-				<td></td>
-				<td><c:out value="${list.word_trans}"/></td>
-				</c:otherwise>
-			</c:choose>
+			<td><c:out value="${list.word_seq}" /></td>
+				<td style="word-break:break-all"><c:out value="${list.word_name}" /></td>
+				<td style="word-break:break-all"><c:out value="${list.word_trans}" /></td>
 			</tr>
-			
-		</c:forEach> 
+		</c:forEach>
 		</table>
-    <div class="imgarea">
+    <div class="imgarea1">
         <div class="mainimg">
             <img class="mainimg1" alt="img1" src="img/user/001단어.png">
         </div>
@@ -220,12 +208,16 @@
 		<c:forEach var="list" items="${wpdf_view}" varStatus="status">
 			<tr>
 			<td><c:out value="${list.word_seq}" /></td>
-				<td><c:out value="${list.word_name}" /></td>
-				<td><c:out value="${list.word_trans}" /></td>
+				<td style="word-break:break-all"><c:out value="${list.word_name}" /></td>
+				<td style="word-break:break-all"><c:out value="${list.word_trans}" /></td>
+				<input type="hidden" name="word_trans" value="${list.word_trans}" style="display:none;">
+				<input type="hidden" name="word_name" value="${list.word_name}" style="display:none;">
+				<input type="hidden" name="word_seq" value="${list.word_seq}" style="display:none;">
 			</tr>
 		</c:forEach>
 	</table>
     </div>
+    
     </form>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
@@ -285,16 +277,16 @@
 		        </div>\
 		    </div>";
 		    for(let j = 0; j < result.length; j++) {
-                document.getElementsByClassName("contentbody")[0].innerHTML += "<div class='bodycontent'>\
-                    <div class='bodynum'>"+k+"</div>\
-                    <div class='bodyword'>"+result[j]["단어"]+"</div>\
-                    <div class='bodytrans'><input type='text'style='border:none' class='testarea' id='trans' name='word_trans' ></div>\
+                document.getElementsByClassName("contentbody")[0].innerHTML += "<div class='bodycontent' >\
+                    <div class='bodynum' >"+k+"</div>\
+                    <div class='bodyword' style='word-break:break-all'><input type='text' style='border:none' class='testarea' id='words' name='write'></div>\
+                    <div class='bodytrans' style='word-break:break-all'>"+ result[j]["해석"] +"</div>\
                 </div>";
                 if(j>=m){
-                    document.getElementsByClassName("contentbody")[1].innerHTML += "<div class='bodycontent'>\
+                    document.getElementsByClassName("contentbody")[1].innerHTML += "<div class='bodycontent' >\
                         <div class='bodynum'>"+k+"</div>\
-                        <div class='bodyword'><input type='text' style='border:none' class='testarea' id='words' name='word_name'></div>\
-                        <div class='bodytrans'>"+ result[j]["해석"] +"</div>\
+                        <div class='bodyword'><input type='text' style='border:none' class='testarea' id='words' name='write'></div>\
+                        <div class='bodytrans' >"+ result[j]["해석"] +"</div>\
                     </div>";
                 }
                 if(j>=(m*2)){

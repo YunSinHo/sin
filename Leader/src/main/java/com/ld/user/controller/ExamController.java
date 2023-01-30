@@ -1,8 +1,17 @@
 package com.ld.user.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,16 +20,52 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ld.user.service.WordpdfService;
+import com.ld.user.vo.ExamVO;
 import com.ld.user.vo.WordcollectionVO;
 import com.ld.user.vo.WordgugudanVO;
 
 @Controller
-public class TestController {
+public class ExamController {
 	@Autowired
 	private WordpdfService wordpdfService;
 	@RequestMapping("/testCheck.do")
-	public ModelAndView testCheck(@RequestParam("word_trans") String word_trans[],
-			@RequestParam("word_name") String word_name[]) {
+	public ModelAndView testCheck (@RequestParam("word_trans") String word_trans[],
+			@RequestParam("word_name") String word_name[],
+			@RequestParam("word_seq") int word_seq[],
+			@RequestParam("write") String write[],
+			HttpServletRequest request)throws IOException, ParseException {
+		 
+  
+		HttpSession session=request.getSession();
+		int id=(int)session.getAttribute("id");
+		String student_class=(String)session.getAttribute("student_class");
+		String contentArr[]=new String[word_trans.length];
+		String contentYet="";
+		for(int i=0; i<word_trans.length;i++) {
+			contentArr[i]="\"content_id"+i+"\":"+"{\"word_name\":\""+word_name[i]+"\","+"\"word_trans\":\""+word_trans[i]+"\",\"write\":\""
+		+write[i]+"\",\"word_seq\":\""+word_seq[i]+"\"},";
+			contentYet+=contentArr[i];
+		}
+		String content="{"+contentYet+"}";
+		content=content.substring(0,content.length()-2)+""+content.substring(content.length()-1);
+		ExamVO examVO=new ExamVO();
+		examVO.setClass_name(student_class);
+		examVO.setContent(content);
+		examVO.setStudent_id(id);
+		//wordpdfService.insertExamGugudan(examVO);
+		System.out.println(content);
+		ExamVO examVO2=new ExamVO();
+		//examVO2=wordpdfService.getExamGugudanContent(3);
+		JSONObject jObject = new JSONObject(content);
+		JSONObject post1Object = jObject.getJSONObject("content_id0");
+	    System.out.println(post1Object.toString());
+	    System.out.println();
+	    String title = post1Object.getString("word_trans");
+	    System.out.println("title(post1): " + title);
+	   
+	    System.out.println();
+        
+     
 		ModelAndView mav=new ModelAndView();
 		return mav;
 		

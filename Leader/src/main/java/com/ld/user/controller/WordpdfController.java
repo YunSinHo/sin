@@ -79,30 +79,18 @@ public class WordpdfController {
 		if(wordcollectionVO.getWord_difficulty()==1)i2=0;
 		int index[]=new int[60];
 		
-		for(int i=0;i<=59;i++) {
+		for(int i=0;i<index.length;i++) {
 			index[i]=(int)((Math.random()*(i1-i2)+i2+1));
 			for(int j=0;j<i;j++) {
 				if(index[i]==index[j])i--;
 			}
 		}
 		
-		String index1[]=new String[index.length];
-		for(int i=0;i<=59;i++) {
-			index1[i]=String.valueOf(index[i]);
-		}
-		StringBuilder stringBuilder = new StringBuilder();
-
-		for (int i = 0; i < index1.length; i++) {
-		  stringBuilder.append(index1[i]+" ");
-		}
-		String strArrayToString = stringBuilder.toString();
-		strArrayToString=strArrayToString.replaceAll(" ","|");
 		
 		wordVO = wordpdfService.wordpdfread(index);
 		mav.addObject("gugudan",wordgugudanVO);
 		mav.addObject("wpdf_view", wordVO);
 		mav.setViewName("user/wordpdftest");
-		System.out.println(index+" "+strArrayToString);
 		return mav;
 	}
 	@ResponseBody

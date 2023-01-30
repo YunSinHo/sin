@@ -43,4 +43,10 @@
  #{arr}
 </foreach>
 	</select>
+	<insert id="insertExamGugudan" parameterType="com.ld.user.vo.ExamVO">
+		insert into exam(student_id,class_name,content) value(#{student_id},#{class_name},#{content})
+	</insert>
+	<select id="getExamGugudanContent" resultType="String">
+		select content from exam where id=#{param1};
+	</select>
 </mapper>

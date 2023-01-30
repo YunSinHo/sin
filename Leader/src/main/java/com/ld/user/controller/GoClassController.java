@@ -27,6 +27,8 @@ public class GoClassController {
 			HttpServletRequest request) {
 		HttpSession session=request.getSession();
 		StudentVO studentVO=(StudentVO)session.getAttribute("loginStudent");
+		session.setAttribute("id", studentVO.getId());
+		session.setAttribute("student_class", student_class);
 		String url="";
 		//구구단 클래스
 		int level[]=new int[10];
