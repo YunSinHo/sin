@@ -7,10 +7,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
-
-import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ld.user.service.WordpdfService;
 import com.ld.user.vo.ExamVO;
+import com.ld.user.vo.StudentVO;
 import com.ld.user.vo.WordcollectionVO;
 import com.ld.user.vo.WordgugudanVO;
 
@@ -28,6 +26,29 @@ import com.ld.user.vo.WordgugudanVO;
 public class ExamController {
 	@Autowired
 	private WordpdfService wordpdfService;
+	
+	@RequestMapping("/testCheckForm.do")
+	public ModelAndView textCheckForm(@RequestParam("student_class") String student_class,
+			@RequestParam("id") int id,
+			 HttpServletRequest request) {
+		ModelAndView mav=new ModelAndView();
+		HttpSession session=request.getSession();
+		List<ExamVO> examVO=new ArrayList();
+		examVO=wordpdfService.getExamList(id,student_class);
+		//평균점수
+		double score=0;
+		double scoreAll=0;
+		for(int i=0;i<examVO.size();i++) {
+			scoreAll+=examVO.get(i).getScore();
+			score=scoreAll/examVO.size();
+		}
+		String score1=String.format("%.2f", score);
+		mav.addObject("score",score1);
+		mav.addObject("exam_list",examVO);
+		mav.setViewName("user/examResultList");
+		
+		return mav;
+	}
 	@RequestMapping("/testCheck.do")
 	public ModelAndView testCheck (@RequestParam("word_trans") String word_trans[],
 			@RequestParam("word_name") String word_name[],
@@ -38,12 +59,36 @@ public class ExamController {
   
 		HttpSession session=request.getSession();
 		int id=(int)session.getAttribute("id");
+		//WordpdfController에 위치함
+		int num=(int)session.getAttribute("num");
 		String student_class=(String)session.getAttribute("student_class");
-		String contentArr[]=new String[word_trans.length];
+		
+		//구구단 단어 시험 정답 체크
+				String ox[]=new String[num];
+				int cnt=0;
+				double score=0;
+				for(int i=0; i<num;i++) {
+					if(word_name[i].equals(write[i])) {
+						ox[i]="O";
+						cnt++;
+					}
+					else ox[i]="X";
+				}
+				
+				if(num==60) {
+					score=cnt*1.66;
+					if(score>99)score=100;
+				}
+				else if(num==30) {
+					score=cnt*3.33;
+					if(score>99)score=100;
+				}
+		//json 타입으로 데이터 저장
+		String contentArr[]=new String[num];
 		String contentYet="";
-		for(int i=0; i<word_trans.length;i++) {
+		for(int i=0; i<num;i++) {
 			contentArr[i]="\"content_id"+i+"\":"+"{\"word_name\":\""+word_name[i]+"\","+"\"word_trans\":\""+word_trans[i]+"\",\"write\":\""
-		+write[i]+"\",\"word_seq\":\""+word_seq[i]+"\"},";
+		+write[i]+"\",\"word_seq\":"+word_seq[i]+",\"ox\":\""+ox[i]+"\""+"},";
 			contentYet+=contentArr[i];
 		}
 		String content="{"+contentYet+"}";
@@ -52,67 +97,86 @@ public class ExamController {
 		examVO.setClass_name(student_class);
 		examVO.setContent(content);
 		examVO.setStudent_id(id);
-		//wordpdfService.insertExamGugudan(examVO);
+		examVO.setNum(num);
+		examVO.setScore(score);
+		wordpdfService.insertExamGugudan(examVO);
+		
 		System.out.println(content);
-		ExamVO examVO2=new ExamVO();
-		//examVO2=wordpdfService.getExamGugudanContent(3);
+		
+		List<ExamVO> examListArr=new ArrayList();
+		String[] word_trans1=new String[num];
+		String word_name1[]=new String[num];
+		String write1[]=new String[num];
+		int word_seq1[]=new int[num];
 		JSONObject jObject = new JSONObject(content);
-		JSONObject post1Object = jObject.getJSONObject("content_id0");
-	    System.out.println(post1Object.toString());
-	    System.out.println();
-	    String title = post1Object.getString("word_trans");
-	    System.out.println("title(post1): " + title);
-	   
-	    System.out.println();
-        
-     
+		
+		for(int i=0;i<num;i++) {
+			JSONObject post1Object
+			= jObject.getJSONObject("content_id"+i);
+			word_trans1[i] = post1Object.getString("word_trans");
+			word_name1[i] = post1Object.getString("word_name");
+			write1[i] = post1Object.getString("write");
+			 word_seq1[i] = post1Object.getInt("word_seq");
+			 ox[i] = post1Object.getString("ox");
+			 ExamVO examList =new ExamVO();
+		examList.setWord_trans(word_trans1[i]);
+			 examList.setWord_name(word_name1[i]);
+			 examList.setWrite(write1[i]);
+			examList.setWord_seq(word_seq1[i]);
+			examList.setOx(ox[i]);
+			examListArr.add(i,examList);
+		}
+		
+		
 		ModelAndView mav=new ModelAndView();
+		mav.addObject("score",score);
+		mav.addObject("gugudan_result",examListArr);
+		mav.addObject("student_class",student_class);
+		mav.setViewName("user/examGugudan");
 		return mav;
 		
 	}
-	@GetMapping("/wordpdftest1.do")
-	public ModelAndView wordpdftestGet(@RequestParam("gugudan_name") String gugudan_name) {
-		ModelAndView mav = new ModelAndView();
-		WordgugudanVO wordgugudanVO=new WordgugudanVO();
-		wordgugudanVO=wordpdfService.getGugudan(gugudan_name);
-		List<WordcollectionVO> wordVO= new ArrayList();
-		List<WordcollectionVO> wordVO1= new ArrayList();
-		//랜덤반복을 위해 seq 끝값 찾기
-		WordcollectionVO wordcollectionVO=new WordcollectionVO();
-		WordcollectionVO wordcollectionVO1=new WordcollectionVO();
+	//시험 결과 one
+	@RequestMapping("/examOne.do")
+	public ModelAndView examOne(@RequestParam("id")int id,HttpServletRequest request) {
+		ModelAndView mav=new ModelAndView();
+		HttpSession session=request.getSession();
+		//WordpdfController에 위치함
 		
-		wordcollectionVO=wordpdfService.getMaxSeq(wordgugudanVO.getGugudan_level());
 		
-		int min1;	
-		min1=wordgugudanVO.getGugudan_level()-1;
-		if(wordcollectionVO.getWord_difficulty()==1)min1=1;
-		wordcollectionVO1=wordpdfService.getMaxSeq1(min1);
-		int i1=wordcollectionVO.getWord_seq();
-		int i2=wordcollectionVO1.getWord_seq();
-		if(wordcollectionVO.getWord_difficulty()==1)i2=0;
-		int index[]=new int[60];
-		int index1[]=new int[60*4];
-		for(int i=0;i<=59;i++) {
-			index[i]=(int)((Math.random()*(i1-i2)+i2+1));
-			for(int j=0;j<i;j++) {
-				if(index[i]==index[j])i--;
-			}
+		ExamVO examVO=new ExamVO();
+		examVO=wordpdfService.getExam(id);
+		int num=examVO.getNum();
+		double score=examVO.getScore();
+		List<ExamVO> examListArr=new ArrayList();
+		String ox[]=new String[num];
+		String[] word_trans1=new String[num];
+		String word_name1[]=new String[num];
+		String write1[]=new String[num];
+		int word_seq1[]=new int[num];
+		String content=examVO.getContent();
+		System.out.println(content);
+JSONObject jObject = new JSONObject(content);
+		for(int i=0;i<num;i++) {
+			JSONObject post1Object
+			= jObject.getJSONObject("content_id"+i);
+			word_trans1[i] = post1Object.getString("word_trans");
+			word_name1[i] = post1Object.getString("word_name");
+			write1[i] = post1Object.getString("write");
+			 word_seq1[i] = post1Object.getInt("word_seq");
+			 ox[i] = post1Object.getString("ox");
+			 ExamVO examList =new ExamVO();
+		examList.setWord_trans(word_trans1[i]);
+			 examList.setWord_name(word_name1[i]);
+			 examList.setWrite(write1[i]);
+			examList.setWord_seq(word_seq1[i]);
+			examList.setOx(ox[i]);
+			examListArr.add(i,examList);
 		}
-		for(int i=0;i<index.length;i++) {
-			index1[i]=(int)((Math.random()*i1+1));
-			for(int j=0;j<i;j++) {
-				if(index1[i]==index1[j])i--;
-			}
-		}
-		
-		wordVO1=wordpdfService.randomWordTrans(index1);
-		wordVO = wordpdfService.wordpdfread(index);
-		
-		
-		mav.addObject("randomTrans",wordVO1);
-		mav.addObject("gugudan",wordgugudanVO);
-		mav.addObject("wpdf_view", wordVO);
-		mav.setViewName("user/gugudanTest");
+		mav.addObject("gugudan_result",examListArr);
+		mav.addObject("score",score);
+		mav.addObject("student_class",examVO.getClass_name());
+		mav.setViewName("user/examGugudan");
 		return mav;
 	}
 }

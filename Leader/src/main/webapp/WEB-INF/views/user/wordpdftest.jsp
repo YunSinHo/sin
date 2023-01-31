@@ -235,8 +235,8 @@
 	            result.push(obj);//위에서 만들어진 객체를 반환할 배열의 원소로 설정
 	        }
 	        var name=result[0]["제목"];
-            document.getElementById('headname1').innerText = "${gugudan.gugudan_name}";
-            document.getElementsByClassName('topname')[0].innerText = "${gugudan.gugudan_name}";
+            document.getElementById('headname1').innerText = "${class_name}";
+            document.getElementsByClassName('topname')[0].innerText = "${class_name}";
 	        var k = 1;
             var m = 30;
             var copy = "<div class='imgarea'>\

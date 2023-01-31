@@ -32,6 +32,13 @@ public interface IWordpdfDao {
 
 	void insertExamGugudan(ExamVO examVO);
 
-	ExamVO getExamGugudanContent(int i);
+	ExamVO getExam(int id);
+
+	List<ExamVO> getExamList(int id, String student_class);
+
+	int getStartSeq(int min);
+
+	int getEndSeq(int max);
+
 
 }

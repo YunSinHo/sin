@@ -66,9 +66,24 @@ public class WordpdfService {
 		
 	}
 
-	public ExamVO getExamGugudanContent(int i) {
+	public ExamVO getExam(int id) {
 		// TODO Auto-generated method stub
-		return IwordpdfDao.getExamGugudanContent(i);
+		return IwordpdfDao.getExam(id);
 	}
+
+	public List<ExamVO> getExamList(int id, String student_class) {
+		// TODO Auto-generated method stub
+		return IwordpdfDao.getExamList(id,student_class);
+	}
+
+	public int getStartSeq(int min) {
+		return IwordpdfDao.getStartSeq(min);
+	}
+
+	public int getEndSeq(int max) {
+		return IwordpdfDao.getEndSeq(max);
+	}
+
+	
 
 }

@@ -1,36 +1,44 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-	<table>
+<%@ include file="../side.jsp"%>
+  <%@ include file="../header.jsp"%>
+	<table class="table">
 		<tr>
-			<th>단어 구구단</th>
+			<th>클래스</th>
 		</tr>
 		<c:forEach var="list" items="${WordpdfList}" varStatus="status">
 			<tr>
-				<td onclick="location.href='wordpdf.do?gugudan_name=${list.gugudan_name}'">
-					<c:out value="${list.gugudan_name}" />
+				<td>
+				<a class="btn btn-Info" href="wordpdf.do?gugudan_name=${list.gugudan_name}">${list.gugudan_name}</a>
 				</td>
 			</tr>
 		</c:forEach>
 	</table>
-	<table>
+	<table class="table">
 		<tr>
-			<th>단어 구구단 시험지</th>
+			<th>시험보기</th>
 		</tr>
-		<c:forEach var="list" items="${WordpdfList}" varStatus="status">
 			<tr>
-				<td onclick="location.href='wordpdftest.do?gugudan_name=${list.gugudan_name}'">
-					<c:out value="${list.gugudan_name}" />
+			
+				<td >
+				<a class="btn btn-Success" href="wordpdftest.do?gugudan_name=${student_class}&num=${30}">${student_class}&nbsp;30문제</a>
 				</td>
 			</tr>
-		</c:forEach>
+			<tr>
+			<td>
+				<a class="btn btn-Success" href="wordpdftest.do?gugudan_name=${student_class}&num=${60}">${student_class}&nbsp;60문제</a>
+				</td>
+			</tr>
+			<tr>
+			<td>
+				<a class="btn btn-Success" href="examObjective.do?gugudan_name=${student_class}&num=${30}">${student_class}&nbsp;30문제 객관식</a>
+				</td>
+			</tr>
+			<tr>
+			<td>
+				<a class="btn btn-Success" href="examObjective.do?gugudan_name=${student_class}&num=${60}">${student_class}&nbsp;60문제 객관식</a>
+				</td>
+			</tr>
 	</table>
 </body>
 </html>

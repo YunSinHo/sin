@@ -88,6 +88,24 @@
             </li>
 			
             <!-- Nav Item - Pages Collapse Menu -->
+            <c:if test="${loginStudent ne null}">
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseone"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>시험 결과</span>
+                </a>
+                <div id="collapseone" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">목록</h6>
+                        <c:forEach items="${studentClass}" var="studentClass">
+<a class="collapse-item" href="testCheckForm.do?student_class=${studentClass.name}&id=${id}">${studentClass.name}</a>
+                        </c:forEach>
+                    </div>
+                </div>
+            </li>
+            </c:if>
+            <c:if test="${loginTeacher ne null}">
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseone"
                     aria-expanded="true" aria-controls="collapseTwo">
@@ -104,7 +122,7 @@
                     </div>
                 </div>
             </li>
-
+			</c:if>
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse"

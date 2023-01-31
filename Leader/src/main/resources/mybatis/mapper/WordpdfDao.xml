@@ -13,9 +13,6 @@
 	<select id="wordpdfread" resultType="com.ld.user.vo.WordcollectionVO" parameterType="int">
 		select * from wordcollection Where  word_difficulty= #{gugudan_level};
 	</select>
-	<select id="randomWordTrans" resultType="String">
-		select word_trans from wordcollection
-	</select>
 	
 	<select id="wordpdflist_page" resultType="com.ld.user.vo.WordgugudanVO">
 		select * from wordgugudan;
@@ -24,13 +21,13 @@
 	<select id ="getGugudan" resultType="com.ld.user.vo.WordgugudanVO" parameterType="String">
 		select * from wordgugudan where gugudan_name=#{gugudan_name}
 	</select>
+	<select id="getStartSeq" resultType="int" parameterType="int">
+	select word_seq from wordcollection where word_difficulty =#{param1} order by word_seq asc limit 1;
+	</select>
+	<select id="getEndSeq" resultType="int" parameterType="int">
+	select word_seq from wordcollection where word_difficulty =#{param1} order by word_seq desc limit 1;
+	</select>
 	
-	<select id="getMaxSeq" resultType="com.ld.user.vo.WordcollectionVO" parameterType="int">
-		select * from wordcollection where word_difficulty= #{gugudan_level} order by word_seq desc limit 1;
-	</select>
-	<select id="getMaxSeq1" resultType="com.ld.user.vo.WordcollectionVO" parameterType="int">
-		select * from wordcollection where word_difficulty= #{gugudan_level} order by word_seq desc limit 1;
-	</select>
 	<select id="wordpdfread1" resultType="com.ld.user.vo.WordcollectionVO" >
 		select * from wordcollection Where  word_seq in
 		<foreach collection="array" item="arr" open="(" close=")" separator=",">
@@ -44,9 +41,12 @@
 </foreach>
 	</select>
 	<insert id="insertExamGugudan" parameterType="com.ld.user.vo.ExamVO">
-		insert into exam(student_id,class_name,content) value(#{student_id},#{class_name},#{content})
+		insert into exam(student_id,class_name,content,num,score) value(#{student_id},#{class_name},#{content},#{num},#{score})
 	</insert>
-	<select id="getExamGugudanContent" resultType="String">
-		select content from exam where id=#{param1};
+	<select id="getExam" resultType="com.ld.user.vo.ExamVO">
+		select * from exam where id=#{param1};
+	</select>
+	<select id="getExamList" resultType="com.ld.user.vo.ExamVO">
+		select * from exam where student_id=#{param1} and class_name=#{param2}
 	</select>
 </mapper>

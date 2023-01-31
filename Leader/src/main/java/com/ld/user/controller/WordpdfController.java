@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -57,30 +60,56 @@ public class WordpdfController {
 		return mav;
 	}
 	@GetMapping("/wordpdftest.do")
-	public ModelAndView wordpdftestGet(@RequestParam("gugudan_name") String gugudan_name) {
+	public ModelAndView wordpdftestGet(@RequestParam("gugudan_name") String gugudan_name,
+			HttpServletRequest request,
+			@RequestParam("num")int num) {
+		HttpSession session=request.getSession();
 		ModelAndView mav = new ModelAndView();
+		String class_name=(String)session.getAttribute("student_class");
+		session.setAttribute("num",num);
 		WordgugudanVO wordgugudanVO=new WordgugudanVO();
 		wordgugudanVO=wordpdfService.getGugudan(gugudan_name);
 		List<WordcollectionVO> wordVO= new ArrayList();
+		int min=0;
+		int max=0;
+		int start=0;
+		int end=0;
+		if(class_name.equals("단어구구단(1~4단)")) {
+			class_name="1~4";
+		 min=1;
+		 max=4;
+		 start=wordpdfService.getStartSeq(min);
+		 end=wordpdfService.getEndSeq(max);
+		}
+		else if(class_name.equals("단어구구단(4~7단)")) {
+			class_name="4~7";
+			 min=4;
+			 max=7;
+			 start=wordpdfService.getStartSeq(min);
+			 end=wordpdfService.getEndSeq(max);
+			 end=end-start;
+			}
+		else if(class_name.equals("단어구구단(7~9단)")) {
+			class_name="7~9";
+			 min=7;
+			 max=9;
+			 start=wordpdfService.getStartSeq(min);
+			 end=wordpdfService.getEndSeq(max);
+			 end=end-start;
+			}
+		else if(class_name.equals("단어구구단(9단)")) {
+			class_name="9";
+			 min=9;
+			 max=9;
+			 start=wordpdfService.getStartSeq(min);
+			 end=wordpdfService.getEndSeq(max);
+			 end=end-start;
+			}
 		
-		
-		//랜덤반복을 위해 seq 끝값 찾기
-		WordcollectionVO wordcollectionVO=new WordcollectionVO();
-		WordcollectionVO wordcollectionVO1=new WordcollectionVO();
-		
-		wordcollectionVO=wordpdfService.getMaxSeq(wordgugudanVO.getGugudan_level());
-		
-		int min1;	
-		min1=wordgugudanVO.getGugudan_level()-1;
-		if(wordcollectionVO.getWord_difficulty()==1)min1=1;
-		wordcollectionVO1=wordpdfService.getMaxSeq1(min1);
-		int i1=wordcollectionVO.getWord_seq();
-		int i2=wordcollectionVO1.getWord_seq();
-		if(wordcollectionVO.getWord_difficulty()==1)i2=0;
-		int index[]=new int[60];
+		int index[]=new int[num];
 		
 		for(int i=0;i<index.length;i++) {
-			index[i]=(int)((Math.random()*(i1-i2)+i2+1));
+			index[i]=(int)((Math.random()*(end)+start));
 			for(int j=0;j<i;j++) {
 				if(index[i]==index[j])i--;
 			}
@@ -90,7 +119,79 @@ public class WordpdfController {
 		wordVO = wordpdfService.wordpdfread(index);
 		mav.addObject("gugudan",wordgugudanVO);
 		mav.addObject("wpdf_view", wordVO);
+		mav.addObject("class_name",class_name);
 		mav.setViewName("user/wordpdftest");
+		return mav;
+	}
+	@RequestMapping("examObjective.do")
+	public ModelAndView examObjective(@RequestParam("gugudan_name") String gugudan_name,
+			HttpServletRequest request,
+			@RequestParam("num")int num) {
+		HttpSession session=request.getSession();
+		ModelAndView mav = new ModelAndView();
+		String class_name=(String)session.getAttribute("student_class");
+		session.setAttribute("num",num);
+		WordgugudanVO wordgugudanVO=new WordgugudanVO();
+		wordgugudanVO=wordpdfService.getGugudan(gugudan_name);
+		int min=0;
+		int max=0;
+		int start=0;
+		int end=0;
+		if(class_name.equals("단어구구단(1~4단)")) {
+			class_name="1~4";
+		 min=1;
+		 max=4;
+		 start=wordpdfService.getStartSeq(min);
+		 end=wordpdfService.getEndSeq(max);
+		}
+		else if(class_name.equals("단어구구단(4~7단)")) {
+			class_name="4~7";
+			 min=4;
+			 max=7;
+			 start=wordpdfService.getStartSeq(min);
+			 end=wordpdfService.getEndSeq(max);
+			 end=end-start;
+			}
+		else if(class_name.equals("단어구구단(7~9단)")) {
+			class_name="7~9";
+			 min=7;
+			 max=9;
+			 start=wordpdfService.getStartSeq(min);
+			 end=wordpdfService.getEndSeq(max);
+			 end=end-start;
+			}
+		else if(class_name.equals("단어구구단(9단)")) {
+			class_name="9";
+			 min=9;
+			 max=9;
+			 start=wordpdfService.getStartSeq(min);
+			 end=wordpdfService.getEndSeq(max);
+			 end=end-start;
+			}
+		
+		int index[]=new int[num];
+		
+		for(int i=0;i<num;i++) {
+			index[i]=(int)((Math.random()*(end)+start));
+			for(int j=0;j<i;j++) {
+				if(index[i]==index[j])i--;
+			}
+		}
+		//랜덤 보기 뽑기
+		
+		List<WordcollectionVO> wordVO2=new ArrayList();
+		
+		wordVO2 = wordpdfService.wordpdfread(index);
+		
+		for(int i=0;i<num;i++) {
+			wordVO2.add(i, null);
+		}
+		
+		System.out.println(wordVO2.get(0).getWord_trans1());
+		wordVO2 = wordpdfService.wordpdfread(index);
+		mav.addObject("wpdf_view", wordVO2);
+		mav.addObject("class_name",class_name);
+		mav.setViewName("user/examObjective");
 		return mav;
 	}
 	@ResponseBody

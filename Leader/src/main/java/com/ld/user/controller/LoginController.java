@@ -170,6 +170,7 @@ public class LoginController {
 			}
 			else if(studentVO.getAvailable().equals("o")) {
 			session.setAttribute("loginStudent",studentVO);
+			session.setAttribute("id",studentVO.getId());
 			//클래스 목록
 			int checkClass=studentService.studentClassCount(studentVO.getId());
 			if(checkClass!=0) {
