@@ -131,7 +131,8 @@
       
 </head>
 <body>
-<form name="testGugudan">
+<form name="testGugudan" method="POST">
+<input type="hidden" name="num" value="${num}">
 	<table id="dataTable" style="display:none;">
 	<thead>
 			<tr>

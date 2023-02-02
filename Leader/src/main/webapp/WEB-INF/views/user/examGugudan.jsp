@@ -15,8 +15,8 @@
             <th>번호</th>
             <th>단어</th>
             <th>뜻</th>
-            <th>작성한단어</th>
-            <th>답</th>
+            <th>작성한답</th>
+            <th>결과</th>
         </tr>
         <c:forEach items="${gugudan_result}" var="gugudan">
         <tr>

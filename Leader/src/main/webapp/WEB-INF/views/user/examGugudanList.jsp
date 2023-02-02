@@ -21,22 +21,22 @@
 			<tr>
 			
 				<td >
-				<a class="btn btn-Success" href="wordpdftest.do?gugudan_name=${student_class}&num=${30}">${student_class}&nbsp;30문제</a>
+				<a class="btn btn-Success" href="examNumber.do?gugudan_name=${student_class}&num=${30}">${student_class}&nbsp;30문제</a>
 				</td>
 			</tr>
 			<tr>
 			<td>
-				<a class="btn btn-Success" href="wordpdftest.do?gugudan_name=${student_class}&num=${60}">${student_class}&nbsp;60문제</a>
+				<a class="btn btn-Success" href="examNumber.do?gugudan_name=${student_class}&num=${60}">${student_class}&nbsp;60문제</a>
 				</td>
 			</tr>
 			<tr>
 			<td>
-				<a class="btn btn-Success" href="examObjective.do?gugudan_name=${student_class}&num=${30}">${student_class}&nbsp;30문제 객관식</a>
+				<a class="btn btn-Success" href="examObjectiveNumber.do?gugudan_name=${student_class}&num=${30}">${student_class}&nbsp;30문제 객관식</a>
 				</td>
 			</tr>
 			<tr>
 			<td>
-				<a class="btn btn-Success" href="examObjective.do?gugudan_name=${student_class}&num=${60}">${student_class}&nbsp;60문제 객관식</a>
+				<a class="btn btn-Success" href="examObjectiveNumber.do?gugudan_name=${student_class}&num=${60}">${student_class}&nbsp;60문제 객관식</a>
 				</td>
 			</tr>
 	</table>

@@ -152,18 +152,49 @@ public class LoginController {
 		
 		return "user/login";
 	}
-	@PostMapping("/login.do")
-	public String login(@RequestParam("id")String id,
+	@RequestMapping("/loginTeacherForm.do")
+	public String loginTeacherForm() {
+		return "user/loginTeacher";
+	}
+	@PostMapping("/loginTeacher.do")
+	public String loginTeacher(@RequestParam("id")String id,
 			@RequestParam("password")String password,
-			@RequestParam("choice")String choice,
+			HttpServletRequest request,
+			Model model) {
+		TeacherVO teacherVO=new TeacherVO();
+		HttpSession session=request.getSession();
+		String url="user/join";
+		teacherVO=adminService.loginTeacher(id,password);
+		if(teacherVO==null){
+			request.setAttribute("message","아이디가 존재하지 않습니다.");
+	}
+		else if(teacherVO.getAvailable().equals("o")) {
+			
+			session.setAttribute("loginTeacher",teacherVO);
+			//클래스 목록
+			List<ClassAllVO> classAllVO=new ArrayList();
+			classAllVO=adminService.getClassAll();
+			session.setAttribute("teacherClass",classAllVO);
+			url="redirect:/tables.mdo";
+		}
+		
+	return url;
+	}
+	//학생 로그인
+	@RequestMapping("/loginStudentForm.do")
+	public String loginStudentForm() {
+		return "user/loginStudent";
+	}
+	@PostMapping("/loginStudent.do")
+	public String loginStudent(@RequestParam("id")String id,
+			@RequestParam("password")String password,
 			HttpServletRequest request,
 			Model model) {
 		StudentVO studentVO=new StudentVO();
 		TeacherVO teacherVO=new TeacherVO();
 		HttpSession session=request.getSession();
-		String url="user/login";
+		String url="user/join";
 		List<StudentClassVO> studentClassVO =new ArrayList();
-		if(choice.equals("학생")) {
 			studentVO=studentService.loginStudent(id,password);
 			if(studentVO==null) {
 				request.setAttribute("message","아이디가 존재하지 않습니다.");
@@ -179,25 +210,9 @@ public class LoginController {
 			}
 			url="redirect:/tables.mdo";
 			}
-		}
-		else {
-			teacherVO=adminService.loginTeacher(id,password);
-			if(teacherVO==null){
-				request.setAttribute("message","아이디가 존재하지 않습니다.");
-		}
-			else if(teacherVO.getAvailable().equals("o")) {
-				
-				session.setAttribute("loginTeacher",teacherVO);
-				//클래스 목록
-				List<ClassAllVO> classAllVO=new ArrayList();
-				classAllVO=adminService.getClassAll();
-				session.setAttribute("teacherClass",classAllVO);
-				url="redirect:/tables.mdo";
-			}
-		
-	}
 		return url;
 }
+	
 	@RequestMapping("/logout.do")
 	public String logout(HttpServletRequest request) {
 		HttpSession session=request.getSession();

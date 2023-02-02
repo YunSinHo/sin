@@ -40,5 +40,10 @@ public interface IWordpdfDao {
 
 	int getEndSeq(int max);
 
+	List<WordcollectionVO> wordExamPage(int[] index);
+
+
+	List<WordcollectionVO> getSentenceWord(int start, int end);
+
 
 }

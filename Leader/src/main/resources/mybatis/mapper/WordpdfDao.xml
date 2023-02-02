@@ -3,13 +3,7 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
 <mapper namespace="com.ld.user.dao.IWordpdfDao">
-<insert id="wordpdfinsert" parameterType="com.ld.user.vo.WordpdfVO">
-		insert into wordpdf(wpdf_header, wpdf_name, wpdf_trans)
-		values
-		<foreach collection="list" item="item" separator=" , ">
-			(#{item.wpdf_header},#{item.wpdf_name},#{item.wpdf_trans})
-		</foreach>
-	</insert>
+<!-- 구구단 목록 -->
 	<select id="wordpdfread" resultType="com.ld.user.vo.WordcollectionVO" parameterType="int">
 		select * from wordcollection Where  word_difficulty= #{gugudan_level};
 	</select>
@@ -40,13 +34,20 @@
  #{arr}
 </foreach>
 	</select>
+	<!-- 구구단 시험결과 insert -->
 	<insert id="insertExamGugudan" parameterType="com.ld.user.vo.ExamVO">
 		insert into exam(student_id,class_name,content,num,score) value(#{student_id},#{class_name},#{content},#{num},#{score})
 	</insert>
+	<!-- 시험결과 하나 -->
 	<select id="getExam" resultType="com.ld.user.vo.ExamVO">
 		select * from exam where id=#{param1};
 	</select>
+	<!-- 시험 결과들 -->
 	<select id="getExamList" resultType="com.ld.user.vo.ExamVO">
 		select * from exam where student_id=#{param1} and class_name=#{param2}
+	</select>
+	<!-- 영자신문 단어추출 -->
+	<select id="getSentenceWord" resultType="com.ld.user.vo.WordcollectionVO">
+		select * from wordcollection where word_seq <![CDATA[>=]]> #{param1} and word_seq <![CDATA[<=]]> #{param2} 
 	</select>
 </mapper>

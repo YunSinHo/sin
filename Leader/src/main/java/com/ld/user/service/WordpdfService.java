@@ -84,6 +84,14 @@ public class WordpdfService {
 		return IwordpdfDao.getEndSeq(max);
 	}
 
+	public List<WordcollectionVO> wordExamPage(int[] index) {
+		return IwordpdfDao.wordExamPage(index);
+	}
+
+	public List<WordcollectionVO> getSentenceWord(int start, int end) {
+		return IwordpdfDao.getSentenceWord(start,end);
+	}
+
 	
 
 }

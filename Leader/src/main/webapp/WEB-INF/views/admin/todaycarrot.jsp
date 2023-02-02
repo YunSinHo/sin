@@ -1,13 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<%@ include file="../side.jsp"%>
+  <%@ include file="../header.jsp"%>
 <%@ page import="java.util.Date" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%
@@ -15,7 +9,7 @@
 	SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 %>
 <form action="insertCarrotGroup.mdo">
-    <table  >
+    <table class="table">
                                     <thead>
                                         <tr>
                                             <th>이름</th>
