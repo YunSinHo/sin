@@ -45,5 +45,7 @@ public interface IWordpdfDao {
 
 	List<WordcollectionVO> getSentenceWord(int start, int end);
 
+	List<ExamVO> getExamListAll(int id);
+
 
 }

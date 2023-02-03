@@ -21,12 +21,12 @@
 			<tr>
 			
 				<td >
-				<a class="btn btn-Success" href="wordpdftest.do?gugudan_name=${student_class}&num=${30}">${student_class}&nbsp;30문제</a>
+				<a class="btn btn-Success" href="examSubjective.do?gugudan_name=${student_class}&num=${30}">${student_class}&nbsp;30문제</a>
 				</td>
 			</tr>
 			<tr>
 			<td>
-				<a class="btn btn-Success" href="wordpdftest.do?gugudan_name=${student_class}&num=${60}">${student_class}&nbsp;60문제</a>
+				<a class="btn btn-Success" href="examSubjective.do?gugudan_name=${student_class}&num=${60}">${student_class}&nbsp;60문제</a>
 				</td>
 			</tr>
 			<tr>

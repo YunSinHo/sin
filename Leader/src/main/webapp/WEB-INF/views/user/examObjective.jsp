@@ -11,14 +11,14 @@
   </c:forEach>
  <h3>${student_class}</h3>
     <table class="table ">
-        <colgroup>
-        </colgroup>
         <tr>
+        	<th>#</th>
             <th>단어</th>
             <th>보기</th>
         </tr>
         <c:forEach items="${wpdf_view}" var="gugudan" varStatus="status">
         <tr>
+        	<td>${status.count}</td>
             <td>${gugudan.word_name}</td>
 <td><input type="radio" name="write${status.index}" id="write" value="${gugudan.word_trans}">&nbsp;${gugudan.word_trans}<br>
 <input type="radio"  name="write${status.index}"  id="write" value="${gugudan.word_trans1}">&nbsp;${gugudan.word_trans1}<br>
@@ -30,7 +30,7 @@
     <input type="hidden" name="word_trans" value="${gugudan.word_trans}">
          </c:forEach>
     </table>
-    <button type="submit" class="btn"  >제출하기</button>
+    <button type="submit" class="btn btn-success">제출하기</button>
     </form>
 </body>
 </html>

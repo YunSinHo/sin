@@ -1,7 +1,8 @@
 package com.ld.user.vo;
 
 import lombok.Data;
-
+import lombok.NoArgsConstructor;
+@NoArgsConstructor
 @Data
 public class ExamVO {
 
@@ -17,5 +18,6 @@ public class ExamVO {
 	private String content;
 	private String date;
 	private String ox;
-	
+	//틀린단어 갯수
+	private int wrongWordCount;
 }

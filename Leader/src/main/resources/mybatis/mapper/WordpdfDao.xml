@@ -42,6 +42,10 @@
 	<select id="getExam" resultType="com.ld.user.vo.ExamVO">
 		select * from exam where id=#{param1};
 	</select>
+	<!-- 학생 한명 모든 시험지(틀린단어목록만들기) -->
+	<select id="getExamListAll" resultType="com.ld.user.vo.ExamVO">
+		select * from exam where student_id=#{param1};
+	</select>
 	<!-- 시험 결과들 -->
 	<select id="getExamList" resultType="com.ld.user.vo.ExamVO">
 		select * from exam where student_id=#{param1} and class_name=#{param2}

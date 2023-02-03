@@ -92,6 +92,10 @@ public class WordpdfService {
 		return IwordpdfDao.getSentenceWord(start,end);
 	}
 
+	public List<ExamVO> getExamListAll(int id) {
+		return IwordpdfDao.getExamListAll(id);
+	}
+
 	
 
 }

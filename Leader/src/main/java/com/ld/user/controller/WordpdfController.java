@@ -190,14 +190,15 @@ public class WordpdfController {
 		mav.addObject("num",num);
 		mav.addObject("wpdf_view", wordVO);
 		mav.addObject("class_name",class_name);
-		mav.setViewName("user/wordpdftest");
+		mav.setViewName("user/examSubjective");
 		return mav;
 	}
 	//구구단(1~4),(4~7)...클래스 영자신문 주관식
-	@RequestMapping(value="/wordpdftest.do")
+	@RequestMapping(value="/examSubjective.do")
 	public ModelAndView wordpdftestGet(@RequestParam("gugudan_name") String gugudan_name,
 			HttpServletRequest request,
 			@RequestParam("num")int num) {
+		
 		HttpSession session=request.getSession();
 		ModelAndView mav = new ModelAndView();
 		String class_name=(String)session.getAttribute("student_class");
@@ -253,10 +254,11 @@ public class WordpdfController {
 		
 		
 		wordVO = wordpdfService.wordpdfread(index);
+		mav.addObject("num",num);
 		mav.addObject("gugudan",wordgugudanVO);
 		mav.addObject("wpdf_view", wordVO);
 		mav.addObject("class_name",class_name);
-		mav.setViewName("user/wordpdftest");
+		mav.setViewName("user/examSubjective");
 		return mav;
 	}
 	//객관식 문제
@@ -376,7 +378,7 @@ public class WordpdfController {
 		return mav;
 	}
 	//객관식 문제
-	//구구단(1~4),(4~7)...클래스 영자신문 객관식
+	//구구단(1~4),(4~7)...클래스 객관식
 	@RequestMapping(value="/examObjective.do")
 	public ModelAndView examObjective(@RequestParam("gugudan_name") String gugudan_name,
 			HttpServletRequest request,

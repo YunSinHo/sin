@@ -30,7 +30,7 @@ public class SentenceWordExamController {
 		mav.setViewName("user/examSentence");
 		return mav;
 	}
-	
+	//영자 주관식
 	@RequestMapping(value="/examSentence.do")
 	public ModelAndView examSentence(@RequestParam("gugudan_name")String gugudan_name,
 			@RequestParam("sentence")String sentence) {
@@ -95,10 +95,11 @@ public class SentenceWordExamController {
 		 mav.addObject("num",num);
 			mav.addObject("wpdf_view", wordVO2);
 			mav.addObject("class_name",gugudan_name);
-			mav.setViewName("user/wordpdftest");
+			mav.setViewName("user/examSubjective");
 		System.out.println(wordVO1.get(0).getWord_seq()+" "+wordVO1.size()+" "+wordVO2.size());
 		return mav;
 	}
+	//영자 주관식
 	@RequestMapping(value="/examSentenceObjective.do")
 	public ModelAndView examSentenceObjective(@RequestParam("gugudan_name")String gugudan_name,
 			@RequestParam("sentence")String sentence) {

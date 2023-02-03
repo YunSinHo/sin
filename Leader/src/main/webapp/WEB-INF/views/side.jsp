@@ -13,6 +13,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Custom fonts for this template-->
+    <script src="js/test.js"></script>
     <script src="js/login.js"></script>
     <script src="js/admin/studentClass.js"></script>
     <link href="css/admin/all.min.css" rel="stylesheet" type="text/css">
@@ -101,6 +102,7 @@
                         <c:forEach items="${studentClass}" var="studentClass">
 <a class="collapse-item" href="testCheckForm.do?student_class=${studentClass.name}&id=${id}">${studentClass.name}</a>
                         </c:forEach>
+<a class="collapse-item" href="wrongWord.do?id=${id}">틀린단어목록</a>
                     </div>
                 </div>
             </li>

@@ -2,24 +2,20 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../side.jsp"%>
   <%@ include file="../header.jsp"%>
-   <h3>${student_class}</h3>
+ <h3>${student_class}</h3>
    <h2>점수:${score}점</h2>
     <table class="table ">
-        <colgroup>
-            <col width=10%>
-            <col width=20%>
-            <col width=40%>
-            <col width=30%>
-        </colgroup>
         <tr>
-            <th>번호</th>
+        	<th>#</th>
+            <th>구구단번호</th>
             <th>단어</th>
             <th>뜻</th>
             <th>작성한답</th>
             <th>결과</th>
         </tr>
-        <c:forEach items="${gugudan_result}" var="gugudan">
+        <c:forEach items="${gugudan_result}" var="gugudan" varStatus="status">
         <tr>
+        	<td>${status.count}</td>
             <td>${gugudan.word_seq}</td>
             <td>${gugudan.word_name}</td>
             <td>${gugudan.word_trans}</td>
@@ -30,7 +26,5 @@
          </c:forEach>
        
     </table>
-  
-  
-  </body>
+</body>
 </html>
