@@ -41,8 +41,7 @@ public class AdminCommonController {
 		
 		ModelAndView mav=new ModelAndView();
 		List<StudentVO> studentVO=new ArrayList();
-		studentVO=studentService.studentList();
-		studentVO.remove(0);
+		studentVO=studentService.studentApproveList();
 		mav.addObject("studentList",studentVO);
 		mav.setViewName("admin/tables");
 		return mav;

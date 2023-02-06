@@ -70,4 +70,32 @@ public class StudentService {
 		studentDao.deleteStudentClass(id, string);
 	}
 
+	public List<StudentVO> studentStandByList() {
+		return studentDao.studentStandByList();
+	}
+
+	public List<StudentVO> studentQuitList() {
+		// TODO Auto-generated method stub
+		return studentDao.studentQuitList();
+	}
+
+	public List<StudentVO> studentApproveList() {
+		return studentDao.studentApproveList();
+	}
+
+	public void approveJoinStudent(int id) {
+	studentDao.approveJoinStudent(id);
+	}
+
+	public void quitStudent(int id) {
+		studentDao.quitStudent(id);
+		
+	}
+
+	public void rejoinStudent(int id) {
+		studentDao.rejoinStudent(id);
+		
+	}
+
+
 }

@@ -30,11 +30,5 @@
 	<select id="getClassAll" resultType="String">
 		select name from class
 	</select>
-	<select id="teacherList" resultType="com.ld.user.vo.TeacherVO">
-		select * from teacher
-	</select>
-	<insert id="insertTeacher" parameterType="com.ld.user.vo.TeacherVO">
-   	insert into teacher(teaid,password,number,name) values
-   	(#{teaid},hex(aes_encrypt(#{password}, SHA2('bockgipoog541354',256))),#{number},#{name})
-   </insert>
+
 </mapper>

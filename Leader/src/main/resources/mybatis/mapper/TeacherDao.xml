@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.ld.user.dao.ITeacherDao">
+	<!-- 강사 목록 -->
+	<select id="teacherList" resultType="com.ld.user.vo.TeacherVO">
+		select * from teacher where available='o' and not teaid='admin';
+	</select>
+	<!--  강사 회원가입 -->
+	<insert id="insertTeacher" parameterType="com.ld.user.vo.TeacherVO">
+   	insert into teacher(teaid,password,number,name) values
+   	(#{teaid},hex(aes_encrypt(#{password}, SHA2('bockgipoog541354',256))),#{number},#{name})
+   </insert>
+   <!--  강사 로그인 -->
+   <select id="loginTeacher" resultType="com.ld.user.vo.TeacherVO" parameterType="String">
+		select * from teacher where teaid=#{param1} and CONVERT(AES_DECRYPT(unhex(password), SHA2('bockgipoog541354',256)) USING utf8)=#{param2};
+	</select>
+	<!-- 가입 대기 목록 -->
+   <select id="teacherStandByList" resultType="com.ld.user.vo.StudentVO">
+   select * from teacher where available='t';
+   </select>
+<!-- 퇴원강사 목록 -->
+ <select id="teacherQuitList" resultType="com.ld.user.vo.StudentVO">
+   select * from teacher where available='x';
+   </select>
+<!-- 가입승인 -->
+<update id="approveJoinTeacher" >
+	update teacher set available='o' where id=#{param1};
+</update>
+<!-- 퇴원시키기 -->
+<update id="quitTeacher" >
+	update teacher set available='x',update_date=now() where id=#{param1};
+</update>
+<!-- 재등록하기 -->
+<update id="rejoinTeacher">
+	update teacher set available='o',update_date=now() where id=#{param1};
+</update>
+</mapper>

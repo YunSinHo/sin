@@ -165,36 +165,39 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Addons
+                업무
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
             
 
             <!-- Nav Item - Charts -->
+            <c:if test="${loginTeacher ne null &&loginTeacher.teaid eq 'admin'}">
+            
             <li class="nav-item">
                 <a class="nav-link" href="charts.mdo">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Charts</span></a>
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>업무지시</span></a>
             </li>
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
                 <a class="nav-link" href="tables.mdo">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span></a>
+                    <span>업무지시목록</span></a>
             </li>
+			</c:if>
+           
 
-            <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                최고 관리자 전용
-            </div>
-
+            
             <!-- Nav Item - Tables -->
             <c:if test="${loginTeacher.teaid eq 'admin' }">
+            <!-- Heading -->
+           
+            
+             <div class="sidebar-heading">
+                최고 관리자 전용
+            </div>
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                     aria-expanded="true" aria-controls="collapsePages">
@@ -204,8 +207,8 @@
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                       <h6 class="collapse-header">학원생&강사관리</h6>
-                        <a class="collapse-item" href="studentList.mdo">학원생목록</a>
-                        <a class="collapse-item" href="teacherList.mdo">강사목록</a>
+                        <a class="collapse-item" href="studentList.mdo">학원생관리</a>
+                        <a class="collapse-item" href="teacherList.mdo">강사관리</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">기타</h6>
                     </div>

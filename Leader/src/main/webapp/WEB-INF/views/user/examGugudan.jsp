@@ -7,7 +7,6 @@
     <table class="table ">
         <tr>
         	<th>#</th>
-            <th>구구단번호</th>
             <th>단어</th>
             <th>뜻</th>
             <th>작성한답</th>
@@ -16,7 +15,6 @@
         <c:forEach items="${gugudan_result}" var="gugudan" varStatus="status">
         <tr>
         	<td>${status.count}</td>
-            <td>${gugudan.word_seq}</td>
             <td>${gugudan.word_name}</td>
             <td>${gugudan.word_trans}</td>
             <td>${gugudan.write}</td>

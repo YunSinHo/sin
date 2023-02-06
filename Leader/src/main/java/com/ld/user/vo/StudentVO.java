@@ -1,5 +1,8 @@
 package com.ld.user.vo;
 
+
+import java.sql.Timestamp;
+
 import lombok.Data;
 
 @Data
@@ -13,4 +16,6 @@ public class StudentVO {
 	private String school;
 	private String password;
 	private String name;
+	private Timestamp join_date;
+	private Timestamp update_date;
 }

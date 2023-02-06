@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ld.admin.service.AdminService;
 import com.ld.admin.service.StudentService;
+import com.ld.user.service.TeacherService;
 import com.ld.user.vo.ClassAllVO;
 import com.ld.user.vo.StudentClassVO;
 import com.ld.user.vo.StudentVO;
@@ -28,6 +29,8 @@ public class LoginController {
 	private StudentService studentService;
 	@Autowired
 	private AdminService adminService;
+	@Autowired
+	private TeacherService teacherService;
 	//시작페이지
 	@RequestMapping("/")
 	public String start() {
@@ -97,7 +100,7 @@ public class LoginController {
 		HttpSession session=request.getSession();
 		ModelAndView mav=new ModelAndView();
 		List<TeacherVO> teacherVO1=new ArrayList();
-		teacherVO1=adminService.teacherList();
+		teacherVO1=teacherService.teacherList();
 		TeacherVO teacherVO2=new TeacherVO();
 		for(int i=0;i<teacherVO1.size();i++) {
 			if(teacherVO1.get(i).getNumber().equals(number)) {
@@ -110,7 +113,7 @@ public class LoginController {
 		teacherVO2.setName(name);
 		teacherVO2.setNumber(number);
 		teacherVO2.setPassword(password);
-		adminService.insertTeacher(teacherVO2);
+		teacherService.insertTeacher(teacherVO2);
 		url="user/login";
 		request.setAttribute("message","회원가입 완료.");
 		return url;
@@ -122,9 +125,10 @@ public class LoginController {
 		List<StudentVO> studentVO=studentService.studentList();
 		for(int i=0;i<studentVO.size();i++) {
 			if(studentVO.get(i).getStuid().equals(id)) {
-				request.setAttribute("result", 1);
+				model.addAttribute("result", 1);
+				break;
 			}
-			else request.setAttribute("result", -1);
+			else model.addAttribute("result", -1);
 		}
 		
 		request.setAttribute("name", name); 
@@ -135,10 +139,11 @@ public class LoginController {
 	@RequestMapping("/idCheckTeacher.do")
 	public String idCheckTeacher(@RequestParam("id")String id,@RequestParam("name")String name,Model model,HttpServletRequest request) {
 		
-		List<TeacherVO> teacherVO=adminService.teacherList();
+		List<TeacherVO> teacherVO=teacherService.teacherList();
 		for(int i=0;i<teacherVO.size();i++) {
 			if(teacherVO.get(i).getTeaid().equals(id)) {
 				request.setAttribute("result", 1);
+				break;
 			}
 			else request.setAttribute("result", -1);
 		}
@@ -163,8 +168,8 @@ public class LoginController {
 			Model model) {
 		TeacherVO teacherVO=new TeacherVO();
 		HttpSession session=request.getSession();
-		String url="user/join";
-		teacherVO=adminService.loginTeacher(id,password);
+		String url="user/login";
+		teacherVO=teacherService.loginTeacher(id,password);
 		if(teacherVO==null){
 			request.setAttribute("message","아이디가 존재하지 않습니다.");
 	}
@@ -193,7 +198,7 @@ public class LoginController {
 		StudentVO studentVO=new StudentVO();
 		TeacherVO teacherVO=new TeacherVO();
 		HttpSession session=request.getSession();
-		String url="user/join";
+		String url="user/login";
 		List<StudentClassVO> studentClassVO =new ArrayList();
 			studentVO=studentService.loginStudent(id,password);
 			if(studentVO==null) {

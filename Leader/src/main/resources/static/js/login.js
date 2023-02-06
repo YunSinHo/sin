@@ -1,4 +1,5 @@
-function loginCheck(){
+function loginCheckEnter(){
+	if (window.event.keyCode == 13) {
 	if(document.loginFrm.id.value==""){
 		alert("아이디는 필수입력사항입니다");
 		document.loginFrm.id.focus();
@@ -12,8 +13,9 @@ function loginCheck(){
 		document.loginFrm.submit();
                                     }
 			
-	}	
-function loginCheckTeacher(){
+	}
+	}
+	function loginCheck(){
 	if(document.loginFrm.id.value==""){
 		alert("아이디는 필수입력사항입니다");
 		document.loginFrm.id.focus();
@@ -23,28 +25,47 @@ function loginCheckTeacher(){
 		document.loginFrm.password.focus();
 		return false;
 	}else{
-	document.loginFrm.action = "loginTeacher.do";
+	document.loginFrm.action = "loginStudent.do";
 		document.loginFrm.submit();
                                     }
 			
-	}	
-
-
-
-function go_next(){  
-	 if( document.contractFrm.okon[1].checked==true){
-		alert('회원 약관에 동의 하셔야 회원으로 가입이 가능합니다');
-	}else{
-		document.contractFrm.action = "joinStudent";
-		document.contractFrm.submit();
-		
 	}
+	
+	
+function loginCheckTeacher(){
+	if(document.loginFrm.id.value==""){
+		alert("아이디는 필수입력사항입니다");
+		document.loginFrm.id.focus();
+		return false;
+	}else if(document.loginFrm.password.value==""){
+		alert("비밀번호는 필수입력사항입니다");
+		document.loginFrm.password.focus();
+		return false;
+	}
+	
+	else{
+	document.loginFrm.action = "loginTeacher.do";
+		document.loginFrm.submit();
+                                    }
+}	
+function loginCheckTeacherEnter(){
+	if (window.event.keyCode == 13) {
+	if(document.loginFrm.id.value==""){
+		alert("아이디는 필수입력사항입니다");
+		document.loginFrm.id.focus();
+		return false;
+	}else if(document.loginFrm.password.value==""){
+		alert("비밀번호는 필수입력사항입니다");
+		document.loginFrm.password.focus();
+		return false;
+	}
+	
+	else{
+	document.loginFrm.action = "loginTeacher.do";
+		document.loginFrm.submit();
+                                    }
 }
-
-
-
-
-
+	}	
 
 function idcheck(){
 	if( document.joinStudent.id.value=="" ){
@@ -65,19 +86,41 @@ function idcheckTeacher(){
 	document.joinTeacher.action = "idCheckTeacher.do";
 		document.joinTeacher.submit();	
 }
-
-
-
-function idok( userid ){
-	opener.joinStudent.id.value = userid;
-	opener.joinStudent.reid.value = userid;
-	self.close();
-}
-
-
-
+function numberRegExp(e) {
+        var number = e.value.replace(/[^0-9]/g, "");
+        var phone = "";
+ 
+        if (number.length < 4) {
+            return number;
+        } else if (number.length < 7) {
+            phone += number.substr(0, 3);
+            phone += "-";
+            phone += number.substr(3);
+        } else if (number.length < 10) {
+            phone += number.substr(0, 2);
+            phone += "-";
+            phone += number.substr(2, 3);
+            phone += "-";
+            phone += number.substr(5);
+        } else if (number.length < 11) {
+            phone += number.substr(0, 3);
+            phone += "-";
+            phone += number.substr(3, 3);
+            phone += "-";
+            phone += number.substr(6);
+        } else {
+            phone += number.substr(0, 3);
+            phone += "-";
+            phone += number.substr(3, 4);
+            phone += "-";
+            phone += number.substr(7, 4);
+        }
+ 
+        e.value = phone;
+    }
 
 function go_save(){
+	var idRegExp = /^[a-zA-z0-9]{4,12}$/;
  if(document.joinStudent.name.value == "") {
 	    alert("이름을 입력해 주세요.");	    
 	    document.joinStudent.name.focus();
@@ -85,10 +128,16 @@ function go_save(){
 else if (document.joinStudent.id.value == "") {
 		alert("아이디를 입력하여 주세요."); 	    
 	    document.joinStudent.id.focus();
-	}else if(document.joinStudent.result.value=="" ){
+	}
+	else if (!idRegExp.test(document.joinStudent.id.value)) {
+		alert("4~12자 영문 대소문자, 숫자만 입력하세요.");	    
+	    document.joinStudent.id.focus();
+	}
+	else if(document.joinStudent.result.value=="" ){
 		alert("중복 체크를 해주세요");		
 		document.joinStudent.id.focus();
-	} else if(document.joinStudent.result.value=="1" ){
+	}
+	 else if(document.joinStudent.result.value=="1" ){
 		alert("중복된 아이디 입니다");		
 		document.joinStudent.id.focus();
 	}  else if(document.joinStudent.password.value == "") {
@@ -97,7 +146,12 @@ else if (document.joinStudent.id.value == "") {
 	} else if(document.joinStudent.password.value != document.joinStudent.passwordCheck.value) {
 	    alert("비밀번호와 비밀번호 확인이 일치하지 않습니다.");	    
 	    document.joinStudent.password.focus();
-	} else if(document.joinStudent.number.value == "") {
+	}
+	else if(!idRegExp.test(document.joinStudent.password.value)) {
+	    alert("4~12자 영문 대소문자, 숫자만 입력하세요.");	   
+	    document.joinStudent.password.focus();
+	}
+	 else if(document.joinStudent.number.value == "") {
 	    alert("전화번호를 입력해 주세요.");	   
 	    document.joinStudent.number.focus();
 	}else if(document.joinStudent.parentnumber.value == "") {
@@ -119,6 +173,7 @@ else if (document.joinStudent.id.value == "") {
 }
 
 function go_saveTeacher(){
+	var idRegExp = /^[a-zA-z0-9]{4,12}$/;
  if(document.joinTeacher.name.value == "") {
 	    alert("이름을 입력해 주세요.");	    
 	    document.joinTeacher.name.focus();
@@ -126,7 +181,12 @@ function go_saveTeacher(){
 else if (document.joinTeacher.id.value == "") {
 		alert("아이디를 입력하여 주세요."); 	    
 	    document.joinTeacher.id.focus();
-	}else if(document.joinTeacher.result.value=="" ){
+	}
+	else if (!idRegExp.test(document.joinTeacher.id.value)) {
+		alert("4~12자 영문 대소문자, 숫자만 입력하세요.");	    
+	    document.joinStudent.id.focus();
+	}
+	else if(document.joinTeacher.result.value=="" ){
 		alert("중복 체크를 해주세요");		
 		document.joinTeacher.id.focus();
 	} else if(document.joinTeacher.result.value=="1" ){
@@ -138,7 +198,12 @@ else if (document.joinTeacher.id.value == "") {
 	} else if(document.joinTeacher.password.value != document.joinTeacher.passwordCheck.value) {
 	    alert("비밀번호와 비밀번호 확인이 일치하지 않습니다.");	    
 	    document.joinTeacher.password.focus();
-	} else if(document.joinTeacher.number.value == "") {
+	}
+	else if(!idRegExp.test(document.joinTeacher.password.value)) {
+	    alert("4~12자 영문 대소문자, 숫자만 입력하세요.");	   
+	    document.joinStudent.password.focus();
+	}
+	 else if(document.joinTeacher.number.value == "") {
 	    alert("전화번호를 입력해 주세요.");	   
 	    document.joinTeacher.number.focus();
 	}else{
@@ -179,23 +244,6 @@ function go_update(){
 
 
 
-
-
-
-function find_account(){
-
-	var url = "findAccount";
-	var opt = "toolbar=no, menubar=no, scrollbars=no, resizable=no, width=700,";
-	opt = opt + "height=500, top=300, left=300";
-	window.open(url, "Find Id/Pw", opt);
-	
-}
-
-
-function move_login(){
-	opener.location.href='loginForm';
-	self.close();
-}
 
 
 

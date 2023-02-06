@@ -9,41 +9,131 @@
 	Date nowTime = new Date();
 	SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 %>
+<script>
+function studentList(obj){
+	if(obj=='o'){
+		$('#studentList').show();
+		$('#quitList').hide();
+		$('#standByList').hide();
+	}
+	else if(obj=='x'){
+		$('#studentList').hide();
+		$('#quitList').show();
+		$('#standByList').hide();
+	}
+	else if(obj=='t'){
+		$('#studentList').hide();
+		$('#quitList').hide();
+		$('#standByList').show();
+	}
+}
+function quitStudent(){
+	if(confirm("탈퇴시키겠습니까?")){
+		
+		return true;
+	}
+	
+}
+function rejoinStudent(){
+	if(confirm("재등록하겠습니까?")){
+		return true;
+	}
+}
+function approveStudent(){
+	if(confirm("재등록하겠습니까?")){
+		return true;
+	}
+}
+</script>
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h1 mb-2 text-gray-800">학원생 관리</h1>
+                     <h1 class="m-0 font-weight-bold text-primary">학원생 관리</h1>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h4 class="m-0 font-weight-bold text-primary">학습자 관리</h4>
+                        <button type="button" class="btn btn-dark"  onclick="location.href='studentClassList.mdo'">클래스 관리</button>
                         </div>
                         <div class="card-body">
-                        <form method="get" name="studentClass">
-                            <input type="hidden" name="id" value="${id}">
-                            	<button type="button" class="btn btn-success"  onclick="addClass();">클래스 추가</button>
-                            	<button type="button" class="btn btn-danger" onclick="deleteClass();">클래스 삭제</button>
+                        <form method="get" name="studentClass" >
+                            	<button type="button" class="btn btn-success"  onclick="studentList('o');">학원생목록</button>
+                            	<button type="button" class="btn btn-success"  onclick="studentList('t');">가입대기목록</button>
+                            	<button type="button" class="btn btn-danger"  onclick="studentList('x');">퇴원생</button>
                             <div class="filterarea">
                             </div>
-                            
-                            <div class="table-responsive">
+                            <%--학원생 목록 --%>
+                            <div class="table-responsive" id="studentList" style="display:block;">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align: center; vertical-align:middle;">
+                                  <thead>
+                                        <tr>
+                                            <th>이름</th>
+                                            <th>학년</th>
+                                            <th>학교</th>
+                                            <th>학생 번호</th>
+                                            <th>부모님번호</th>
+                                            <th>가입일자</th>
+                                            <th>탈퇴</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <c:forEach items="${studentList}" var="studentList">
+                                    <tr><%--carrotList.mdo?student_parentnumber=${studentList.student_parentnumber}--%>
+                                            <th>${studentList.name}<br>${studentList.stuid}</th>
+                                            <th>${studentList.grade}</th>
+                                          <th>${studentList.school}</th>
+                                            <th>${studentList.number}</th>
+                                            <th>${studentList.parentnumber}</th>
+                                            <th><fmt:formatDate value="${studentList.join_date}" pattern="yyyy-MM-dd" /></th>
+                                            <th><a href="quitStudent.mdo?id=${studentList.id}" onclick="quitStudent();">탈퇴하기</a></th>
+                                        </tr>
+                                    </c:forEach>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <%--가입대기목록 --%>
+<div class="table-responsive" id="standByList" style="display:none;">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align: center; vertical-align:middle;">
+                              
                                     <thead>
                                         <tr>
                                             <th>이름</th>
                                             <th>학년</th>
-                                            <th>클래스</th>
-                                            
+                                            <th>가입신청 날짜</th>
+                                            <th>가입승인</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    <c:forEach items="${studentClassList}" var="studentClassList">
-                                    <tr><%--carrotList.mdo?student_parentnumber=${studentList.student_parentnumber}--%>
-                                        <%--    <th><a href="studentInfo.mdo?id=${studentClass.id}"> --%> 
-<th><input type="radio" name="id" value="${studentClassList.id}">  ${studentClassList.name}<br>${studentClassList.stuid}</th>
-<th>${studentClassList.grade}</th>
-<th>${studentClassList.class_name}</th>
+                                    <c:forEach items="${studentStandByList}" var="studentStandByList">
+                                    <tr>
+<th>  ${studentStandByList.name}</th>
+<th>${studentStandByList.grade}</th>
+<th>${studentStandByList.join_date}</th>
+<th><a  href="approve.mdo?id=${studentStandByList.id}" onclick="approveStudent();">승인하기</a></th>
+                                        </tr>
+                                    </c:forEach>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <%--퇴원생 목록 --%>
+<div class="table-responsive" id="quitList" style="display:none;">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align: center; vertical-align:middle;">
+                             
+                                    <thead>
+                                        <tr>
+                                            <th>이름</th>
+                                            <th>학년</th>
+                                            <th>퇴원날짜</th>
+                                            <th>재등록</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <c:forEach items="${studentQuitList}" var="studentQuitList">
+                                    <tr>
+<th>${studentQuitList.name}</th>
+<th>${studentQuitList.grade}</th>
+<th><fmt:formatDate value="${studentQuitList.update_date}" pattern="yyyy-MM-dd" /></th>
+<th><a href="reJoinStudent.mdo?id=${studentQuitList.id}" onclick="rejoinStudent();">재등록하기</a></th>
                                         </tr>
                                     </c:forEach>
                                     </tbody>

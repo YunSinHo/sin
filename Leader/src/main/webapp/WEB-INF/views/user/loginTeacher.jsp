@@ -45,7 +45,7 @@
           </div>
           <div class="mb-3">
             <label for="address">비밀번호</label>
-            <input type="password" class="form-control" required name="password">
+            <input type="password" class="form-control" required name="password" onkeyup="loginCheckTeacherEnter();">
             <div class="invalid-feedback">
             </div>
           </div>

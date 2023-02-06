@@ -19,7 +19,6 @@
     <table class="table ">
         <tr>
         	<th>#</th>
-            <th>구구단번호</th>
             <th>단어</th>
             <th>뜻</th>
             <th>틀린횟수</th>
@@ -27,7 +26,6 @@
         <c:forEach items="${examList}" var="wrong" varStatus="status">
         <tr>
         <td>${status.count}</td>
-            <td>${wrong.word_seq}</td>
             <td>${wrong.word_name}</td>
             <td>${wrong.word_trans}</td>
            	<td>${wrong.wrongWordCount}회</td>

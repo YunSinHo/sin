@@ -78,7 +78,8 @@
           </div>
           <div class="mb-3">
             <label for="email">전화번호</label>
-            <input type="text" class="form-control" name="number" id="email" placeholder="010-0000-0000" required name="number">
+            <input type="text" class="form-control" name="number" id="email"  required name="number"
+             onkeyup="numberRegExp(this);">
             <div class="invalid-feedback">
               이메일을 입력해주세요.
             </div>

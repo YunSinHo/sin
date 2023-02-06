@@ -84,14 +84,17 @@
           
           <div class="mb-3">
             <label for="number">전화번호</label>
-            <input type="text" class="form-control" name="number" id="number" placeholder="010-0000-0000" required name="number">
+            <input type="text" class="form-control" 
+            name="number" id="number" required name="number"
+            onkeyup="numberRegExp(this);">
             <div class="invalid-feedback">
               이메일을 입력해주세요.
             </div>
           </div>
           <div class="mb-3">
             <label for="address">부모님번호</label>
-            <input type="text" class="form-control" id="address" placeholder="010-0000-0000" required name="parentnumber">
+            <input type="text" class="form-control" id="address" required name="parentnumber"
+             onkeyup="numberRegExp(this);">
             <div class="invalid-feedback">
             </div>
           </div>

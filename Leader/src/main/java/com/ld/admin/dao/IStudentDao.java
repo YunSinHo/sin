@@ -38,5 +38,18 @@ public interface IStudentDao {
 
 	void deleteStudentClass(int id, String string);
 
+	List<StudentVO> studentStandByList();
+
+	List<StudentVO> studentQuitList();
+
+	List<StudentVO> studentApproveList();
+
+	void approveJoinStudent(int id);
+
+	void quitStudent(int id);
+
+	void rejoinStudent(int id);
+
+
 
 }

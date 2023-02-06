@@ -58,6 +58,7 @@
             color: #12887A;
         }
         .wordcontent1{
+        overflow:hidden;
             position:absolute;
             width: 44%;
             height: 85%;
@@ -67,6 +68,7 @@
             text-align: center;
         }
         .wordcontent2{
+        overflow:hidden;
             position:absolute;
             width: 44%;
             height: 85%;
@@ -100,10 +102,12 @@
             color: #12887A;
         }
         .contentbody{
+        overflow:hidden;
             height: 96%;
             overflow: hidden;
         }
         .bodycontent{
+        overflow:hidden;
             border-bottom: 1px solid #12887A;
             height: 3.333333333333332%;
             display: flex;
@@ -147,7 +151,7 @@
         <div class="mainimg">
             <img class="mainimg1" alt="img1" src="img/user/001단어.png">
         </div>
-        <div class="headnamearea">
+        <div class="headnamearea" >
             <span id="headname1"></span>
         </div>
     </div>

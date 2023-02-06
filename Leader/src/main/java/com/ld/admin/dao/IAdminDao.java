@@ -28,8 +28,5 @@ public interface IAdminDao {
 
 	List<ClassAllVO> getClassAll();
 
-	List<TeacherVO> teacherList();
-
-	void insertTeacher(TeacherVO teacherVO2);
 
 }

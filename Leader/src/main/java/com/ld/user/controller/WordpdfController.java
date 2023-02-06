@@ -61,6 +61,15 @@ public class WordpdfController {
 		wordgugudanVO=wordpdfService.getGugudan(gugudan_name);
 		List<WordcollectionVO> wordVO= new ArrayList();
 		wordVO = wordpdfService.wordpdfread(wordgugudanVO.getGugudan_level());
+		if(wordgugudanVO.getGugudan_name().equals("단어구구단(1단)"))wordgugudanVO.setGugudan_name("1단");
+		else if(wordgugudanVO.getGugudan_name().equals("단어구구단(2단)"))wordgugudanVO.setGugudan_name("2단");
+		else if(wordgugudanVO.getGugudan_name().equals("단어구구단(3단)"))wordgugudanVO.setGugudan_name("3단");
+		else if(wordgugudanVO.getGugudan_name().equals("단어구구단(4단)"))wordgugudanVO.setGugudan_name("4단");
+		else if(wordgugudanVO.getGugudan_name().equals("단어구구단(5단)"))wordgugudanVO.setGugudan_name("5단");
+		else if(wordgugudanVO.getGugudan_name().equals("단어구구단(6단)"))wordgugudanVO.setGugudan_name("6단");
+		else if(wordgugudanVO.getGugudan_name().equals("단어구구단(7단)"))wordgugudanVO.setGugudan_name("7단");
+		else if(wordgugudanVO.getGugudan_name().equals("단어구구단(8단)"))wordgugudanVO.setGugudan_name("8단");
+		else if(wordgugudanVO.getGugudan_name().equals("단어구구단(9단)"))wordgugudanVO.setGugudan_name("9단");
 		mav.addObject("wpdf_view", wordVO);
 		mav.addObject("gugudan",wordgugudanVO);
 		mav.setViewName("user/wordpdf");

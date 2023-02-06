@@ -25,20 +25,10 @@ public class AdminService {
 	public void adminregister(AdminVO adminVO) {
 		admindao.adminregister(adminVO);
 	}
-	public TeacherVO loginTeacher(String id, String password) {
-		// TODO Auto-generated method stub
-		return admindao.loginTeacher( id,password);
-	}
 	public List<ClassAllVO> getClassAll() {
 		// TODO Auto-generated method stub
 		return admindao.getClassAll();
 	}
-	public List<TeacherVO> teacherList() {
-		return admindao.teacherList();
-	}
-	public void insertTeacher(TeacherVO teacherVO2) {
-		admindao.insertTeacher(teacherVO2);
-		
-	}
-
 }
+
+

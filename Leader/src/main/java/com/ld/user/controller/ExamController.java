@@ -102,9 +102,11 @@ JSONObject jObject = new JSONObject(content);
 		List<ExamVO> examVO=new ArrayList();
 		//틀린단어 저장할 리스트
 		List<ExamVO> examListArr=new ArrayList();
+		List<ExamVO> examListArr2=new ArrayList();
 		examVO=wordpdfService.getExamListAll(id);
 		System.out.println(examVO.size());
 		int cnt=0;
+		int cnt1=0;
 		for(int i=0;i<examVO.size();i++) {
 			int num=examVO.get(i).getNum();
 			double score=examVO.get(i).getScore();
@@ -133,6 +135,15 @@ JSONObject jObject = new JSONObject(content);
 				examListArr.add(cnt,examList);
 				cnt++;
 				 }
+				 else if(ox[j].contains("O")) {
+						examList.setWord_trans(word_trans1[j]);
+							 examList.setWord_name(word_name1[j]);
+							 examList.setWrite(write1[j]);
+							examList.setWord_seq(word_seq1[j]);
+							examList.setOx(ox[j]);
+							examListArr2.add(cnt1,examList);
+							cnt1++;
+							 }
 			}
 		}
 		
@@ -149,7 +160,20 @@ JSONObject jObject = new JSONObject(content);
 			examListArr.get(i).setWrongWordCount(wrongCnt);
 		}
 		examListArr.remove(examListArr.size()-1);
-		
+		int cnt2=examListArr.size();
+		//틀린단에 재시험시 O이면 목록에서 제거
+		System.out.println(examListArr.size()+" " +examListArr2.size());
+		for(int i=0;i<examListArr2.size();i++) {
+			
+			for(int j=0; j<cnt2;j++) {
+				if(examListArr2.get(i).getWord_seq()==examListArr.get(j).getWord_seq()) {
+					examListArr.remove(j);
+					cnt2--;
+					break;
+				}
+			}
+		}
+		examListArr.remove(examListArr.size()-1);
 		System.out.println(Arrays.asList(examListArr));
 		mav.addObject("examList",examListArr);
 		mav.setViewName("user/wrongWordList");
