@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ld.user.service.WordpdfService;
 import com.ld.user.vo.WordcollectionVO;
+import com.ld.user.vo.WordgugudanVO;
 
 @Controller
 public class SentenceWordExamController {
@@ -45,8 +46,10 @@ public class SentenceWordExamController {
 		int end=0;
 		int min=0;
 		int max=0;
+		WordgugudanVO wordgugudanVO=new WordgugudanVO();
 		if(gugudan_name.equals("단어구구단(1~4단)")) {
 			gugudan_name="1~4";
+			wordgugudanVO.setGugudan_name("下");
 		 min=1;
 		 max=4;
 		 start=wordpdfService.getStartSeq(min);
@@ -54,6 +57,7 @@ public class SentenceWordExamController {
 		}
 		else if(gugudan_name.equals("단어구구단(4~7단)")) {
 			gugudan_name="4~7";
+			wordgugudanVO.setGugudan_name("中");
 			 min=4;
 			 max=7;
 			 start=wordpdfService.getStartSeq(min);
@@ -61,6 +65,7 @@ public class SentenceWordExamController {
 			 end=end-start;
 			}
 		else if(gugudan_name.equals("단어구구단(7~9단)")) {
+			wordgugudanVO.setGugudan_name("中");
 			gugudan_name="7~9";
 			 min=7;
 			 max=9;
@@ -69,6 +74,7 @@ public class SentenceWordExamController {
 			 end=end-start;
 			}
 		else if(gugudan_name.equals("단어구구단(9단)")) {
+			wordgugudanVO.setGugudan_name("上");
 			gugudan_name="9";
 			 min=9;
 			 max=9;
@@ -93,9 +99,11 @@ public class SentenceWordExamController {
 		 int num=wordVO2.size();
 		 mav.addObject("gugudan",gugudan_name);
 		 mav.addObject("num",num);
+		 
 			mav.addObject("wpdf_view", wordVO2);
+			mav.addObject("gugudan",wordgugudanVO);
 			mav.addObject("class_name",gugudan_name);
-			mav.setViewName("user/examSubjective");
+			mav.setViewName("user/examSubjective1");
 		System.out.println(wordVO1.get(0).getWord_seq()+" "+wordVO1.size()+" "+wordVO2.size());
 		return mav;
 	}

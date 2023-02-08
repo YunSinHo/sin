@@ -184,4 +184,5 @@ public class AdminController {
 			teacherService.rejoinTeacher(id);
 			return "redirect:/teacherList.mdo";
 		}
+
 }

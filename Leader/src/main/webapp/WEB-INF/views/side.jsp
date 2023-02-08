@@ -2,10 +2,9 @@
     pageEncoding="UTF-8"%>
        <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ko">
 <head>
-<meta charset="UTF-8">
 <title>Insert title here</title>
 <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,17 +15,16 @@
     <script src="js/test.js"></script>
     <script src="js/login.js"></script>
     <script src="js/admin/studentClass.js"></script>
+    <link href="css/admin/tables.css" rel="stylesheet">
     <link href="css/admin/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
-
-    <!-- Custom styles for this template-->
-    <link href="css/admin/sb-admin-2.min.css" rel="stylesheet">
-    <link href="air-datepicker/dist/css/datepicker.min.css" rel="stylesheet" type="text/css" media="all">
-    <!-- Air datepicker css -->
-    <link href="css/admin/tables.css" rel="stylesheet">
+<link href="css/admin/sb-admin-2.min.css" rel="stylesheet">
 	<link href="css/admin/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <link href="css/admin/sendmessage.css" rel="stylesheet">
+    <link href="air-datepicker/dist/css/datepicker.min.css" rel="stylesheet" type="text/css" media="all">
+    
 		<!-- Bootstrap core JavaScript-->
     <script src="js/admin/jquery.min.js"></script>
     <script src="js/admin/bootstrap.bundle.min.js"></script>
@@ -43,8 +41,13 @@
 
     <!-- Page level custom scripts -->
     <script src="js/admin/datatables-demo.js"></script>
+    <!-- Air datepicker css -->
+    
+	 <script src="air-datepicker/dist/js/datepicker.js"></script> <!-- Air datepicker js -->
+    <script src="air-datepicker/dist/js/i18n/datepicker.ko.js"></script> <!-- 달력 한글 추가를 위해 커스텀 -->
 </head>
 <body id="page-top">
+
 <div id="wrapper">
  <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
@@ -172,19 +175,31 @@
             
 
             <!-- Nav Item - Charts -->
-            <c:if test="${loginTeacher ne null &&loginTeacher.teaid eq 'admin'}">
+            <c:if test="${loginTeacher.teaid ne 'admin'&&loginTeacher ne null}">
+             <li class="nav-item"> 
+                <a class="nav-link" href="orderListTeacherOne.mdo?id=${id}">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>업무목록</span></a>
+            </li>
+            </c:if>
+            <c:if test="${loginTeacher.teaid eq 'admin'}">
             
-            <li class="nav-item">
-                <a class="nav-link" href="charts.mdo">
+            <li class="nav-item"> 
+                <a class="nav-link" href="orderWork.mdo">
                     <i class="fas fa-fw fa-table"></i>
                     <span>업무지시</span></a>
             </li>
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link" href="tables.mdo">
+                <a class="nav-link" href="orderWorkList.mdo">
                     <i class="fas fa-fw fa-table"></i>
                     <span>업무지시목록</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="todayOrder.mdo">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>업무작성</span></a>
             </li>
 			</c:if>
            

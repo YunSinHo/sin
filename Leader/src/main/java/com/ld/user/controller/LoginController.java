@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ld.admin.service.AdminService;
 import com.ld.admin.service.StudentService;
+import com.ld.admin.vo.ReportVO;
 import com.ld.user.service.TeacherService;
 import com.ld.user.vo.ClassAllVO;
 import com.ld.user.vo.StudentClassVO;
@@ -161,6 +162,7 @@ public class LoginController {
 	public String loginTeacherForm() {
 		return "user/loginTeacher";
 	}
+	//강사 로그인
 	@PostMapping("/loginTeacher.do")
 	public String loginTeacher(@RequestParam("id")String id,
 			@RequestParam("password")String password,
@@ -180,6 +182,17 @@ public class LoginController {
 			List<ClassAllVO> classAllVO=new ArrayList();
 			classAllVO=adminService.getClassAll();
 			session.setAttribute("teacherClass",classAllVO);
+			int teacher_id=teacherVO.getId();
+			session.setAttribute("id",teacher_id);
+			//읽지 않은 업무목록 업데이트
+			List<ReportVO> reportVO=new ArrayList();
+			reportVO=teacherService.orderListCheckTeacherOne(teacher_id);
+			session.setAttribute("reportList1",reportVO);
+			int newOrder=reportVO.size();
+			System.out.println(newOrder);
+			String newOrder1=newOrder+"+";
+			session.setAttribute("newOrder",newOrder1);
+			
 			url="redirect:/tables.mdo";
 		}
 		

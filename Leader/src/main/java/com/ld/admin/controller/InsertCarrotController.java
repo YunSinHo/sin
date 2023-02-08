@@ -28,10 +28,10 @@ public class InsertCarrotController {
 	@Autowired
 	private CarrotService carrotService;
 	@GetMapping("/sendcarrot.mdo")
-	public String sendcarrotGet(@RequestParam("parentnumber") String parentnumber,
+	public String sendcarrotGet(
 			Model model) {
 		 StudentVO studentVO=new StudentVO();
-		studentVO=studentService.studentList1(parentnumber);
+		//studentVO=studentService.studentList1(parentnumber);
 		model.addAttribute("studentList",studentVO);
 		return "admin/sendcarrot";
 	}

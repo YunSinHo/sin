@@ -198,12 +198,13 @@ JSONObject jObject = new JSONObject(content);
 		String class_name=(String)session.getAttribute("student_class");
 		List<WordcollectionVO> wordVO= new ArrayList();
 		wordVO=wordpdfService.wordpdfread(word_seq);
-		
+		WordgugudanVO wordgugudanVO=new WordgugudanVO();
+		wordgugudanVO.setGugudan_name("Re");
 		mav.addObject("num",num);
-		mav.addObject("gugudan",student_class);
+		mav.addObject("gugudan",wordgugudanVO);
 		mav.addObject("wpdf_view", wordVO);
 		mav.addObject("class_name",class_name);
-		mav.setViewName("user/examSubjective");
+		mav.setViewName("user/examSubjective1");
 		
 		return mav;
 	}

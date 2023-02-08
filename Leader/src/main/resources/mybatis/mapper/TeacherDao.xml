@@ -5,7 +5,7 @@
 <mapper namespace="com.ld.user.dao.ITeacherDao">
 	<!-- 강사 목록 -->
 	<select id="teacherList" resultType="com.ld.user.vo.TeacherVO">
-		select * from teacher where available='o' and not teaid='admin';
+		select * from teacher where available='o';
 	</select>
 	<!--  강사 회원가입 -->
 	<insert id="insertTeacher" parameterType="com.ld.user.vo.TeacherVO">
@@ -36,4 +36,60 @@
 <update id="rejoinTeacher">
 	update teacher set available='o',update_date=now() where id=#{param1};
 </update>
+<!-- 강사 한명 조회 -->
+<select id="teacherOne" resultType="com.ld.user.vo.TeacherVO">
+	select * from teacher where id=#{param1}
+</select>
+<!-- 업무지시 등록 -->
+<insert id="orderWorkOne">
+	insert into report(teacher_id,title,content,teacher_name) values (#{teacher_id},#{title},#{content},#{teacher_name});
+</insert>
+<!-- 업무지시 목록 -->
+<select id="reportList" resultType="com.ld.admin.vo.ReportVO">
+	select * from report order by update_date desc,create_date desc;
+</select>
+<!-- 업무 지시목록 날짜변경 -->
+<select id="reportListDate" resultType="com.ld.admin.vo.ReportVO">
+	select * from report where create_date like CONCAT('%',#{param1},'%') order by update_date desc,create_date desc;
+</select>
+<!-- 업무지시 목록 한개 -->
+<select id="orderListOne" resultType="com.ld.admin.vo.ReportVO">
+	select * from report where id=#{param1}
+</select>
+<!-- 강사 한명 업무목록 -->
+<select id="orderListTeacherOne" resultType="com.ld.admin.vo.ReportVO">
+	select * from report where teacher_id=#{param1} order by update_date desc;
+</select>
+<!-- 읽으면 업데이트 -->
+<update id="checkOrder">
+	update report set `check`='o',update_date=now() where id=#{param1}
+</update>
+<!-- 읽지않은 강사한명 업무목록 -->
+<select id="orderListCheckTeacherOne" resultType="com.ld.admin.vo.ReportVO">
+select * from report where teacher_id=#{param1} and `check`='x' order by update_date desc; 
+</select>
+<!-- 강사 업무완료 보고 -->
+<update id="fulfillEnd">
+	update report set fulfill='o',update_date=now() where id=#{param1}
+</update>
+<!-- 업무완료처리 최종 -->
+<update id="successFinal">
+	update report set success='o' where id=#{param1}
+</update>
+
+<!-- 공동업무 추가 -->
+<insert id="addJointOrder">
+insert into report (title,content) values(#{param1},'jointOrder');
+</insert>
+<!-- 공동업무 리스트 -->
+<select id="jointOrderList" resultType="com.ld.admin.vo.ReportVO">
+	select * from report where content='jointOrder';
+</select>
+<!-- 공동업무 삭제 -->
+<delete id="deletejointOrder">
+	delete from report where id=#{param1}
+</delete>
+<insert id="addTodayOrder" parameterType="com.ld.admin.vo.ReportVO">
+	insert into report (teacher_id,teacher_name,title,deadline) values(#{teacher_id},#{teacher_name},#{title},DATE_ADD(now(),interval 1 day));
+</insert>
 </mapper>

@@ -118,6 +118,51 @@ public class GoClassController {
 			level[0]=7;level[1]=8;level[2]=9;
 			url="user/examSentenceList";
 		}
+		else if(name.equals("단어구구단(9단)")) {
+			level=new int[1];
+			level[0]=9;
+			url="user/examGugudanList";
+		}
+		else if(name.equals("단어구구단(8단)")) {
+			level=new int[1];
+			level[0]=8;
+			url="user/examGugudanList";
+		}
+		else if(name.equals("단어구구단(7단)")) {
+			level=new int[1];
+			level[0]=7;
+			url="user/examGugudanList";
+		}
+		else if(name.equals("단어구구단(6단)")) {
+			level=new int[1];
+			level[0]=6;
+			url="user/examGugudanList";
+		}
+		else if(name.equals("단어구구단(5단)")) {
+			level=new int[1];
+			level[0]=5;
+			url="user/examGugudanList";
+		}
+		else if(name.equals("단어구구단(4단)")) {
+			level=new int[1];
+			level[0]=4;
+			url="user/examGugudanList";
+		}
+		else if(name.equals("단어구구단(3단)")) {
+			level=new int[1];
+			level[0]=3;
+			url="user/examGugudanList";
+		}
+		else if(name.equals("단어구구단(2단)")) {
+			level=new int[1];
+			level[0]=2;
+			url="user/examGugudanList";
+		}
+		else if(name.equals("단어구구단(1단)")) {
+			level=new int[1];
+			level[0]=1;
+			url="user/examGugudanList";
+		}
 		List<WordgugudanVO> showList = new ArrayList<WordgugudanVO>();
 		showList = wordpdfService.wordpdflist_pageSelect(level);
 		System.out.println(showList.get(0).getGugudan_name());
