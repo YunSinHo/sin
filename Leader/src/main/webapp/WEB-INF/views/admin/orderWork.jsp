@@ -2,17 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../side.jsp"%>
   <%@ include file="../header.jsp"%>
-<script>
-	function orderWork(){
-		if(confirm("업무를 지시하겠습니까?")){
-			return true;
-		}
-	}
-</script>
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h1 mb-2 text-gray-800">업무지시</h1>
+                    <h1 class="h1 mb-2 text-gray-800">추가업무작성</h1>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
@@ -26,7 +19,7 @@
                                         <tr>
                                             <th>이름</th>
                                             <th>번호</th>
-                                            <th>업무지시</th>
+                                            <th>업무작성</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -34,7 +27,7 @@
                                     <tr>
                                     <th>${teacherList.name}</th>
                                             <th>${teacherList.number}</th>
-                                            <th><a onclick="orderWork();" href="orderWorkForm.mdo?id=${teacherList.id}">업무지시하기</a></th>
+                                            <th><a href="orderWorkForm.mdo?id=${teacherList.id}">업무작성하기</a></th>
                                         </tr>
                                     </c:forEach>
                                     </tbody>

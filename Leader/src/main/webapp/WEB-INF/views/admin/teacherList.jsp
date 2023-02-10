@@ -27,20 +27,22 @@ function teacherList(obj){
 		$('#standByTeacherList').show();
 	}
 }
-function quitTeacher(){
+function quitTeacher(id){
 	if(confirm("탈퇴시키겠습니까?")){
-		
+		location.href="quitTeacher.mdo?id="+id;
 		return true;
 	}
 	
 }
 function rejoinTeacher(){
 	if(confirm("재등록하겠습니까?")){
+		location.href="reJoinTeacher.mdo?id="+id;
 		return true;
 	}
 }
-function approveTeacher(){
-	if(confirm("재등록하겠습니까?")){
+function approveTeacher(id){
+	if(confirm("승인하겠습니까?")){
+		location.href="approveTeacher.mdo?id="+id;
 		return true;
 	}
 }
@@ -77,7 +79,7 @@ function approveTeacher(){
                                     <th>${teacherList.name}</th>
                                             <th>${teacherList.number}</th>
                                             <th><fmt:formatDate value="${teacherList.join_date}" pattern="yyyy-MM-dd" /></th>
-                                            <th><a href="quitTeacher.mdo?id=${teacherList.id}" onclick="quitTeacher();">탈퇴하기</a></th>
+<th><button class="btn btn-danger"  onclick="quitTeacher('${teacherList.id}');">탈퇴하기</button></th>
                                         </tr>
                                     </c:forEach>
                                     </tbody>
@@ -99,7 +101,7 @@ function approveTeacher(){
                                     <tr>
 <th>  ${teacherStandByList.name}</th>
 <th>${teacherStandByList.join_date}</th>
-<th><a  href="approveTeacher.mdo?id=${teacherStandByList.id}" onclick="approveTeacher();">승인하기</a></th>
+<th><button class="btn btn-info" onclick="approveTeacher(${teacherStandByList.id});">승인하기</button></th>
                                         </tr>
                                     </c:forEach>
                                     </tbody>
@@ -121,7 +123,7 @@ function approveTeacher(){
                                     <tr>
 <th>${teacherQuitList.name}</th>
 <th><fmt:formatDate value="${teacherQuitList.update_date}" pattern="yyyy-MM-dd" /></th>
-<th><a href="reJoinTeacher.mdo?id=${teacherQuitList.id}" onclick="rejoinTeacher();">재등록하기</a></th>
+<th><button class="btn btn-success" onclick="rejoinTeacher(${teacherQuitList.id});">재등록하기</button></th>
                                         </tr>
                                     </c:forEach>
                                     </tbody>

@@ -183,24 +183,26 @@
             </li>
             </c:if>
             <c:if test="${loginTeacher.teaid eq 'admin'}">
+            <li class="nav-item">
+                <a class="nav-link" href="todayOrder.mdo">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>오늘업무작성</span></a>
+            </li>
+            
             
             <li class="nav-item"> 
                 <a class="nav-link" href="orderWork.mdo">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>업무지시</span></a>
+                    <span>추가업무작성</span></a>
             </li>
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
                 <a class="nav-link" href="orderWorkList.mdo">
                     <i class="fas fa-fw fa-table"></i>
-                    <span>업무지시목록</span></a>
+                    <span>업무목록</span></a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="todayOrder.mdo">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>업무작성</span></a>
-            </li>
+            
 			</c:if>
            
 

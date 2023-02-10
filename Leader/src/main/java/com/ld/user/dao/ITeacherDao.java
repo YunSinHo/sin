@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.ld.admin.vo.PostscriptVO;
 import com.ld.admin.vo.ReportVO;
 import com.ld.user.vo.TeacherVO;
 
@@ -54,5 +55,41 @@ public interface ITeacherDao {
 	void deletejointOrder(int id);
 
 	void addTodayOrder(ReportVO reportVO);
+
+	List<ReportVO> finishOrderTeacher();
+
+	List<ReportVO> incompleteOrder();
+
+	List<ReportVO> ongoingOrder();
+
+	List<ReportVO> finishOrderTeacherchoiceDate(String choiceDate);
+
+	List<ReportVO> incompleteOrderchoiceDate(String choiceDate);
+
+	List<ReportVO> ongoingOrderchoiceDate(String choiceDate);
+
+	void reOrder(ReportVO reportVO);
+
+	List<ReportVO> realJointOrderList();
+
+	List<ReportVO> todayOrderList(int id);
+
+	List<ReportVO> incompleteOrderOne(int id);
+
+	List<ReportVO> longOrderList(int id);
+
+
+	public void longOrderFulfill(ReportVO reportVO);
+
+	void insertPostscript(PostscriptVO postscriptVO);
+
+	List<ReportVO> longOrderListAll();
+
+	List<PostscriptVO> postscriptList();
+
+	void deleteOrder(int id);
+
+	void deletePostscript(int id);
+
 
 }

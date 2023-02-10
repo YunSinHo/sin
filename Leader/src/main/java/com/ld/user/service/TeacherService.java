@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ld.admin.vo.PostscriptVO;
 import com.ld.admin.vo.ReportVO;
 import com.ld.user.dao.ITeacherDao;
 import com.ld.user.vo.TeacherVO;
@@ -94,6 +95,71 @@ public class TeacherService {
 	}
 	public void addTodayOrder(ReportVO reportVO) {
 		teacherDao.addTodayOrder(reportVO);
+		
+	}
+	public List<ReportVO> finishOrderTeacher() {
+		return teacherDao.finishOrderTeacher();
+	}
+	public List<ReportVO> incompleteOrder() {
+		// TODO Auto-generated method stub
+		return teacherDao.incompleteOrder();
+	}
+	public List<ReportVO> ongoingOrder() {
+		return teacherDao.ongoingOrder();
+	}
+	public List<ReportVO> finishOrderTeacher(String choiceDate) {
+		// TODO Auto-generated method stub
+		return teacherDao.finishOrderTeacherchoiceDate(choiceDate);
+	}
+	public List<ReportVO> incompleteOrder(String choiceDate) {
+		// TODO Auto-generated method stub
+		return teacherDao.incompleteOrderchoiceDate(choiceDate);
+	}
+	public List<ReportVO> ongoingOrder(String choiceDate) {
+		// TODO Auto-generated method stub
+		return teacherDao.ongoingOrderchoiceDate(choiceDate);
+	}
+	public void reOrder(ReportVO reportVO) {
+		teacherDao.reOrder(reportVO);
+		
+	}
+	public List<ReportVO> realJointOrderList() {
+		// TODO Auto-generated method stub
+		return teacherDao.realJointOrderList();
+	}
+	public List<ReportVO> todayOrderList(int id) {
+		// TODO Auto-generated method stub
+		return teacherDao.todayOrderList(id);
+	}
+	public List<ReportVO> incompleteOrderOne(int id) {
+		// TODO Auto-generated method stub
+		return teacherDao.incompleteOrderOne(id);
+	}
+	public List<ReportVO> longOrderList(int id) {
+		// TODO Auto-generated method stub
+		return teacherDao.longOrderList(id);
+	}
+	public void longOrderFulfill(ReportVO reportVO) {
+		 teacherDao.longOrderFulfill(reportVO);
+		
+	}
+	public void insertPostscript(PostscriptVO postscriptVO) {
+		teacherDao.insertPostscript(postscriptVO);
+		
+	}
+	public List<ReportVO> longOrderListAll() {
+		// TODO Auto-generated method stub
+		return teacherDao.longOrderListAll();
+	}
+	public List<PostscriptVO> postscriptList() {
+		return teacherDao.postscriptList();
+	}
+	public void deleteOrder(int id) {
+		teacherDao.deleteOrder(id);
+		
+	}
+	public void deletePostscript(int id) {
+		teacherDao.deletePostscript(id);
 		
 	}
 }

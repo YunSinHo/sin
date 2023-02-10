@@ -34,7 +34,7 @@
     <!-- 학원생 회원가입 -->
   <div id="student">
     <div class="input-form-backgroud row">
-      <div class="input-form col-md-12 mx-auto">
+      <div class="input-form col-md-13 mx-auto">
         <h4 class="mb-3">학원생 로그인</h4>
         <form  class="validation-form" action="loginStudent.do" method="post" name="loginFrm">
           <div class="mb-3">
@@ -58,21 +58,5 @@
     </div>
   </div>
   <body>
-  <script>
-    window.addEventListener('load', () => {
-      const forms = document.getElementsByClassName('validation-form');
-
-      Array.prototype.filter.call(forms, (form) => {
-        form.addEventListener('submit', function (event) {
-          if (form.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
-          }
-
-          form.classList.add('was-validated');
-        }, false);
-      });
-    }, false);
-  </script>
 </body>
 </html>

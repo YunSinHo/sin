@@ -3,6 +3,42 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
 <mapper namespace="com.ld.user.dao.ITeacherDao">
+<!-- 개인 당일 업무 -->
+<select id="todayOrderList" resultType="com.ld.admin.vo.ReportVO">
+	select * from report where teacher_id=#{param1} and create_date like CONCAT('%',current_date(),'%') and longorder='x' and fulfill !='o';
+</select>
+<!-- 데드라인이 지난 미완성 업무목록 강사 한명꺼 -->
+<select id="incompleteOrderOne" resultType="com.ld.admin.vo.ReportVO">
+	select * from report where teacher_id=#{param1} and fulfill !='o' and deadline <![CDATA[<=]]> now() order by update_date desc,create_date desc;
+</select>
+<!-- 장기프로젝트 현황 보고 -->
+<update id="longOrderFulfill" parameterType="com.ld.admin.vo.ReportVO">
+	update report set fulfill=#{fulfill} where id=#{id};
+</update>
+
+<!-- 개인 장기프로젝트 -->
+<select id="longOrderList" resultType="com.ld.admin.vo.ReportVO">
+	select * from report where teacher_id=#{param1} and longorder='o' and (fulfill !='o' or fulfill is null);
+</select>
+<!-- 진행중인 모든 장기프로젝트 -->
+<select id="longOrderListAll" resultType="com.ld.admin.vo.ReportVO">
+	select * from report where longorder='o' and (fulfill !='o' or fulfill is null);
+</select>
+<!-- 특이사항(추신) 인서트 -->
+<insert id="insertPostscript" parameterType="com.ld.admin.vo.PostscriptVO">
+	insert into postscript(content,teacher_id,teacher_name) values(#{content},#{teacher_id},#{teacher_name});
+</insert>
+<select id="postscriptList" resultType="com.ld.admin.vo.PostscriptVO">
+	select * from postscript order by create_date desc;
+</select>
+<!-- 업무 삭제 -->
+<delete id="deleteOrder">
+	delete from report where id=#{param1}
+</delete>
+<!-- 특이사항(추신)삭제 -->
+<delete id="deletePostscript">
+	delete from postscript where id=#{param1}
+</delete>
 	<!-- 강사 목록 -->
 	<select id="teacherList" resultType="com.ld.user.vo.TeacherVO">
 		select * from teacher where available='o';
@@ -40,19 +76,49 @@
 <select id="teacherOne" resultType="com.ld.user.vo.TeacherVO">
 	select * from teacher where id=#{param1}
 </select>
-<!-- 업무지시 등록 -->
+<!-- 추가 개인업무 등록 -->
 <insert id="orderWorkOne">
-	insert into report(teacher_id,title,content,teacher_name) values (#{teacher_id},#{title},#{content},#{teacher_name});
+	insert into report(teacher_id,title,content,teacher_name,deadline) values (#{teacher_id},#{title},#{content},#{teacher_name},DATE_ADD(now(),interval 12 hour));
 </insert>
-<!-- 업무지시 목록 -->
+<!-- 업무 전체목록 -->
 <select id="reportList" resultType="com.ld.admin.vo.ReportVO">
 	select * from report order by update_date desc,create_date desc;
 </select>
-<!-- 업무 지시목록 날짜변경 -->
+
+<!-- 강사가 완료처리한 업무목록 -->
+<select id="finishOrderTeacher" resultType="com.ld.admin.vo.ReportVO">
+	select * from report where fulfill='o' and longorder='x' order by update_date desc,create_date desc;
+</select>
+<!-- 데드라인이 지난 미완성 업무목록 -->
+<select id="incompleteOrder" resultType="com.ld.admin.vo.ReportVO">
+	select * from report where fulfill!='o' and longorder='x' and deadline <![CDATA[<=]]> now() order by update_date desc,create_date desc;
+</select>
+
+<!-- 진행중인 업무 -->
+<select id="ongoingOrder" resultType="com.ld.admin.vo.ReportVO">
+	select * from report where fulfill!='o' and longorder='x' and deadline <![CDATA[>=]]> now() order by update_date desc,create_date desc;
+</select>
+<!-- 당일 업무 -->
+<!-- 날짜 변경한 업무 목록들 -->
+<!-- 강사가 완료처리한 업무목록 -->
+<select id="finishOrderTeacherchoiceDate" resultType="com.ld.admin.vo.ReportVO">
+	select * from report where fulfill='o' and create_date like CONCAT('%',#{param1},'%') order by update_date desc,create_date desc;
+</select>
+<!-- 데드라인이 지난 미완성 업무목록 -->
+<select id="incompleteOrderchoiceDate" resultType="com.ld.admin.vo.ReportVO">
+	select * from report where fulfill='x' and deadline <![CDATA[<=]]> now() and create_date like CONCAT('%',#{param1},'%') order by update_date desc,create_date desc;
+</select>
+<!-- 진행중인 업무 -->
+<select id="ongoingOrderchoiceDate" resultType="com.ld.admin.vo.ReportVO">
+	select * from report where fulfill='x' and deadline <![CDATA[>=]]> now() and create_date like CONCAT('%',#{param1},'%') order by update_date desc,create_date desc;
+</select>
+
+
+<!-- 업무 목록 날짜변경 -->
 <select id="reportListDate" resultType="com.ld.admin.vo.ReportVO">
 	select * from report where create_date like CONCAT('%',#{param1},'%') order by update_date desc,create_date desc;
 </select>
-<!-- 업무지시 목록 한개 -->
+<!-- 업무 목록 한개 -->
 <select id="orderListOne" resultType="com.ld.admin.vo.ReportVO">
 	select * from report where id=#{param1}
 </select>
@@ -66,11 +132,14 @@
 </update>
 <!-- 읽지않은 강사한명 업무목록 -->
 <select id="orderListCheckTeacherOne" resultType="com.ld.admin.vo.ReportVO">
-select * from report where teacher_id=#{param1} and `check`='x' order by update_date desc; 
+select * from report where teacher_id=#{param1} and `check`='x' or (teacher_id=0 and `check`='x') order by update_date desc; 
 </select>
 <!-- 강사 업무완료 보고 -->
+<!--  <update id="fulfillEnd" parameterType="com.ld.admin.vo.ReportVO">
+	update report set fulfill='o',update_date=now(),replyteacher=#{replyteacher},teacher_name=#{teacher_name} where id=#{id}
+</update>-->
 <update id="fulfillEnd">
-	update report set fulfill='o',update_date=now() where id=#{param1}
+	update report set fulfill='o',update_date=now() where id=#{id}
 </update>
 <!-- 업무완료처리 최종 -->
 <update id="successFinal">
@@ -81,7 +150,7 @@ select * from report where teacher_id=#{param1} and `check`='x' order by update_
 <insert id="addJointOrder">
 insert into report (title,content) values(#{param1},'jointOrder');
 </insert>
-<!-- 공동업무 리스트 -->
+<!-- 공동업무 리스트 가져오기 -->
 <select id="jointOrderList" resultType="com.ld.admin.vo.ReportVO">
 	select * from report where content='jointOrder';
 </select>
@@ -89,7 +158,18 @@ insert into report (title,content) values(#{param1},'jointOrder');
 <delete id="deletejointOrder">
 	delete from report where id=#{param1}
 </delete>
+<!-- 진짜로 해야할 공동업무 -->
+<select id="realJointOrderList" resultType="com.ld.admin.vo.ReportVO">
+	select * from report where teacher_id=0;
+</select>
+<!-- 오늘의 업무 등록 -->
 <insert id="addTodayOrder" parameterType="com.ld.admin.vo.ReportVO">
-	insert into report (teacher_id,teacher_name,title,deadline) values(#{teacher_id},#{teacher_name},#{title},DATE_ADD(now(),interval 1 day));
+	insert into report (teacher_id,teacher_name,title,deadline) values(#{teacher_id},#{teacher_name},#{title},DATE_ADD(#{deadline},interval 1 day));
 </insert>
+<!-- 업무 재전송 -->
+<update id="reOrder" parameterType="com.ld.admin.vo.ReportVO">
+	update report set fulfill='x',reorder='o',reply=#{reply},teacher_name=#{teacher_name},update_date=now(),
+	deadline=<if test='deadline == null'>DATE_ADD(now(),interval 12 hour)</if><if test='deadline != null'>#{deadline}</if>
+	 where id=#{id}
+</update>
 </mapper>

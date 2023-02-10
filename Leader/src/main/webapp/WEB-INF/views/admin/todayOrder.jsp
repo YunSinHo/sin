@@ -9,15 +9,26 @@ function addJointOrder(){
 	window.open(url, "addJoinForm", opt);	
 	
 }
-function deleteJointOrder(){
-	if(confirm("삭제하시겠습니까?"))
+function deleteJointOrder(id){
+	if(confirm("삭제하시겠습니까?")){
+		location.href="deleteJointOrder.mdo?id="+id;
 		return true;
+	}
+		
+		
 }
 
 </script>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%
+	Date nowTime = new Date();
+	SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+%>
+
 <form name="todayOrder" method="post" action="addTodayOrder.mdo">
 	<div class="container-fluid">
-
+	<input type="hidden" name="deadline" value=<%= sf.format(nowTime) %>>
                     <!-- Page Heading -->
                     <h1 class="h1 mb-2 text-gray-800">상시업무</h1>
                     <!-- DataTales Example -->
@@ -51,7 +62,7 @@ function deleteJointOrder(){
 	</c:forEach>
 </select>
                                         </td>
- <td><a type="button" class="btn btn-danger" href="deleteJointOrder.mdo?id=${list.id}"onclick="deleteJointOrder();">삭제하기</a></td>
+ <td><button type="button" class="btn btn-danger" onclick="deleteJointOrder(${list.id});">삭제하기</button></td>
                                         </tr>
                                         </c:forEach>
                                 </table>

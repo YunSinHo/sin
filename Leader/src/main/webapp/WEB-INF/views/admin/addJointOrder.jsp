@@ -32,10 +32,19 @@
 <body>
 <script>
 function addOrder(){
+	var title;
+	for(var i=0; i<document.getElementsByName("title").length;i++){
+		if(i==document.getElementsByName("title").length-1)
+			title+=document.getElementsByName("title")[i].value;
+		else
+		title+=document.getElementsByName("title")[i].value+",";
+	}
+	var title1=title.replace('undefined','');
 	if(confirm("추가하시겠습니까?")){
-		document.addJoinForm.action="addJointOrder.mdo";
-		document.addJoinForm.submit();
+		location.href="addJointOrder.mdo?title="+title1;
 	window.opener.location.reload();
+	window.close();
+	return true;
 	}
 }
 </script>
