@@ -18,11 +18,11 @@
 
 <!-- 개인 장기프로젝트 -->
 <select id="longOrderList" resultType="com.ld.admin.vo.ReportVO">
-	select * from report where teacher_id=#{param1} and longorder='o' and (fulfill !='o' or fulfill is null);
+	select * from report where teacher_id=#{param1} and longorder='o' and fulfill !='o' and deadline <![CDATA[>=]]> now();
 </select>
 <!-- 진행중인 모든 장기프로젝트 -->
 <select id="longOrderListAll" resultType="com.ld.admin.vo.ReportVO">
-	select * from report where longorder='o' and (fulfill !='o' or fulfill is null);
+	select * from report where longorder='o' and fulfill !='o' and deadline <![CDATA[>=]]> now();
 </select>
 <!-- 특이사항(추신) 인서트 -->
 <insert id="insertPostscript" parameterType="com.ld.admin.vo.PostscriptVO">
@@ -91,7 +91,7 @@
 </select>
 <!-- 데드라인이 지난 미완성 업무목록 -->
 <select id="incompleteOrder" resultType="com.ld.admin.vo.ReportVO">
-	select * from report where fulfill!='o' and longorder='x' and deadline <![CDATA[<=]]> now() order by update_date desc,create_date desc;
+	select * from report where fulfill!='o'  and deadline <![CDATA[<=]]> now() order by update_date desc,create_date desc;
 </select>
 
 <!-- 진행중인 업무 -->
@@ -168,8 +168,8 @@ insert into report (title,content) values(#{param1},'jointOrder');
 </insert>
 <!-- 업무 재전송 -->
 <update id="reOrder" parameterType="com.ld.admin.vo.ReportVO">
-	update report set fulfill='x',reorder='o',reply=#{reply},teacher_name=#{teacher_name},update_date=now(),
-	deadline=<if test='deadline == null'>DATE_ADD(now(),interval 12 hour)</if><if test='deadline != null'>#{deadline}</if>
+	update report set fulfill='x',reorder='o',teacher_name=#{teacher_name},update_date=now(), teacher_id=#{teacher_id}, title=#{title},
+	deadline=<if test='deadline == null'>DATE_ADD(now(),interval 12 hour)</if><if test='deadline != null'>DATE_ADD(#{deadline},interval 1 day)</if>
 	 where id=#{id}
 </update>
 </mapper>

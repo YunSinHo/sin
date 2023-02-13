@@ -432,34 +432,69 @@ public class orderWorkController {
 			
 			return "redirect:/imsi3";
 		}
+		//재전송
 		@RequestMapping("/reOrder.mdo")
 		public String reOrder(@RequestParam(value="id",required=false)int id[],
 				HttpServletRequest request,
 		@RequestParam("title")String title[],
 		@RequestParam("teacher_id")int teacher_id[],
-		@RequestParam(value="deadline",required=false)String deadline[]) {
-			List<Timestamp> timeList=new ArrayList();
-			for(int i=0;i)
-			if(deadline.length()<12) {
-				deadline=deadline+" 00:00:00";
-				timestamp = Timestamp.valueOf(deadline);
-			}
-			else {
-				deadline=deadline+":00";
-				timestamp = Timestamp.valueOf(deadline);
-			}
-			try {
-				for(int i=0;i<id.length;i++) {
-					if(teacher_id[i]==0) {
-						ReportVO reportVO=new ReportVO();
-						reportVO.setDeadline(timestamp);
-						reportVO.setTitle(title[i]);
-					}
-				}
-			}catch(Exception e) {
+		@RequestParam(value="deadline",required=false)String deadlineArr[]) {
+			System.out.println(title[0]);
+			Timestamp timestamp=null;
+			for(int i=0;i<deadlineArr.length;i++) {
 				
 			}
-			return "redirect:/orderWorkList.mdo";
+			
+			for(int i=0;i<id.length;i++) {
+				if(id[i]!=0) {
+					TeacherVO teacherVO=teacherService.teacherOne(teacher_id[i]);
+					ReportVO reportVO=new ReportVO();
+					reportVO.setId(id[i]);
+					reportVO.setTeacher_name(teacherVO.getName());
+					reportVO.setTeacher_id(teacher_id[i]);
+					reportVO.setTitle(title[i]);
+					String deadline=deadlineArr[i];
+					if(deadlineArr[i].contains("-")) {
+						deadline=deadline+" 00:00:00";
+						timestamp=Timestamp.valueOf(deadline);
+						reportVO.setDeadline(timestamp);
+					}
+					else reportVO.setDeadline(timestamp);
+					teacherService.reOrder(reportVO);
+				}
+			}
+			return "redirect:/imsi3";
+		}
+		@RequestMapping(value="newOrder.mdo",method=RequestMethod.POST)
+		public ModelAndView newOrder (@RequestParam("teacher_id")int teacher_id[],
+				@RequestParam("title")String title[],
+				@RequestParam("deadline")String deadline[],
+				@RequestParam("deadline1")String deadline1) {
+			ModelAndView mav = new ModelAndView();
+			for(int i=0;i<teacher_id.length;i++) {
+				Timestamp timestamp=null;
+				if(teacher_id[i]!=0&&!title[i].equals("")) {
+					TeacherVO teacherVO=teacherService.teacherOne(teacher_id[i]);
+					ReportVO reportVO=new ReportVO();
+					reportVO.setTeacher_name(teacherVO.getName());
+					reportVO.setTeacher_id(teacher_id[i]);
+					reportVO.setTitle(title[i]);
+					if(deadline[i].equals("")||deadline[i].equals("날짜 선택")) {
+						deadline1=deadline1+" 00:00:00";
+						timestamp=Timestamp.valueOf(deadline1);
+						reportVO.setDeadline(timestamp);
+					}
+					else {
+						deadline[i]=deadline[i]+" 00:00:00";
+						timestamp=Timestamp.valueOf(deadline[i]);
+						reportVO.setDeadline(timestamp);
+					}
+					teacherService.addTodayOrder(reportVO);
+					
+				}
+			}
+			mav.setViewName("redirect:/imsi3");
+			return mav;
 		}
 }
 		
