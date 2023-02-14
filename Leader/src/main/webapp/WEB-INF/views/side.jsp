@@ -177,7 +177,7 @@
             <!-- Nav Item - Charts -->
             <c:if test="${loginTeacher.teaid ne 'admin'&&loginTeacher ne null}">
              <li class="nav-item"> 
-                <a class="nav-link" href="orderListTeacherOne.mdo?id=${id}">
+                <a class="nav-link" href="main.do?id=${id}">
                     <i class="fas fa-fw fa-table"></i>
                     <span>업무목록</span></a>
             </li>
@@ -190,7 +190,7 @@
             </li>
             
             
-            <li class="nav-item"> 
+            <li class="nav-item">
                 <a class="nav-link" href="orderWork.mdo">
                     <i class="fas fa-fw fa-table"></i>
                     <span>추가업무작성</span></a>
@@ -198,9 +198,15 @@
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link" href="orderWorkList.mdo">
+                <a class="nav-link" href="adminOrderList.mdo">
                     <i class="fas fa-fw fa-table"></i>
                     <span>업무목록</span></a>
+            </li>
+            
+            <li class="nav-item">
+                <a class="nav-link" href="addDailyOrderForm.mdo">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>상시업무등록</span></a>
             </li>
             
 			</c:if>

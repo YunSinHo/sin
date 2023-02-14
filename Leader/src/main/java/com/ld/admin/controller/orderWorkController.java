@@ -297,8 +297,10 @@ public class orderWorkController {
 			teacherService.reOrder(reportVO);
 			return "redirect:/orderWorkList.mdo";
 		}*/
-		@RequestMapping(value="/imsi",method=RequestMethod.GET)
-		public ModelAndView imsi(HttpServletRequest request) {
+		//강사 업무 목록
+		@RequestMapping(value="/teacherOrderList.mdo",method=RequestMethod.GET)
+		public ModelAndView teacherOrderList1(@RequestParam("date")String date,
+				HttpServletRequest request) {
 			int id=0;
 			HttpSession session=request.getSession();
 			try {
@@ -307,7 +309,7 @@ public class orderWorkController {
 			}
 			TeacherVO teacherVO=(TeacherVO)session.getAttribute("loginTeacher");
 			ModelAndView mav=new ModelAndView();
-			//당일업무
+			//오늘의 업무
 			List<ReportVO> reportVO1=new ArrayList();
 			reportVO1=teacherService.todayOrderList(id);
 			mav.addObject("todayOrderList",reportVO1);
@@ -320,16 +322,66 @@ public class orderWorkController {
 			List<ReportVO> reportVO3=new ArrayList();
 			reportVO3=teacherService.longOrderList(id);
 			mav.addObject("longOrderList",reportVO3);
+			//데일리 업무
+			List<ReportVO> reportVO4=new ArrayList();
+			reportVO4=teacherService.dailyOrderList(id,date);
+			mav.addObject("dailyOrderList",reportVO4);
+			mav.setViewName("admin/teacherOrderList");
+			return mav;
+		}
+		//이전 업무 현황표
+		@RequestMapping(value="/teacherOrderList2.mdo",method=RequestMethod.GET)
+		public ModelAndView teacherOrderList2(@RequestParam(value="deadline",required=false)String deadline,
+				HttpServletRequest request) {
+			int id=0;
+			HttpSession session=request.getSession();
+			try {
+				id=(int)session.getAttribute("id");
+			}catch(Exception e){
+			}
+			TeacherVO teacherVO=(TeacherVO)session.getAttribute("loginTeacher");
+			ModelAndView mav=new ModelAndView();
+			
+			if(!deadline.equals("날짜 선택(전체)")) {
+				List<ReportVO> reportVO1=new ArrayList();
+				reportVO1=teacherService.todayOrderList(id);
+				mav.addObject("todayOrderList",reportVO1);
+				//데드라인 지난 미완성업무 강사 한명꺼 조회 incompleteOrderOne
+				List<ReportVO> reportVO2=new ArrayList();
+				reportVO2=teacherService.incompleteOrderOneDate(id,deadline);
+				mav.addObject("incompleteOrderOne",reportVO2);
+				
+				//장기프로젝트
+				List<ReportVO> reportVO3=new ArrayList();
+				reportVO3=teacherService.longOrderListDate(id,deadline);
+				mav.addObject("longOrderList",reportVO3);
+			}
+			else {
+			List<ReportVO> reportVO1=new ArrayList();
+			reportVO1=teacherService.todayOrderList(id);
+			mav.addObject("todayOrderList",reportVO1);
+			//데드라인 지난 미완성업무 강사 한명꺼 조회 incompleteOrderOne
+			List<ReportVO> reportVO2=new ArrayList();
+			reportVO2=teacherService.incompleteOrderOne(id);
+			mav.addObject("incompleteOrderOne",reportVO2);
+			
+			//장기프로젝트
+			List<ReportVO> reportVO3=new ArrayList();
+			reportVO3=teacherService.longOrderList(id);
+			mav.addObject("longOrderList",reportVO3);
+			}
 			mav.setViewName("admin/teacherOrderList");
 			return mav;
 		}
 		//업무 제출
-		@RequestMapping(value="/imsi2",method=RequestMethod.GET)
+		@RequestMapping(value="/submitOrder.mdo",method=RequestMethod.GET)
 		public ModelAndView imsi2(HttpServletRequest request,
 				@RequestParam(value="id",required=false)int id[],
 				@RequestParam(value="id2",required=false)int id2[],
 				@RequestParam(value="postscript",required=false)String postscript,
-				@RequestParam(value="teacher_name",required=false)String teacher_name) {
+				@RequestParam(value="teacher_name",required=false)String teacher_name,
+				@RequestParam(value="content",required=false)String content[]) {
+			System.out.println(Arrays.asList(content));
 			ModelAndView mav=new ModelAndView();
 			HttpSession session=request.getSession();
 			int id3=0;
@@ -355,7 +407,10 @@ public class orderWorkController {
 			}
 			try {
 				for(int i=0;i<id.length;i++) {
-					teacherService.fulfillEnd(id[i]);
+					if(id[i]!=0) {
+						teacherService.fulfillEnd(id[i],content[i]);
+					}
+					
 				}
 			}catch(Exception e) {
 				
@@ -367,10 +422,10 @@ public class orderWorkController {
 			postscriptVO.setContent(postscript);
 			teacherService.insertPostscript(postscriptVO);
 			}
-			mav.setViewName("redirect:/imsi?id="+id3);
+			mav.setViewName("redirect:/teacherOrderList.mdo?id="+id3);
 			return mav;
-}
-		@RequestMapping("/imsi3")
+}		//어드민 업무 리스트
+		@RequestMapping("/adminOrderList.mdo")
 		public ModelAndView imsi3() {
 			ModelAndView mav=new ModelAndView();
 			
@@ -416,7 +471,7 @@ public class orderWorkController {
 				
 			}
 			
-			return "redirect:/imsi3";
+			return "redirect:/adminOrderList.mdo";
 		}
 		//특이사항(추신)삭제
 		@RequestMapping("/deletePostscript.mdo")
@@ -430,7 +485,7 @@ public class orderWorkController {
 				
 			}
 			
-			return "redirect:/imsi3";
+			return "redirect:/adminOrderList.mdo";
 		}
 		//재전송
 		@RequestMapping("/reOrder.mdo")
@@ -463,8 +518,9 @@ public class orderWorkController {
 					teacherService.reOrder(reportVO);
 				}
 			}
-			return "redirect:/imsi3";
+			return "redirect:/adminOrderList.mdo";
 		}
+		//새 업무 등록
 		@RequestMapping(value="newOrder.mdo",method=RequestMethod.POST)
 		public ModelAndView newOrder (@RequestParam("teacher_id")int teacher_id[],
 				@RequestParam("title")String title[],
@@ -493,8 +549,40 @@ public class orderWorkController {
 					
 				}
 			}
-			mav.setViewName("redirect:/imsi3");
+			mav.setViewName("redirect:/adminOrderList.mdo");
 			return mav;
+		}
+		//상시업무 추가
+		@RequestMapping("/addDailyOrderForm.mdo")
+		public ModelAndView addDailyOrderForm() {
+			ModelAndView mav=new ModelAndView();
+			
+			List<TeacherVO> teacherVO=new ArrayList();
+			teacherVO=teacherService.teacherList();
+			mav.addObject("teacherList",teacherVO);
+			mav.setViewName("admin/addDailyOrder");
+			return mav;
+		}
+		@RequestMapping(value="/addDailyOrder.mdo")
+		public ModelAndView addDailyOrder(@RequestParam("teacher_id")int teacher_id) {
+			ModelAndView mav=new ModelAndView();
+			List<ReportVO> reportVO =new ArrayList();
+			reportVO=teacherService.dailyOrderSampleList(teacher_id);
+			mav.addObject("dailyList",reportVO);
+			mav.addObject("teacher_id",teacher_id);
+			mav.setViewName("admin/addDailyOrderForm");
+			return mav;
+		}
+		@RequestMapping(value="/insertDailyOrder.mdo", method=RequestMethod.POST)
+		public String insertDailyOrder(@RequestParam("teacher_id")int teacher_id,
+				@RequestParam("title")String title[]) {
+			TeacherVO teacherVO=teacherService.teacherOne(teacher_id);
+			for(int i=0;i<title.length;i++) {
+				teacherService.insertDailyOrder(teacher_id,title[i],teacherVO.getName());
+			}
+			
+			
+			return "redirect:/addDailyOrder.mdo?teacher_id="+teacher_id;
 		}
 }
 		

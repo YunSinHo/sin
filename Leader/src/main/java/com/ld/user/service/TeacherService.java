@@ -73,8 +73,8 @@ public class TeacherService {
 		
 		return teacherDao.orderListCheckTeacherOne(teacher_id);
 	}
-	public void fulfillEnd(int id) {
-		teacherDao.fulfillEnd(id);
+	public void fulfillEnd(int id, String content) {
+		teacherDao.fulfillEnd(id,content);
 	}
 	public List<ReportVO> reportListDate(String choiceDate) {
 		return teacherDao.reportListDate(choiceDate);
@@ -161,5 +161,25 @@ public class TeacherService {
 	public void deletePostscript(int id) {
 		teacherDao.deletePostscript(id);
 		
+	}
+	public List<ReportVO> incompleteOrderOneDate(int id, String deadline) {
+		// TODO Auto-generated method stub
+		return teacherDao.incompleteOrderOneDate(id,deadline);
+	}
+	public List<ReportVO> longOrderListDate(int id, String deadline) {
+		// TODO Auto-generated method stub
+		return teacherDao.longOrderListDate(id,deadline);
+	}
+	public List<ReportVO> dailyOrderList(int id, String date) {
+		// TODO Auto-generated method stub
+		return teacherDao.dailyOrderList(id,date);
+	}
+	public void insertDailyOrder(int teacher_id, String string, String name) {
+		teacherDao.insertDailyOrder(teacher_id,string,name);
+		
+	}
+	public List<ReportVO> dailyOrderSampleList(int teacher_id) {
+		// TODO Auto-generated method stub
+		return teacherDao.dailyOrderSampleList(teacher_id);
 	}
 }

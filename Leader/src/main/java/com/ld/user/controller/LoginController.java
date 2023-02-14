@@ -193,7 +193,7 @@ public class LoginController {
 			String newOrder1=newOrder+"+";
 			session.setAttribute("newOrder",newOrder1);
 			
-			url="redirect:/tables.mdo";
+			url="redirect:/main.do";
 		}
 		
 	return url;
@@ -236,5 +236,19 @@ public class LoginController {
 		HttpSession session=request.getSession();
 		session.invalidate();
 		return "redirect:/tables.mdo";
+	}
+	//로그인시 메인 페이지
+	@RequestMapping("/main.do")
+	public ModelAndView main(HttpServletRequest request) {
+		HttpSession session=request.getSession();
+		int id=(int)session.getAttribute("id");
+		ModelAndView mav =new ModelAndView();
+		TeacherVO teacherVO=new TeacherVO();
+		teacherVO=teacherService.teacherOne(id);
+		mav.addObject("teacher",teacherVO);
+		
+		
+		mav.setViewName("user/main");
+		return mav;
 	}
 }

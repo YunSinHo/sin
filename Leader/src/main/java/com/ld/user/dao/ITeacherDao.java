@@ -42,7 +42,7 @@ public interface ITeacherDao {
 
 	List<ReportVO> orderListCheckTeacherOne(int teacher_id);
 
-	void fulfillEnd(int id);
+	void fulfillEnd(int id, String content);
 
 	List<ReportVO> reportListDate(String choiceDate);
 
@@ -90,6 +90,16 @@ public interface ITeacherDao {
 	void deleteOrder(int id);
 
 	void deletePostscript(int id);
+
+	List<ReportVO> incompleteOrderOneDate(int id, String deadline);
+
+	List<ReportVO> longOrderListDate(int id, String deadline);
+
+	List<ReportVO> dailyOrderList(int id, String date);
+
+	void insertDailyOrder(int teacher_id, String string, String name);
+
+	List<ReportVO> dailyOrderSampleList(int teacher_id);
 
 
 }

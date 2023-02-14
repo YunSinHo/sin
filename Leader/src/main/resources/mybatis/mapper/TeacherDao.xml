@@ -3,9 +3,33 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
 <mapper namespace="com.ld.user.dao.ITeacherDao">
+<!-- 데일리 업무 샘플리스트 -->
+<select id="dailyOrderSampleList" resultType="com.ld.admin.vo.ReportVO"> 
+select * from report where daily='o' and create_date is null and teacher_id=#{param1};
+</select>
+<!-- 데일리 업무 샘플리스트 등록 -->
+<insert id="insertDailyOrder">
+	insert into report(teacher_id,create_date,update_date,deadline,title,teacher_name,daily) 
+	values(#{param1},null,null,null,#{param2},#{param3},'o');
+</insert>
+<!-- 데일리 업무목록 -->
+<select id="dailyOrderList" resultType="com.ld.admin.vo.ReportVO">
+	select * from report where daily='o' and teacher_id=#{param1} and create_date like CONCAT('%',current_date(),'%');
+</select>
 <!-- 개인 당일 업무 -->
 <select id="todayOrderList" resultType="com.ld.admin.vo.ReportVO">
 	select * from report where teacher_id=#{param1} and create_date like CONCAT('%',current_date(),'%') and longorder='x' and fulfill !='o';
+</select>
+<!-- 개인 업무 날짜 선택 -->
+<!-- 데드라인이 지난 미완성 업무목록 강사 한명꺼 -->
+<select id="incompleteOrderOneDate" resultType="com.ld.admin.vo.ReportVO">
+	select * from report where teacher_id=#{param1} and fulfill !='o' and update_date like CONCAT('%',#{param2},'%') and
+	 deadline <![CDATA[<=]]> now() order by update_date desc,create_date desc;
+</select>
+<!-- 개인 장기프로젝트 -->
+<select id="longOrderListDate" resultType="com.ld.admin.vo.ReportVO">
+	select * from report where teacher_id=#{param1} and longorder='o' and fulfill !='o' and update_date like CONCAT('%',#{param2},'%')
+	 and deadline <![CDATA[>=]]> now();
 </select>
 <!-- 데드라인이 지난 미완성 업무목록 강사 한명꺼 -->
 <select id="incompleteOrderOne" resultType="com.ld.admin.vo.ReportVO">
@@ -139,7 +163,7 @@ select * from report where teacher_id=#{param1} and `check`='x' or (teacher_id=0
 	update report set fulfill='o',update_date=now(),replyteacher=#{replyteacher},teacher_name=#{teacher_name} where id=#{id}
 </update>-->
 <update id="fulfillEnd">
-	update report set fulfill='o',update_date=now() where id=#{id}
+	update report set fulfill='o',content=#{param2} where id=#{param1}
 </update>
 <!-- 업무완료처리 최종 -->
 <update id="successFinal">

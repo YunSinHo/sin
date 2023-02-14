@@ -8,6 +8,7 @@
 <%
 	Date nowTime = new Date();
 	SimpleDateFormat sf = new SimpleDateFormat("MM/dd");
+	SimpleDateFormat sf2 = new SimpleDateFormat("yyyy-MM-dd");
 %>
   <style>
     body {
@@ -37,11 +38,12 @@
   </style>
   <body>
   <form  class="validation-form"   name="todayOrderTeacher">
+  
   <input type="hidden" name="teacher_name" value="${loginTeacher.name}">
   <div class="input-form-backgroud row">
       <div class="input-form col-md-auto mx-auto">
-      <h5 style="color:black;">${loginTeacher.name} 업무현황&nbsp;<%= sf.format(nowTime) %></h5>
-      <div class="text-danger">
+      <h5 style="color:black; background-color:#e6f2ff;">${loginTeacher.name} 업무현황&nbsp;<%= sf.format(nowTime) %></h5>
+      <div  style="font-size:5px; color:#ff6666;">
       필참＞
 데드라인이 정해진 경우 그 시간안에 표기되지 않으면 미이행 건수에는 자동 카운트되며 업무평가에 반영되오니 데드라인이 별도 표기된 경우 시간을 준수해주세요.<br><br>
 
@@ -50,25 +52,56 @@
 3. 장기프로젝트는 진행도를 표시
 </div>
 <hr>
-        
           <div>
-            <h5 style="color:black;">★ 당일업무</h5>
-           <div class="text-muted"> 별 다른 데드라인이 없으면 당일 자정까지</div>
-           <c:forEach items="${todayOrderList}" var="todayOrderList">
-<div class="text-dark"><input type="checkbox" name="id" value="${todayOrderList.id}">&nbsp;
-<input type="text" value="${todayOrderList.title}"style="border:none;" ></div>
+            <h5 style="color:black;">★ 미완성업무</h5>
+           <p class="text-muted"> 당일마감이니 상부에 보고하여 업무 전체적인 조율을 받고 데드라인 재확인 후 진행</p>
+           <div style="width:900px;color:#0039e6">업무내용&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+세부내용 (자료보관시위치, 미이행시 사유, 업무이행상세내용 기입)</div>
+           <c:forEach items="${incompleteOrderOne}" var="incompleteOrderOne">
+           <div class="text-dark"><input type="checkbox" name="id" value="${incompleteOrderOne.id}">&nbsp;
+           <input type="text" value="${incompleteOrderOne.title}"style="border:none;" readonly >
+           <input type="text" name="content" value="${incompleteOrderOne.content}"style="border:none; width:700px" >
+           </div>
            </c:forEach>
           </div>
           <hr>
          <div>
-            <h5 style="color:black;">★ 미완성업무</h5>
-           <p class="text-muted"> 당일마감이니 상부에 보고하여 업무 전체적인 조율을 받고 데드라인 재확인 후 진행</p>
-           <c:forEach items="${incompleteOrderOne}" var="incompleteOrderOne">
-           <div class="text-dark"><input type="checkbox" name="id" value="${incompleteOrderOne.id}">&nbsp;
-           <input type="text" value="${incompleteOrderOne.title}"style="border:none;" ></div>
+            <h5 style="color:black;">★ 당일업무</h5>
+           <div class="text-muted"> 별 다른 데드라인이 없으면 당일 자정까지</div>
+            <div style="width:900px;color:#0039e6">업무내용&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+세부내용 (자료보관시위치, 미이행시 사유, 업무이행상세내용 기입)
+</div>
+           <c:forEach items="${todayOrderList}" var="todayOrderList">
+<div class="text-dark"><input type="checkbox" name="id" value="${todayOrderList.id}">&nbsp;
+<input type="text" value="${todayOrderList.title}"style="border:none;" >
+<input type="text" name="content" value="${todayOrderList.content}"style="border:none; width:700px" >
+</div>
            </c:forEach>
           </div>
           <hr >
+          <div>
+            <h5 style="color:black;">★ 상시업무</h5>
+           <div class="text-muted"> 별 다른 데드라인이 없으면 당일 자정까지</div>
+            <div style="width:900px;color:#0039e6">업무내용&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+세부내용 (자료보관시위치, 미이행시 사유, 업무이행상세내용 기입)
+</div>
+           <c:forEach items="${todayOrderList}" var="todayOrderList">
+<div class="text-dark"><input type="checkbox" name="id" value="${todayOrderList.id}">&nbsp;
+<input type="text" value="${todayOrderList.title}"style="border:none;" >
+<input type="text" name="content" value="${todayOrderList.content}"style="border:none; width:700px" >
+</div>
+           </c:forEach>
+          </div>
+          <hr>
           <div>
             <h5 style="color:black;">★ 장기프로젝트</h5><br>
             	<table class="table table-m">
@@ -119,8 +152,14 @@
 </body>
 <script>
 	function submitOrder(){
+		for(var i=0;i<document.getElementsByName("id").length;i++){
+			if(document.getElementsByName("id")[i].checked==false){
+				document.getElementsByName("id")[i].value=0;
+				document.getElementsByName("id")[i].checked=true;
+			}
+			}
 		if(confirm("제출하시겠습니까?"))
-		document.todayOrderTeacher.action="imsi2";
+		document.todayOrderTeacher.action="submitOrder.mdo";
 		document.todayOrderTeacher.submit();
 			return true;
 	}
