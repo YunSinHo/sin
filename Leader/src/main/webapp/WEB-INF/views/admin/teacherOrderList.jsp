@@ -38,7 +38,7 @@
   </style>
   <body>
   <form  class="validation-form"   name="todayOrderTeacher">
-  
+  <input type="hidden" name="date" value="<%=sf2.format(nowTime)%>">
   <input type="hidden" name="teacher_name" value="${loginTeacher.name}">
   <div class="input-form-backgroud row">
       <div class="input-form col-md-auto mx-auto">
@@ -54,8 +54,8 @@
 <hr>
           <div>
             <h5 style="color:black;">★ 미완성업무</h5>
-           <p class="text-muted"> 당일마감이니 상부에 보고하여 업무 전체적인 조율을 받고 데드라인 재확인 후 진행</p>
-           <div style="width:900px;color:#0039e6">업무내용&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           <p style="font-size:5px; color:#ff6666;"> 당일마감이니 상부에 보고하여 업무 전체적인 조율을 받고 데드라인 재확인 후 진행</p>
+           <div style="width:900px;"class="text-muted">업무내용&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -70,8 +70,8 @@
           <hr>
          <div>
             <h5 style="color:black;">★ 당일업무</h5>
-           <div class="text-muted"> 별 다른 데드라인이 없으면 당일 자정까지</div>
-            <div style="width:900px;color:#0039e6">업무내용&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           <div style="font-size:5px; color:#ff6666;"> 별 다른 데드라인이 없으면 당일 자정까지</div>
+            <div style="width:900px;" class="text-muted">업무내용&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -79,7 +79,15 @@
 </div>
            <c:forEach items="${todayOrderList}" var="todayOrderList">
 <div class="text-dark"><input type="checkbox" name="id" value="${todayOrderList.id}">&nbsp;
-<input type="text" value="${todayOrderList.title}"style="border:none;" >
+<c:choose>
+<c:when test="${todayOrderList.importance eq 'o'}">
+<input type="text" value="${todayOrderList.title}" readonly style="border:none; background-color:yellow;" >
+</c:when>
+<c:otherwise>
+<input type="text" value="${todayOrderList.title}" readonly style="border:none;" >
+</c:otherwise>
+</c:choose>
+
 <input type="text" name="content" value="${todayOrderList.content}"style="border:none; width:700px" >
 </div>
            </c:forEach>
@@ -87,17 +95,17 @@
           <hr >
           <div>
             <h5 style="color:black;">★ 상시업무</h5>
-           <div class="text-muted"> 별 다른 데드라인이 없으면 당일 자정까지</div>
-            <div style="width:900px;color:#0039e6">업무내용&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           <div style="font-size:5px; color:#ff6666;"> 별 다른 데드라인이 없으면 당일 자정까지</div>
+            <div style="width:900px;" class="text-muted">업무내용&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 세부내용 (자료보관시위치, 미이행시 사유, 업무이행상세내용 기입)
 </div>
-           <c:forEach items="${todayOrderList}" var="todayOrderList">
-<div class="text-dark"><input type="checkbox" name="id" value="${todayOrderList.id}">&nbsp;
-<input type="text" value="${todayOrderList.title}"style="border:none;" >
-<input type="text" name="content" value="${todayOrderList.content}"style="border:none; width:700px" >
+           <c:forEach items="${dailyOrderList}" var="dailyOrderList">
+<div class="text-dark"><input type="checkbox" name="id" value="${dailyOrderList.id}">&nbsp;
+<input type="text" value="${dailyOrderList.title}"style="border:none;" readonly>
+<input type="text" name="content" value="${dailyOrderList.content}"style="border:none; width:700px" >
 </div>
            </c:forEach>
           </div>
@@ -133,9 +141,7 @@
             	</table>
           </div>
           <hr>
-          <div>
-            <h5 style="color:black;">★ 결과물제출</h5>
-          </div>
+        
           <hr >
           <div>
             <h5 style="color:black;">★ 특이사항</h5>
@@ -143,6 +149,20 @@
            <div><textarea rows="7" cols="110" name="postscript"></textarea></div><br>
           </div>
           </form>
+            <div>
+            <h5 style="color:black;">★ 결과물제출</h5>
+    <h3>파일 업로드</h3>
+     <form action="/upload" method="post" enctype="multipart/form-data">
+     	  
+           <h4>단일 파일 업로드</h4>
+           <input type="file" name="file">
+                   	
+           <h4>다중 파일 업로드</h4>
+           <input type="file" multiple="multiple" name="files">
+			
+	   <input type="submit"/>
+	</form>
+          </div>
           <div style="float:right"><button type="button" class="btn btn-primary" onclick="submitOrder()">제출하기</button></div>
           
         

@@ -29,20 +29,25 @@ function teacherList(obj){
 }
 function quitTeacher(id){
 	if(confirm("탈퇴시키겠습니까?")){
-		location.href="quitTeacher.mdo?id="+id;
+		document.teacherList1.action="quitTeacher.mdo?id="+id;
+		document.teacherList1.submit();
 		return true;
 	}
 	
 }
-function rejoinTeacher(){
+function rejoinTeacher(id){
 	if(confirm("재등록하겠습니까?")){
-		location.href="reJoinTeacher.mdo?id="+id;
+		document.teacherList1.action="reJoinTeacher.mdo?id="+id;
+		document.teacherList1.submit();
 		return true;
 	}
 }
 function approveTeacher(id){
 	if(confirm("승인하겠습니까?")){
-		location.href="approveTeacher.mdo?id="+id;
+		
+		document.teacherList1.action="approveTeacher.mdo?id="+id;
+		document.teacherList1.submit();
+		
 		return true;
 	}
 }
@@ -56,7 +61,7 @@ function approveTeacher(id){
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-body">
-                        <form name="teacherList1" method="get">
+                        <form name="teacherList1" method="POST">
                         	<button type="button" class="btn btn-success"  onclick="teacherList('o');">강사목록</button>
                             	<button type="button" class="btn btn-success"  onclick="teacherList('t');">가입대기목록</button>
                             	<button type="button" class="btn btn-danger"  onclick="teacherList('x');">퇴원강사</button>
@@ -101,7 +106,7 @@ function approveTeacher(id){
                                     <tr>
 <th>  ${teacherStandByList.name}</th>
 <th>${teacherStandByList.join_date}</th>
-<th><button class="btn btn-info" onclick="approveTeacher(${teacherStandByList.id});">승인하기</button></th>
+<th><button class="btn btn-info" onclick="approveTeacher('${teacherStandByList.id}');">승인하기</button></th>
                                         </tr>
                                     </c:forEach>
                                     </tbody>
@@ -123,7 +128,7 @@ function approveTeacher(id){
                                     <tr>
 <th>${teacherQuitList.name}</th>
 <th><fmt:formatDate value="${teacherQuitList.update_date}" pattern="yyyy-MM-dd" /></th>
-<th><button class="btn btn-success" onclick="rejoinTeacher(${teacherQuitList.id});">재등록하기</button></th>
+<th><button class="btn btn-success" onclick="rejoinTeacher('${teacherQuitList.id}');">재등록하기</button></th>
                                         </tr>
                                     </c:forEach>
                                     </tbody>

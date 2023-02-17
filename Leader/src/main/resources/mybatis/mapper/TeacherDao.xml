@@ -3,28 +3,51 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
 <mapper namespace="com.ld.user.dao.ITeacherDao">
+<!-- 부서별 강사 리스트 -->
+<select id="teacherDept" resultType="com.ld.user.vo.TeacherVO">
+	select * from teacher where department=#{param1}
+</select>
+<!--  부서 리스트 -->
+<select id="deptList" resultType="String">
+	select distinct department from teacher where department is not null;;
+</select> 
 <!-- 데일리 업무 샘플리스트 -->
 <select id="dailyOrderSampleList" resultType="com.ld.admin.vo.ReportVO"> 
 select * from report where daily='o' and create_date is null and teacher_id=#{param1};
 </select>
 <!-- 데일리 업무 샘플리스트 등록 -->
-<insert id="insertDailyOrder">
+<insert id="insertDailyOrderSample">
 	insert into report(teacher_id,create_date,update_date,deadline,title,teacher_name,daily) 
 	values(#{param1},null,null,null,#{param2},#{param3},'o');
 </insert>
-<!-- 데일리 업무목록 -->
+<!-- 데일러 업무 등록 -->
+<insert id="insertDailyOrder">
+	insert into report(teacher_id,teacher_name,title,deadline,daily) 
+	values(#{param1},#{param2},#{param3},DATE_ADD(#{param4},interval 1 day),'o');
+</insert>
+<!-- 데일리 업무 샘플 삭제 -->
+<delete id="deleteDailyOrder">
+	delete from report where id=#{param1}
+</delete>
+<!-- 데일리 업무목록 추가를 위한 조회 -->
 <select id="dailyOrderList" resultType="com.ld.admin.vo.ReportVO">
 	select * from report where daily='o' and teacher_id=#{param1} and create_date like CONCAT('%',current_date(),'%');
 </select>
+<!-- 완료안된 데일리 업무 -->
+<select id="dailyOrderList2" resultType="com.ld.admin.vo.ReportVO">
+	select * from report where daily='o'and fulfill!='o' and teacher_id=#{param1} and create_date like CONCAT('%',current_date(),'%');
+</select>
+
 <!-- 개인 당일 업무 -->
 <select id="todayOrderList" resultType="com.ld.admin.vo.ReportVO">
-	select * from report where teacher_id=#{param1} and create_date like CONCAT('%',current_date(),'%') and longorder='x' and fulfill !='o';
+	select * from report where teacher_id=#{param1} and create_date like CONCAT('%',current_date(),'%') and longorder='x' and daily!='o'
+	 and fulfill !='o';
 </select>
 <!-- 개인 업무 날짜 선택 -->
 <!-- 데드라인이 지난 미완성 업무목록 강사 한명꺼 -->
 <select id="incompleteOrderOneDate" resultType="com.ld.admin.vo.ReportVO">
 	select * from report where teacher_id=#{param1} and fulfill !='o' and update_date like CONCAT('%',#{param2},'%') and
-	 deadline <![CDATA[<=]]> now() order by update_date desc,create_date desc;
+	 deadline <![CDATA[<=]]> now() and daily!='o' order by update_date desc,create_date desc;
 </select>
 <!-- 개인 장기프로젝트 -->
 <select id="longOrderListDate" resultType="com.ld.admin.vo.ReportVO">
@@ -33,7 +56,8 @@ select * from report where daily='o' and create_date is null and teacher_id=#{pa
 </select>
 <!-- 데드라인이 지난 미완성 업무목록 강사 한명꺼 -->
 <select id="incompleteOrderOne" resultType="com.ld.admin.vo.ReportVO">
-	select * from report where teacher_id=#{param1} and fulfill !='o' and deadline <![CDATA[<=]]> now() order by update_date desc,create_date desc;
+	select * from report where teacher_id=#{param1} and fulfill !='o' and daily!='o'
+	and deadline <![CDATA[<=]]> now() order by update_date desc,create_date desc;
 </select>
 <!-- 장기프로젝트 현황 보고 -->
 <update id="longOrderFulfill" parameterType="com.ld.admin.vo.ReportVO">
@@ -188,12 +212,15 @@ insert into report (title,content) values(#{param1},'jointOrder');
 </select>
 <!-- 오늘의 업무 등록 -->
 <insert id="addTodayOrder" parameterType="com.ld.admin.vo.ReportVO">
-	insert into report (teacher_id,teacher_name,title,deadline) values(#{teacher_id},#{teacher_name},#{title},DATE_ADD(#{deadline},interval 1 day));
+	insert into report (teacher_id,teacher_name,title,deadline,importance,longorder)
+	 values(#{teacher_id},#{teacher_name},#{title},DATE_ADD(#{deadline},interval 1 day),#{importance},#{longorder});
 </insert>
 <!-- 업무 재전송 -->
 <update id="reOrder" parameterType="com.ld.admin.vo.ReportVO">
-	update report set fulfill='x',reorder='o',teacher_name=#{teacher_name},update_date=now(), teacher_id=#{teacher_id}, title=#{title},
-	deadline=<if test='deadline == null'>DATE_ADD(now(),interval 12 hour)</if><if test='deadline != null'>DATE_ADD(#{deadline},interval 1 day)</if>
+	update report set fulfill='x',reorder='o',teacher_name=#{teacher_name},update_date=now(), teacher_id=#{teacher_id},
+	 title=#{title},content=#{content},
+	deadline=<if test='deadline == null'>DATE_ADD(now(),interval 12 hour)</if>
+	<if test='deadline != null'>DATE_ADD(#{deadline},interval 1 day)</if>
 	 where id=#{id}
 </update>
 </mapper>

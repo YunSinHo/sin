@@ -1,5 +1,6 @@
 package com.ld.user.service;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -174,12 +175,32 @@ public class TeacherService {
 		// TODO Auto-generated method stub
 		return teacherDao.dailyOrderList(id,date);
 	}
-	public void insertDailyOrder(int teacher_id, String string, String name) {
-		teacherDao.insertDailyOrder(teacher_id,string,name);
+	public void insertDailyOrderSample(int teacher_id, String string, String name) {
+		teacherDao.insertDailyOrderSample(teacher_id,string,name);
 		
 	}
 	public List<ReportVO> dailyOrderSampleList(int teacher_id) {
 		// TODO Auto-generated method stub
 		return teacherDao.dailyOrderSampleList(teacher_id);
+	}
+	public void insertDailyOrder(int teacher_id, String teacher_name, String title, Timestamp timestamp) {
+		teacherDao.insertDailyOrder(teacher_id,teacher_name,title,timestamp);
+		
+	}
+	public void deleteDailyOrder(int teacher_id) {
+		teacherDao.deleteDailyOrder(teacher_id);
+		
+	}
+	public List<TeacherVO> deptList() {
+		// TODO Auto-generated method stub
+		return teacherDao.deptList();
+	}
+	public List<TeacherVO> teacherDept(String string) {
+		// TODO Auto-generated method stub
+		return teacherDao.teacherDept(string);
+	}
+	public List<ReportVO> dailyOrderList2(int id, String date) {
+		// TODO Auto-generated method stub
+		return teacherDao.dailyOrderList2(id,date);
 	}
 }

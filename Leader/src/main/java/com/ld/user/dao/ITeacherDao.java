@@ -1,5 +1,6 @@
 package com.ld.user.dao;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -97,9 +98,20 @@ public interface ITeacherDao {
 
 	List<ReportVO> dailyOrderList(int id, String date);
 
-	void insertDailyOrder(int teacher_id, String string, String name);
+	void insertDailyOrderSample(int teacher_id, String string, String name);
 
 	List<ReportVO> dailyOrderSampleList(int teacher_id);
+
+	void insertDailyOrder(int teacher_id, String teacher_name, String title, Timestamp timestamp);
+
+	void deleteDailyOrder(int teacher_id);
+
+	List<TeacherVO> deptList();
+
+	List<TeacherVO> teacherDept(String string);
+
+	List<ReportVO> dailyOrderList2(int id, String date);
+
 
 
 }

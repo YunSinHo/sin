@@ -121,9 +121,9 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">목록</h6>
                         <a class="collapse-item" href="tables.mdo">학습자 목록</a>
-                        <a class="collapse-item" href="#">반 배정</a>
+                     <!--    <a class="collapse-item" href="#">반 배정</a>
                         <a class="collapse-item" href="#">숙제 배정</a>
-                        <a class="collapse-item" href="sendmessage.mdo">문자 전송</a>
+                        <a class="collapse-item" href="sendmessage.mdo">문자 전송</a> -->
                     </div>
                 </div>
             </li>
@@ -183,7 +183,7 @@
             </li>
             </c:if>
             <c:if test="${loginTeacher.teaid eq 'admin'}">
-            <li class="nav-item">
+          <!--   <li class="nav-item">
                 <a class="nav-link" href="todayOrder.mdo">
                     <i class="fas fa-fw fa-table"></i>
                     <span>오늘업무작성</span></a>
@@ -194,7 +194,7 @@
                 <a class="nav-link" href="orderWork.mdo">
                     <i class="fas fa-fw fa-table"></i>
                     <span>추가업무작성</span></a>
-            </li>
+            </li> -->
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">

@@ -125,6 +125,18 @@ function longorderReOrder(){
 	}
 }
 function newOrder(){
+	for(var i=0;i<document.getElementsByName("importance").length;i++){
+		if(document.getElementsByName("importance")[i].checked==false){
+			document.getElementsByName("importance")[i].value='x';
+			document.getElementsByName("importance")[i].checked=true;
+		}
+		}
+	for(var i=0;i<document.getElementsByName("longorder").length;i++){
+		if(document.getElementsByName("longorder")[i].checked==false){
+			document.getElementsByName("longorder")[i].value='x';
+			document.getElementsByName("longorder")[i].checked=true;
+		}
+		}
 	if(confirm("등록하시겠습니까?")){
 		document.adminNewForm.action="newOrder.mdo";
 		document.adminNewForm.submit();
@@ -132,6 +144,7 @@ function newOrder(){
 	}
 	
 }
+
 </script>
   <body>
   
@@ -142,6 +155,11 @@ function newOrder(){
 </div>
 <hr>
     	<form  class="validation-form"   name="adminNewForm" method="POST">
+    	<c:forEach items="${teacherList}" var="teacherList">
+    	<input type="hidden" name="teacher_dept" value="${teacherList.department}">
+    	<input type="hidden" name="teacher_id2" value="${teacherList.id}">
+    	<input type="hidden" name="teacher_name" value="${teacherList.name}">
+    	</c:forEach>
     	<h5 style="color:black;">★ 업무추가</h5>
     	<input type="button" class="btn btn-primary" value="추가" onclick="add_div()"><br/>&nbsp;&nbsp;&nbsp;
     	<div id="room_type" style="width:900px">
@@ -155,10 +173,16 @@ function newOrder(){
             <h5 style="color:black;">★ 완성된업무</h5>
            <button type="button" class="btn btn-primary" onclick="deleteCompleteOrder();">삭제</button>&nbsp;&nbsp;&nbsp;
            <button type="button" class="btn btn-info" onclick="completeReOrder();">재발송</button>&nbsp;&nbsp;&nbsp;
+           <div style="width:900px;color:#0039e6">업무내용&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+세부내용 (자료보관시위치, 미이행시 사유, 업무이행상세내용 기입)</div>
            <c:forEach items="${finishOrderTeacher}" var="finishOrderTeacher">
 <div class="text-dark">
 <input type="checkbox"  name="id" value="${finishOrderTeacher.id}">&nbsp;
-<input type="text" value="${finishOrderTeacher.title}" name="title" style="border:none; width:300px;" >
+<input type="text" value="${finishOrderTeacher.title}" name="title" style="border:none; width:200px;" >
+<input type="text" name="content" value="${finishOrderTeacher.content}"style="border:none; width:400px" >
 <select id="selbox2"  name="teacher_id" style="border:none;">
 <option value="${finishOrderTeacher.teacher_id}">선택</option>
 	<c:forEach items="${teacherList}" var="teacherList">
@@ -167,9 +191,9 @@ function newOrder(){
 </select>
 ${finishOrderTeacher.teacher_name}
 <input type="text" name="deadline" class="workday" name="deadline" id="datepicker" autocomplete="off" 
-value="<fmt:formatDate value="${finishOrderTeacher.deadline}" pattern="MM/dd HH:mm"/>" style="border:none;">
-
+value="<fmt:formatDate value="${finishOrderTeacher.deadline}" pattern="MM/dd HH:mm"/>" style="border:none; width:100px">
 </div>
+<hr style="background:black">
            </c:forEach>
           </div>
           </form>
@@ -177,12 +201,19 @@ value="<fmt:formatDate value="${finishOrderTeacher.deadline}" pattern="MM/dd HH:
            <form  class="validation-form"   name="adminOngoingForm" method="POST">
             <div>
             <h5 style="color:black;">★ 진행중인업무</h5>
+             
             <button type="button" class="btn btn-primary" onclick="deleteOngoingOrder()">삭제</button>&nbsp;&nbsp;&nbsp;
            <button type="button" class="btn btn-info" onclick="ongoingReOrder();">재발송</button>&nbsp;&nbsp;&nbsp;
+           <div style="width:900px;color:#0039e6">업무내용&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+세부내용 (자료보관시위치, 미이행시 사유, 업무이행상세내용 기입)</div>
            <c:forEach items="${ongoingOrder}" var="ongoingOrder">
            <div class="text-dark">
             <input type="checkbox" name="id" value="${ongoingOrder.id}">&nbsp;
-           <input type="text" name="title" value="${ongoingOrder.title}"style="border:none;width:300px;" >
+           <input type="text" value="${ongoingOrder.title}" name="title" style="border:none; width:200px;" >
+<input type="text" name="content" value="${ongoingOrder.content}"style="border:none; width:400px" >
            <select id="selbox2"  name="teacher_id" style="border:none;">
 <option value="${ongoingOrder.teacher_id}">선택</option>
 	<c:forEach items="${teacherList}" var="teacherList">
@@ -191,10 +222,10 @@ value="<fmt:formatDate value="${finishOrderTeacher.deadline}" pattern="MM/dd HH:
 </select>
            	${ongoingOrder.teacher_name}
 <input type="text" name="deadline" class="workday" name="deadline" id="datepicker" autocomplete="off" 
-value="<fmt:formatDate value="${ongoingOrder.deadline}" pattern="MM/dd HH:mm"/>" style="border:none;">
+value="<fmt:formatDate value="${ongoingOrder.deadline}" pattern="MM/dd HH:mm"/>" style="border:none;width:100px">
 
 </div>
-           	
+           	<hr style="background:black">
            </c:forEach>
            </div>
          </form>
@@ -202,12 +233,19 @@ value="<fmt:formatDate value="${ongoingOrder.deadline}" pattern="MM/dd HH:mm"/>"
            <form  class="validation-form"   name="adminIncompleteForm" method="POST">
          <div>
             <h5 style="color:black;">★ 미완성업무</h5>
+            
              <button type="button" class="btn btn-primary" onclick="deleteIncompleteOrder()">삭제</button>&nbsp;&nbsp;&nbsp;
            <button type="button" class="btn btn-info" onclick="incompleteReOrder();">재발송</button>&nbsp;&nbsp;&nbsp;
+            <div style="width:900px;color:#0039e6">업무내용&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+세부내용 (자료보관시위치, 미이행시 사유, 업무이행상세내용 기입)</div>
            <c:forEach items="${incompleteOrder}" var="incompleteOrder">
            <div class="text-dark">
            <input type="checkbox" name="id" value="${incompleteOrder.id}">&nbsp;
-           <input type="text" value="${incompleteOrder.title}" name="title" style="border:none;width:300px;">
+           <input type="text" value="${incompleteOrder.title}" name="title" style="border:none; width:200px;" >
+<input type="text" name="content"  value="${incompleteOrder.content}"style="border:none; width:400px" >
            <select id="selbox2"  name="teacher_id" style="border:none;">
 <option value="${incompleteOrder.teacher_id}">선택</option>
 	<c:forEach items="${teacherList}" var="teacherList">
@@ -216,8 +254,9 @@ value="<fmt:formatDate value="${ongoingOrder.deadline}" pattern="MM/dd HH:mm"/>"
 </select>
 ${incompleteOrder.teacher_name}
 <input type="text" name="deadline" class="workday" name="deadline" id="datepicker" autocomplete="off" 
-value="<fmt:formatDate value="${incompleteOrder.deadline}" pattern="MM/dd HH:mm"/>" style="border:none;">
+value="<fmt:formatDate value="${incompleteOrder.deadline}" pattern="MM/dd HH:mm"/>" style="border:none;width:100px">
            </div>
+           <hr style="background:black">
            </c:forEach>
           </div>
           </form>
@@ -246,6 +285,7 @@ value="<fmt:formatDate value="${longOrderListAll.deadline}" pattern="MM/dd HH:mm
           <hr>
           <div>
             <h5 style="color:black;">★ 결과물제출</h5>
+            <input type="text" name="asdf" value="dd">
           </div>
           <hr >
           <div style="color:black;">
@@ -277,16 +317,21 @@ value="<fmt:formatDate value="${longOrderListAll.deadline}" pattern="MM/dd HH:mm
 	var add_div = function(){
 		var choice="날짜 선택";
 		var strMenu = "";
-	    var test = "t" + cnt;
+	    var test =cnt;
 	   strMenu += '<div id="'+test+'"  style="width:900px">'
 	                + '<input type="text" id="title" style="width:300px;" name="title"  >&nbsp;&nbsp;'
-	                +'<select id="selbox2"  name="teacher_id" style="border:none;">'
-	           		+'<option value="${"0"}">강사 선택</option>'
-	           			+'<c:forEach items="${teacherList}" var="teacherList">'
-	           			+'<option value="${teacherList.id}">${teacherList.name}</option>'
+	                +'<select id="selecta'+test+'" name="dept" style="border:none;" onchange="selectDept('+test+');">'
+	           		+'<option value="">부서선택</option>'
+	           		+'<option value="${"전체"}">전체</option>'
+	           			+'<c:forEach items="${deptList}" var="deptList">'
+	           			+'<option value="${deptList}">${deptList}</option>'
 	           			+'</c:forEach>'
 	           		+'</select>&nbsp;&nbsp;'
-	           		+'<input type="text" name="deadline" style="border:none;" class="workday" name="deadline" id="datepicker" autocomplete="off" value="'+choice+'"><br>'
+	           		+'<select id="selectb'+test+'" value="${0}" name="teacher_id" style="border:none;">'
+	           		+'</select>&nbsp;&nbsp;'
+	           		+'<input type="text" name="deadline" style="border:none;width:100px" class="workday" name="deadline" id="datepicker" autocomplete="off" value="'+choice+'">'
+	           		+'중요업무<input type="checkbox" value="${"o"}" name="importance">&nbsp;&nbsp;'
+	           		+'장기업무<input type="checkbox" value="${"o"}" name="longorder"><br>'
 	           		+ '<input type="button" id="test'+test+'" value="삭제" onclick="remove_div('+test+')">'
 	            + '</div><br>';                          
 	                                            
@@ -300,5 +345,33 @@ value="<fmt:formatDate value="${longOrderListAll.deadline}" pattern="MM/dd HH:mm
 	}
 	$(document).ready(function() {	
 	});
+	function selectDept(test){
+		 
+		var name = [];
+		var id=[];
+		var cnt=1;
+		var selectItem = $("#selecta"+test).val();
+		for(var i=0;i<document.getElementsByName("teacher_dept").length;i++){
+			if(selectItem==document.getElementsByName("teacher_dept")[i].value){
+				name[0]="전체";
+				name[cnt]=document.getElementsByName("teacher_name")[i].value;
+				id[0]=0;
+				id[cnt]=document.getElementsByName("teacher_id2")[i].value;
+				cnt++;
+			}
+			else if(selectItem=="전체"){
+				name[0]="전체";
+				id[0]=0;
+			}
+		}
+		 
+		$('#selectb'+test).empty();
+		 
+		for(var count = 0; count < name.length; count++){  
+		                var option = $("<option value="+id[count]+">"+name[count]+"</option>");
+		                $('#selectb'+test).append(option);
+		            }
+		 
+		}
 </script>
 </html>

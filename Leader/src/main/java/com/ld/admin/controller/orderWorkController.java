@@ -1,20 +1,29 @@
 package com.ld.admin.controller;
 
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ld.admin.vo.PostscriptVO;
@@ -299,7 +308,7 @@ public class orderWorkController {
 		}*/
 		//강사 업무 목록
 		@RequestMapping(value="/teacherOrderList.mdo",method=RequestMethod.GET)
-		public ModelAndView teacherOrderList1(@RequestParam("date")String date,
+		public ModelAndView teacherOrderList1(@RequestParam(value="date",required=false)String date,
 				HttpServletRequest request) {
 			int id=0;
 			HttpSession session=request.getSession();
@@ -313,7 +322,7 @@ public class orderWorkController {
 			List<ReportVO> reportVO1=new ArrayList();
 			reportVO1=teacherService.todayOrderList(id);
 			mav.addObject("todayOrderList",reportVO1);
-			//데드라인 지난 미완성업무 강사 한명꺼 조회 incompleteOrderOne
+			//데드라인 지난 미완성업무 강사 한명꺼 조회 
 			List<ReportVO> reportVO2=new ArrayList();
 			reportVO2=teacherService.incompleteOrderOne(id);
 			mav.addObject("incompleteOrderOne",reportVO2);
@@ -322,9 +331,23 @@ public class orderWorkController {
 			List<ReportVO> reportVO3=new ArrayList();
 			reportVO3=teacherService.longOrderList(id);
 			mav.addObject("longOrderList",reportVO3);
-			//데일리 업무
+			//데일리 업무 추가, 이미 추가되었다면 추가하지 않음
+			List<ReportVO> reportVO5=new ArrayList();
+			reportVO5=teacherService.dailyOrderSampleList(id);
+			System.out.println(Arrays.asList(reportVO5));
 			List<ReportVO> reportVO4=new ArrayList();
 			reportVO4=teacherService.dailyOrderList(id,date);
+			System.out.println(Arrays.asList(reportVO4));
+			String date2=date+" 00:00:00";
+			Timestamp timestamp =Timestamp.valueOf(date2);
+			if(reportVO4.isEmpty()) {
+				for(int i=0;i<reportVO5.size();i++) {
+teacherService.insertDailyOrder(reportVO5.get(i).getTeacher_id(),reportVO5.get(i).getTeacher_name(),reportVO5.get(i).getTitle(),timestamp);
+				}
+				
+				
+			}
+			reportVO4=teacherService.dailyOrderList2(id,date);
 			mav.addObject("dailyOrderList",reportVO4);
 			mav.setViewName("admin/teacherOrderList");
 			return mav;
@@ -376,6 +399,7 @@ public class orderWorkController {
 		//업무 제출
 		@RequestMapping(value="/submitOrder.mdo",method=RequestMethod.GET)
 		public ModelAndView imsi2(HttpServletRequest request,
+				@RequestParam(value="date",required=false)String date,
 				@RequestParam(value="id",required=false)int id[],
 				@RequestParam(value="id2",required=false)int id2[],
 				@RequestParam(value="postscript",required=false)String postscript,
@@ -422,6 +446,7 @@ public class orderWorkController {
 			postscriptVO.setContent(postscript);
 			teacherService.insertPostscript(postscriptVO);
 			}
+			mav.addObject("date",date);
 			mav.setViewName("redirect:/teacherOrderList.mdo?id="+id3);
 			return mav;
 }		//어드민 업무 리스트
@@ -455,7 +480,12 @@ public class orderWorkController {
 			List<TeacherVO> teacherVO =new ArrayList();
 			teacherVO=teacherService.teacherList();
 			mav.addObject("teacherList",teacherVO);
+			//부서 목록
+			List<TeacherVO> teacherVO2=new ArrayList();
+			teacherVO2=teacherService.deptList();
+			mav.addObject("deptList",teacherVO2);
 			mav.setViewName("admin/adminOrderList");
+			
 			return mav;
 		}
 		//업무 삭제
@@ -492,6 +522,7 @@ public class orderWorkController {
 		public String reOrder(@RequestParam(value="id",required=false)int id[],
 				HttpServletRequest request,
 		@RequestParam("title")String title[],
+		@RequestParam("content")String content[],
 		@RequestParam("teacher_id")int teacher_id[],
 		@RequestParam(value="deadline",required=false)String deadlineArr[]) {
 			System.out.println(title[0]);
@@ -507,6 +538,7 @@ public class orderWorkController {
 					reportVO.setId(id[i]);
 					reportVO.setTeacher_name(teacherVO.getName());
 					reportVO.setTeacher_id(teacher_id[i]);
+					reportVO.setContent(content[i]);
 					reportVO.setTitle(title[i]);
 					String deadline=deadlineArr[i];
 					if(deadlineArr[i].contains("-")) {
@@ -522,31 +554,84 @@ public class orderWorkController {
 		}
 		//새 업무 등록
 		@RequestMapping(value="newOrder.mdo",method=RequestMethod.POST)
-		public ModelAndView newOrder (@RequestParam("teacher_id")int teacher_id[],
+		public ModelAndView newOrder (@RequestParam(value="teacher_id",required=false)int teacher_id[],
 				@RequestParam("title")String title[],
 				@RequestParam("deadline")String deadline[],
-				@RequestParam("deadline1")String deadline1) {
+				@RequestParam("deadline1")String deadline1,
+				@RequestParam("importance")String importance[],
+				@RequestParam("longorder")String longorder[],
+				@RequestParam("dept")String dept[]) {
+			System.out.println(teacher_id[0]);
 			ModelAndView mav = new ModelAndView();
-			for(int i=0;i<teacher_id.length;i++) {
+			for(int i=0;i<title.length;i++) {
 				Timestamp timestamp=null;
-				if(teacher_id[i]!=0&&!title[i].equals("")) {
+				if(dept[i].equals("전체")&&!title[i].equals("")) {
+					List<TeacherVO> teacherVO=teacherService.teacherList();
+					for(int j=0;j<teacherVO.size();j++) {
+						ReportVO reportVO=new ReportVO();
+						reportVO.setImportance(importance[i]);
+						reportVO.setLongorder(longorder[i]);
+						reportVO.setTeacher_name(teacherVO.get(j).getName());
+						reportVO.setTeacher_id(teacherVO.get(j).getId());
+						reportVO.setTitle(title[i]);
+						String deadline2=deadline1;
+						if(deadline[i].equals("")||deadline[i].equals("날짜 선택")) {
+							deadline2=deadline1+" 00:00:00";
+							timestamp=Timestamp.valueOf(deadline2);
+							reportVO.setDeadline(timestamp);
+						}
+						else {
+							deadline[i]=deadline[i]+" 00:00:00";
+							timestamp=Timestamp.valueOf(deadline[i]);
+							reportVO.setDeadline(timestamp);
+						}
+						teacherService.addTodayOrder(reportVO);
+					}
+				}
+				else if(!dept[i].equals("전체")&&teacher_id[i]==0&&!title[i].equals("")) {
+					List<TeacherVO> teacherVO=new ArrayList();
+					teacherVO=teacherService.teacherDept(dept[i]);
+					for(int j=0;j<teacherVO.size();j++) {
+						ReportVO reportVO=new ReportVO();
+						reportVO.setImportance(importance[i]);
+						reportVO.setLongorder(longorder[i]);
+						reportVO.setTeacher_name(teacherVO.get(j).getName());
+						reportVO.setTeacher_id(teacherVO.get(j).getId());
+						reportVO.setTitle(title[i]);
+						String deadline2=deadline1;
+						if(deadline[i].equals("")||deadline[i].equals("날짜 선택")) {
+							deadline2=deadline1+" 00:00:00";
+							timestamp=Timestamp.valueOf(deadline2);
+							reportVO.setDeadline(timestamp);
+						}
+						else {
+							deadline[i]=deadline[i]+" 00:00:00";
+							timestamp=Timestamp.valueOf(deadline[i]);
+							reportVO.setDeadline(timestamp);
+						}
+						teacherService.addTodayOrder(reportVO);
+					}
+				}
+				else if(!dept[i].equals("전체")&&teacher_id[i]!=0&&!title[i].equals("")) {
 					TeacherVO teacherVO=teacherService.teacherOne(teacher_id[i]);
-					ReportVO reportVO=new ReportVO();
-					reportVO.setTeacher_name(teacherVO.getName());
-					reportVO.setTeacher_id(teacher_id[i]);
-					reportVO.setTitle(title[i]);
-					if(deadline[i].equals("")||deadline[i].equals("날짜 선택")) {
-						deadline1=deadline1+" 00:00:00";
-						timestamp=Timestamp.valueOf(deadline1);
-						reportVO.setDeadline(timestamp);
-					}
-					else {
-						deadline[i]=deadline[i]+" 00:00:00";
-						timestamp=Timestamp.valueOf(deadline[i]);
-						reportVO.setDeadline(timestamp);
-					}
-					teacherService.addTodayOrder(reportVO);
-					
+						ReportVO reportVO=new ReportVO();
+						reportVO.setImportance(importance[i]);
+						reportVO.setLongorder(longorder[i]);
+						reportVO.setTeacher_name(teacherVO.getName());
+						reportVO.setTeacher_id(teacherVO.getId());
+						reportVO.setTitle(title[i]);
+						String deadline2=deadline1;
+						if(deadline[i].equals("")||deadline[i].equals("날짜 선택")) {
+							deadline2=deadline1+" 00:00:00";
+							timestamp=Timestamp.valueOf(deadline2);
+							reportVO.setDeadline(timestamp);
+						}
+						else {
+							deadline[i]=deadline[i]+" 00:00:00";
+							timestamp=Timestamp.valueOf(deadline[i]);
+							reportVO.setDeadline(timestamp);
+						}
+						teacherService.addTodayOrder(reportVO);
 				}
 			}
 			mav.setViewName("redirect:/adminOrderList.mdo");
@@ -573,16 +658,72 @@ public class orderWorkController {
 			mav.setViewName("admin/addDailyOrderForm");
 			return mav;
 		}
+		
+		//데일리오더 샘플 등록
 		@RequestMapping(value="/insertDailyOrder.mdo", method=RequestMethod.POST)
 		public String insertDailyOrder(@RequestParam("teacher_id")int teacher_id,
 				@RequestParam("title")String title[]) {
 			TeacherVO teacherVO=teacherService.teacherOne(teacher_id);
 			for(int i=0;i<title.length;i++) {
-				teacherService.insertDailyOrder(teacher_id,title[i],teacherVO.getName());
+				teacherService.insertDailyOrderSample(teacher_id,title[i],teacherVO.getName());
 			}
 			
 			
 			return "redirect:/addDailyOrder.mdo?teacher_id="+teacher_id;
 		}
+		//데일리오더 샘플 삭제
+		@RequestMapping("/deleteDailyOrder.mdo")
+		public String deleteDailyOrder(@RequestParam("teacher_id")int teacher_id,
+				@RequestParam("id")int id) {
+			teacherService.deleteDailyOrder(id);
+			return "redirect:/addDailyOrder.mdo?teacher_id="+teacher_id;
+		}
+		@RequestMapping("/upload/fileUpload")
+	    public String fileUpload(@RequestParam("uploadFile") MultipartFile file, Model model) throws IOException {
+	        String savedFileName = "";
+	        // 1. 파일 저장 경로 설정 : 실제 서비스되는 위치(프로젝트 외부에 저장)
+	        String uploadPath = "C:\\Users\\USER\\imsi\\";
+	        // 2. 원본 파일 이름 알아오기
+	        String originalFileName = file.getOriginalFilename();
+	        // 3. 파일 이름 중복되지 않게 이름 변경(서버에 저장할 이름) UUID 사용
+	        UUID uuid = UUID.randomUUID();
+	        savedFileName = uuid.toString() + "_" + originalFileName;
+	        // 4. 파일 생성
+	        File file1 = new File(uploadPath + savedFileName);
+	        // 5. 서버로 전송
+	        file.transferTo(file1);
+	        // model로 저장
+	        model.addAttribute("originalFileName", originalFileName);
+	        return"admin/fileUploadResult";
+	    }
+		@RequestMapping("download/fileDownloadListView")
+	    public ModelAndView fileDownloadList() {
+	        ModelAndView mv = new ModelAndView();
+	        // 폴더에 있는 전체 파일 목록 가져오기
+	        File path = new File("C:\\Users\\USER\\imsi\\");
+	        String[] fileList = path.list();
+
+	        mv.addObject("fileList", fileList);
+	        mv.setViewName("admin/teacherOrderList");
+	        return mv;
+	    }
+	    // 파일 다운로드 처리
+	    @RequestMapping("/fileDownload/{file}")
+	    public void fileDownload(@PathVariable String file,
+	                             HttpServletResponse response) throws IOException {                                   
+	        File f = new File("C:\\Users\\USER\\imsi\\", file);
+	        // file 다운로드 설정
+	        response.setContentType("application/download");
+	        response.setContentLength((int)f.length());
+	        response.setHeader("Content-disposition", "attachment;filename=\"" + file + "\"");
+	        // response 객체를 통해서 서버로부터 파일 다운로드
+	        OutputStream os = response.getOutputStream();
+	        // 파일 입력 객체 생성
+	        FileInputStream fis = new FileInputStream(f);
+	        FileCopyUtils.copy(fis, os);
+	        fis.close();
+	        os.close();
+	    }
+	    
 }
 		

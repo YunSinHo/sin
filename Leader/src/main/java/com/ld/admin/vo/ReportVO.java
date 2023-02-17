@@ -23,4 +23,6 @@ private String success;
 private String replyteacher_check;
 private String replyteacher;
 private String reorder;
+private String importance;
+private String longorder;
 }

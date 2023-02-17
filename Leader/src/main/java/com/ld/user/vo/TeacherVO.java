@@ -14,5 +14,6 @@ public class TeacherVO {
 	private String available;
 	private Timestamp join_date;
 	private Timestamp update_date;
+	private String department;
 	
 }

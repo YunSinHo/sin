@@ -81,15 +81,21 @@ function insertDailyOrder(){
 		return true;
 	}
 }
+function deleteDailyOrder(id){
+	if(confirm("삭제하시겠습니까?")){
+		document.addDailyFrm.action="deleteDailyOrder.mdo?id="+id;
+		document.addDailyFrm.submit();
+		return true;
+	}
+}
 </script>
-<form name="addDailyFrm" method="POST" action="insertDailyOrder.mdo">
+<form name="addDailyFrm" method="POST" >
 <h2 style="color:black;">등록된 상시업무</h2>
-	<br>
 			<c:forEach items="${dailyList}" var="list">
 				<input type="text" style="border:none;"
 					value="${list.title}">
 				&nbsp;
-				<button type="button" class="btn btn-danger">삭제</button><br><br>
+				<button type="button" class="btn btn-danger" onclick="deleteDailyOrder('${list.id}');">삭제</button><br><br>
 			</c:forEach>
 	
 		<br>

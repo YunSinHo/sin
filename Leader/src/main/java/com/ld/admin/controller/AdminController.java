@@ -9,8 +9,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ld.admin.service.AdminService;
@@ -166,21 +166,22 @@ public class AdminController {
 		return mav;
 	}
 	//가입 승인
-		@RequestMapping(value="/approveTeacher.mdo")
+		@RequestMapping(value="/approveTeacher.mdo",method=RequestMethod.POST)
 		public String approveTeacher(@RequestParam("id")int id) {
 			teacherService.approveJoinTeacher(id);
 			
 			return "redirect:/teacherList.mdo";
 		}
 		//강사 탈퇴
-		@RequestMapping(value="/quitTeacher.mdo")
+		@RequestMapping(value="/quitTeacher.mdo",method=RequestMethod.POST)
 		public String quitTeacher(@RequestParam("id")int id) {
 			teacherService.quitTeacher(id);
 			return "redirect:/teacherList.mdo";
 		}
 		//강사 재등록
-		@RequestMapping("/reJoinTeacher.mdo")
+		@RequestMapping(value="/reJoinTeacher.mdo",method=RequestMethod.POST)
 		public String reJoinTeacher(@RequestParam("id")int id) {
+			System.out.println(id);
 			teacherService.rejoinTeacher(id);
 			return "redirect:/teacherList.mdo";
 		}
