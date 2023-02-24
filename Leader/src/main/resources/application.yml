@@ -4,6 +4,13 @@ server:
   port: 8080
   
 spring:
+  thymeleaf:
+    mode: HTML5
+    template-resolver-order: 0
+    suffix: .html
+    cache: false
+    check-template-location: true
+    prefix: classpath:/templates/
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     password: 4030
@@ -20,7 +27,7 @@ spring:
       enabled: true
 file:
   dir: D:/test/
-   
+
 
 popbill:
   #링크아이디

@@ -25,4 +25,5 @@ private String replyteacher;
 private String reorder;
 private String importance;
 private String longorder;
+private Long file_id;
 }

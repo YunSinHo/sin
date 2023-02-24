@@ -113,5 +113,12 @@ public interface ITeacherDao {
 	List<ReportVO> dailyOrderList2(int id, String date);
 
 
+	long[] reportFileId();
+
+	long[] reportFileReportId();
+
+	List<ReportVO> reorderList(int id);
+
+
 
 }

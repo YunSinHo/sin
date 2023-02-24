@@ -3,6 +3,7 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
 <mapper namespace="com.ld.user.dao.ITeacherDao">
+
 <!-- 부서별 강사 리스트 -->
 <select id="teacherDept" resultType="com.ld.user.vo.TeacherVO">
 	select * from teacher where department=#{param1}
@@ -10,7 +11,7 @@
 <!--  부서 리스트 -->
 <select id="deptList" resultType="String">
 	select distinct department from teacher where department is not null;;
-</select> 
+</select>
 <!-- 데일리 업무 샘플리스트 -->
 <select id="dailyOrderSampleList" resultType="com.ld.admin.vo.ReportVO"> 
 select * from report where daily='o' and create_date is null and teacher_id=#{param1};
@@ -37,11 +38,15 @@ select * from report where daily='o' and create_date is null and teacher_id=#{pa
 <select id="dailyOrderList2" resultType="com.ld.admin.vo.ReportVO">
 	select * from report where daily='o'and fulfill!='o' and teacher_id=#{param1} and create_date like CONCAT('%',current_date(),'%');
 </select>
-
+<!-- 재전송된 업무 -->
+<select id="reorderList" resultType="com.ld.admin.vo.ReportVO">
+	select * from report where reorder='o' and teacher_id=#{param1} and  deadline <![CDATA[>=]]> now() and fulfill!='o' and daily!='o'
+	 order by update_date desc,create_date desc;
+</select>
 <!-- 개인 당일 업무 -->
 <select id="todayOrderList" resultType="com.ld.admin.vo.ReportVO">
 	select * from report where teacher_id=#{param1} and create_date like CONCAT('%',current_date(),'%') and longorder='x' and daily!='o'
-	 and fulfill !='o';
+	 and fulfill !='o' and reorder!='o';
 </select>
 <!-- 개인 업무 날짜 선택 -->
 <!-- 데드라인이 지난 미완성 업무목록 강사 한명꺼 -->
@@ -135,7 +140,7 @@ select * from report where daily='o' and create_date is null and teacher_id=#{pa
 
 <!-- 강사가 완료처리한 업무목록 -->
 <select id="finishOrderTeacher" resultType="com.ld.admin.vo.ReportVO">
-	select * from report where fulfill='o' and longorder='x' order by update_date desc,create_date desc;
+	select * from report where fulfill='o'  order by update_date desc,create_date desc;
 </select>
 <!-- 데드라인이 지난 미완성 업무목록 -->
 <select id="incompleteOrder" resultType="com.ld.admin.vo.ReportVO">
@@ -198,22 +203,10 @@ select * from report where teacher_id=#{param1} and `check`='x' or (teacher_id=0
 <insert id="addJointOrder">
 insert into report (title,content) values(#{param1},'jointOrder');
 </insert>
-<!-- 공동업무 리스트 가져오기 -->
-<select id="jointOrderList" resultType="com.ld.admin.vo.ReportVO">
-	select * from report where content='jointOrder';
-</select>
-<!-- 공동업무 삭제 -->
-<delete id="deletejointOrder">
-	delete from report where id=#{param1}
-</delete>
-<!-- 진짜로 해야할 공동업무 -->
-<select id="realJointOrderList" resultType="com.ld.admin.vo.ReportVO">
-	select * from report where teacher_id=0;
-</select>
 <!-- 오늘의 업무 등록 -->
 <insert id="addTodayOrder" parameterType="com.ld.admin.vo.ReportVO">
-	insert into report (teacher_id,teacher_name,title,deadline,importance,longorder)
-	 values(#{teacher_id},#{teacher_name},#{title},DATE_ADD(#{deadline},interval 1 day),#{importance},#{longorder});
+	insert into report (teacher_id,teacher_name,title,deadline,importance,longorder,content)
+	 values(#{teacher_id},#{teacher_name},#{title},DATE_ADD(#{deadline},interval 1 day),#{importance},#{longorder},#{content});
 </insert>
 <!-- 업무 재전송 -->
 <update id="reOrder" parameterType="com.ld.admin.vo.ReportVO">

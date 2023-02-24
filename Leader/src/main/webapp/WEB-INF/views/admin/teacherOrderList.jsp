@@ -37,7 +37,7 @@
     }
   </style>
   <body>
-  <form  class="validation-form"   name="todayOrderTeacher">
+  <form  class="validation-form"   name="todayOrderTeacher" enctype="multipart/form-data" action="/upload" method="post">
   <input type="hidden" name="date" value="<%=sf2.format(nowTime)%>">
   <input type="hidden" name="teacher_name" value="${loginTeacher.name}">
   <div class="input-form-backgroud row">
@@ -62,9 +62,35 @@
 세부내용 (자료보관시위치, 미이행시 사유, 업무이행상세내용 기입)</div>
            <c:forEach items="${incompleteOrderOne}" var="incompleteOrderOne">
            <div class="text-dark"><input type="checkbox" name="id" value="${incompleteOrderOne.id}">&nbsp;
-           <input type="text" value="${incompleteOrderOne.title}"style="border:none;" readonly >
-           <input type="text" name="content" value="${incompleteOrderOne.content}"style="border:none; width:700px" >
+           <input type="text" value="${incompleteOrderOne.title}"style="border:none;width:300px;" readonly >
+           <input type="text" name="content" value="${incompleteOrderOne.content}"style="border:none; width:500px" >
+           <input type="file"  name="file">
            </div>
+           </c:forEach>
+          </div>
+          <hr>
+          <div>
+            <h5 style="color:black;">★ 재전송된업무</h5>
+            <div style="width:900px;" class="text-muted">업무내용&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+세부내용 (자료보관시위치, 미이행시 사유, 업무이행상세내용 기입) 
+</div>
+           <c:forEach items="${reorderList}" var="reorderList">
+<div class="text-dark"><input type="checkbox" name="id" value="${reorderList.id}">&nbsp;
+<c:choose>
+<c:when test="${reorderList.importance eq 'o'}">
+<input type="text" value="${reorderList.title}" readonly style="border:none; background-color:yellow;width:300px;" >
+</c:when>
+<c:otherwise>
+<input type="text" value="${reorderList.title}" readonly style="border:none;width:300px;" >
+</c:otherwise>
+</c:choose>
+
+<input type="text" name="content" value="${reorderList.content}"style="border:none; width:500px" >
+<input type="file"  name="file">
+</div>
            </c:forEach>
           </div>
           <hr>
@@ -75,20 +101,21 @@
            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-세부내용 (자료보관시위치, 미이행시 사유, 업무이행상세내용 기입)
+세부내용 (자료보관시위치, 미이행시 사유, 업무이행상세내용 기입) 
 </div>
            <c:forEach items="${todayOrderList}" var="todayOrderList">
 <div class="text-dark"><input type="checkbox" name="id" value="${todayOrderList.id}">&nbsp;
 <c:choose>
 <c:when test="${todayOrderList.importance eq 'o'}">
-<input type="text" value="${todayOrderList.title}" readonly style="border:none; background-color:yellow;" >
+<input type="text" value="${todayOrderList.title}" readonly style="border:none; background-color:yellow;width:300px;" >
 </c:when>
 <c:otherwise>
-<input type="text" value="${todayOrderList.title}" readonly style="border:none;" >
+<input type="text" value="${todayOrderList.title}" readonly style="border:none;width:300px;" >
 </c:otherwise>
 </c:choose>
 
-<input type="text" name="content" value="${todayOrderList.content}"style="border:none; width:700px" >
+<input type="text" name="content" value="${todayOrderList.content}"style="border:none; width:500px" >
+<input type="file"  name="file">
 </div>
            </c:forEach>
           </div>
@@ -100,12 +127,13 @@
            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-세부내용 (자료보관시위치, 미이행시 사유, 업무이행상세내용 기입)
+세부내용 (자료보관시위치, 미이행시 사유, 업무이행상세내용 기입) 
 </div>
            <c:forEach items="${dailyOrderList}" var="dailyOrderList">
 <div class="text-dark"><input type="checkbox" name="id" value="${dailyOrderList.id}">&nbsp;
-<input type="text" value="${dailyOrderList.title}"style="border:none;" readonly>
-<input type="text" name="content" value="${dailyOrderList.content}"style="border:none; width:700px" >
+<input type="text" value="${dailyOrderList.title}"style="border:none;width:300px;" readonly>
+<input type="text" name="content" value="${dailyOrderList.content}"style="border:none; width:500px" >
+<input type="file"  name="file">
 </div>
            </c:forEach>
           </div>
@@ -136,6 +164,7 @@
             	<td><input type="radio" name="${'fulfill'}${longOrderList.id}" value="${'80%'}"></td>
             	<td><input type="radio" name="${'fulfill'}${longOrderList.id}"  value="${'o'}"></td>
             	</tr>
+            	<input type="file"  name="file">
             	</c:forEach>
             	</tbody>
             	</table>
@@ -148,21 +177,7 @@
            <div class="text-muted"> 미완성 사유 혹은 업무상 추가설명이 필요한 경우 기입</div>
            <div><textarea rows="7" cols="110" name="postscript"></textarea></div><br>
           </div>
-          </form>
-            <div>
-            <h5 style="color:black;">★ 결과물제출</h5>
-    <h3>파일 업로드</h3>
-     <form action="/upload" method="post" enctype="multipart/form-data">
-     	  
-           <h4>단일 파일 업로드</h4>
-           <input type="file" name="file">
-                   	
-           <h4>다중 파일 업로드</h4>
-           <input type="file" multiple="multiple" name="files">
-			
-	   <input type="submit"/>
-	</form>
-          </div>
+	   </form>
           <div style="float:right"><button type="button" class="btn btn-primary" onclick="submitOrder()">제출하기</button></div>
           
         

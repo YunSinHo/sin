@@ -14,7 +14,15 @@
                    	
            <h4>다중 파일 업로드</h4>
            <input type="file" multiple="multiple" name="files">
-			
+			  <h4>단일 파일 업로드</h4>
+           <input type="file" name="file">
+                   	
+           <h4>다중 파일 업로드</h4>
+           <input type="file" multiple="multiple" name="files">  <h4>단일 파일 업로드</h4>
+           <input type="file" name="file">
+                   	
+           <h4>다중 파일 업로드</h4>
+           <input type="file" multiple="multiple" name="files">
 	   <input type="submit"/>
 	</form>
 </body>

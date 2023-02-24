@@ -84,7 +84,7 @@
                         </c:if>
                         <c:if test="${loginTeacher ne null}">
                          <c:forEach items="${teacherClass}" var="teacherClass">
-                        <a class="collapse-item" href="classAll.do?name=${teacherClass}">${teacherClass}</a>
+                        <a class="collapse-item" href="classAll.do?student_class=${teacherClass}">${teacherClass}</a>
                         </c:forEach>
                         </c:if>
                     </div>

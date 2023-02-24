@@ -47,6 +47,9 @@ implementation group: 'org.mindrot', name: 'jbcrypt', version: '0.4'
 	implementation 'javax.servlet:jstl'
 	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
 	implementation fileTree(dir: 'libs', include: ['*.jar'])
+	
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
 }
 bootWar {
        archiveName("Leader.war")

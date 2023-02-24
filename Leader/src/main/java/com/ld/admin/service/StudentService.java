@@ -97,5 +97,10 @@ public class StudentService {
 		
 	}
 
+	public StudentVO studentOne(int id) {
+		// TODO Auto-generated method stub
+		return studentDao.studentOne(id);
+	}
+
 
 }

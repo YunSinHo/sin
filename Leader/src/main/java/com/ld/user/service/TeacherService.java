@@ -203,4 +203,16 @@ public class TeacherService {
 		// TODO Auto-generated method stub
 		return teacherDao.dailyOrderList2(id,date);
 	}
+	public long[] reportFileId() {
+		// TODO Auto-generated method stub
+		return teacherDao.reportFileId();
+	}
+	public long[] reportFileReportId() {
+		// TODO Auto-generated method stub
+		return teacherDao.reportFileReportId();
+	}
+	public List<ReportVO> reorderList(int id) {
+		// TODO Auto-generated method stub
+		return teacherDao.reorderList(id);
+	}
 }

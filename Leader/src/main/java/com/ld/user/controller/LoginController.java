@@ -226,7 +226,7 @@ public class LoginController {
 			studentClassVO=studentService.studentClassList(studentVO.getId());
 			session.setAttribute("studentClass",studentClassVO);
 			}
-			url="redirect:/tables.mdo";
+			url="redirect:/mainStudent.do";
 			}
 		return url;
 }
@@ -238,6 +238,7 @@ public class LoginController {
 		return "redirect:/tables.mdo";
 	}
 	//로그인시 메인 페이지
+	//강사
 	@RequestMapping("/main.do")
 	public ModelAndView main(HttpServletRequest request) {
 		HttpSession session=request.getSession();
@@ -249,6 +250,20 @@ public class LoginController {
 		
 		
 		mav.setViewName("user/main");
+		return mav;
+	}
+	//학생
+	@RequestMapping("/mainStudent.do")
+	public ModelAndView mainStudent(HttpServletRequest request) {
+		HttpSession session=request.getSession();
+		int id=(int)session.getAttribute("id");
+		ModelAndView mav =new ModelAndView();
+		StudentVO studentVO=new StudentVO();
+		studentVO=studentService.studentOne(id);
+		mav.addObject("student",studentVO);
+		
+		
+		mav.setViewName("user/mainStudent");
 		return mav;
 	}
 }

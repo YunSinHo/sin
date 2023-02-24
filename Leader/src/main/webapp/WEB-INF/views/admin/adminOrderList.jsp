@@ -173,7 +173,7 @@ function newOrder(){
             <h5 style="color:black;">★ 완성된업무</h5>
            <button type="button" class="btn btn-primary" onclick="deleteCompleteOrder();">삭제</button>&nbsp;&nbsp;&nbsp;
            <button type="button" class="btn btn-info" onclick="completeReOrder();">재발송</button>&nbsp;&nbsp;&nbsp;
-           <div style="width:900px;color:#0039e6">업무내용&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           <div style="width:900px;"class="text-muted">업무내용&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -192,19 +192,23 @@ function newOrder(){
 ${finishOrderTeacher.teacher_name}
 <input type="text" name="deadline" class="workday" name="deadline" id="datepicker" autocomplete="off" 
 value="<fmt:formatDate value="${finishOrderTeacher.deadline}" pattern="MM/dd HH:mm"/>" style="border:none; width:100px">
+<c:forEach items="reportFile" var="reportFile">
+<a href="/attach/${finishOrderTeacher.file_id}">${finishOrderTeacher.file_id}<a/>
+</c:forEach>
 </div>
 <hr style="background:black">
            </c:forEach>
           </div>
           </form>
           <hr>
+          
            <form  class="validation-form"   name="adminOngoingForm" method="POST">
             <div>
             <h5 style="color:black;">★ 진행중인업무</h5>
              
             <button type="button" class="btn btn-primary" onclick="deleteOngoingOrder()">삭제</button>&nbsp;&nbsp;&nbsp;
            <button type="button" class="btn btn-info" onclick="ongoingReOrder();">재발송</button>&nbsp;&nbsp;&nbsp;
-           <div style="width:900px;color:#0039e6">업무내용&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           <div style="width:900px;"class="text-muted">업무내용&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -236,7 +240,7 @@ value="<fmt:formatDate value="${ongoingOrder.deadline}" pattern="MM/dd HH:mm"/>"
             
              <button type="button" class="btn btn-primary" onclick="deleteIncompleteOrder()">삭제</button>&nbsp;&nbsp;&nbsp;
            <button type="button" class="btn btn-info" onclick="incompleteReOrder();">재발송</button>&nbsp;&nbsp;&nbsp;
-            <div style="width:900px;color:#0039e6">업무내용&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <div style="width:900px;"class="text-muted">업무내용&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -282,13 +286,7 @@ value="<fmt:formatDate value="${longOrderListAll.deadline}" pattern="MM/dd HH:mm
             	
           </div>
           
-          <hr>
-          <div>
-            <h5 style="color:black;">★ 결과물제출</h5>
-            <input type="text" name="asdf" value="dd">
-          </div>
-          <hr >
-          <div style="color:black;">
+          <hr> 
             <h5 style="color:black;">★ 특이사항</h5>
             <button type="button" class="btn btn-primary" onclick="deletePostscript()">삭제</button><br>
            <c:forEach items="${postscriptList}" var="postscriptList">
@@ -319,7 +317,7 @@ value="<fmt:formatDate value="${longOrderListAll.deadline}" pattern="MM/dd HH:mm
 		var strMenu = "";
 	    var test =cnt;
 	   strMenu += '<div id="'+test+'"  style="width:900px">'
-	                + '<input type="text" id="title" style="width:300px;" name="title"  >&nbsp;&nbsp;'
+	                + '업무내용<input type="text" id="title" style="width:300px;" name="title"  >&nbsp;&nbsp;'
 	                +'<select id="selecta'+test+'" name="dept" style="border:none;" onchange="selectDept('+test+');">'
 	           		+'<option value="">부서선택</option>'
 	           		+'<option value="${"전체"}">전체</option>'
@@ -332,6 +330,7 @@ value="<fmt:formatDate value="${longOrderListAll.deadline}" pattern="MM/dd HH:mm
 	           		+'<input type="text" name="deadline" style="border:none;width:100px" class="workday" name="deadline" id="datepicker" autocomplete="off" value="'+choice+'">'
 	           		+'중요업무<input type="checkbox" value="${"o"}" name="importance">&nbsp;&nbsp;'
 	           		+'장기업무<input type="checkbox" value="${"o"}" name="longorder"><br>'
+	           		+ '상세내용<input type="text" id="content" style="width:600px;" name="content"  >&nbsp;&nbsp;<br>'
 	           		+ '<input type="button" id="test'+test+'" value="삭제" onclick="remove_div('+test+')">'
 	            + '</div><br>';                          
 	                                            

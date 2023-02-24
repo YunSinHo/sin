@@ -1,19 +1,28 @@
 package com.ld.admin.controller;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ld.admin.service.AdminService;
+import com.ld.admin.service.ScheduleService;
 import com.ld.admin.service.StudentService;
 import com.ld.admin.vo.StudentClassAllVO;
 import com.ld.user.service.TeacherService;
@@ -22,9 +31,14 @@ import com.ld.user.vo.StudentClassVO;
 import com.ld.user.vo.StudentVO;
 import com.ld.user.vo.TeacherVO;
 
+import lombok.RequiredArgsConstructor;
+
 @Controller
+@RequiredArgsConstructor
 public class AdminController {
 
+
+    private final ScheduleService scheduleService;
 	@Autowired
 	private StudentService studentService;
 	@Autowired
@@ -185,5 +199,34 @@ public class AdminController {
 			teacherService.rejoinTeacher(id);
 			return "redirect:/teacherList.mdo";
 		}
+		
+	//클래스 계획세우기
+		@RequestMapping(value="/planning.mdo",method=RequestMethod.GET)
+		public ModelAndView planning() {
+			ModelAndView mav=new ModelAndView();
+			mav.setViewName("admin/calendar");
+			return mav;
+		}
+		@GetMapping("/adminCalendar.mdo")
+	    @ResponseBody
+	    public List<Map<String, Object>> monthPlan() {
+	        List<Schedule> listAll = scheduleService.findAll();
+	 
+	        JSONObject jsonObj = new JSONObject();
+	        JSONArray jsonArr = new JSONArray();
+	 
+	        HashMap<String, Object> hash = new HashMap<>();
+	 
+	        for (int i = 0; i < listAll.size(); i++) {
+	            hash.put("title", listAll.get(i).getId());
+	            hash.put("start", listAll.get(i).getScheduleDate());
+//	            hash.put("time", listAll.get(i).getScheduleTime());
+	 
+	            jsonObj = new JSONObject(hash);
+	            jsonArr.add(jsonObj);
+	        }
+	        log.info("jsonArrCheck: {}", jsonArr);
+	        return jsonArr;
+	    }
 
 }

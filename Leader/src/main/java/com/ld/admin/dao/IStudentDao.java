@@ -50,6 +50,8 @@ public interface IStudentDao {
 
 	void rejoinStudent(int id);
 
+	StudentVO studentOne(int id);
+
 
 
 }
