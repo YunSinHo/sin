@@ -280,7 +280,7 @@ value="<fmt:formatDate value="${incompleteOrder.deadline}" pattern="MM/dd HH:mm"
 	</c:forEach>
 </select>
 ${longOrderListAll.teacher_name}
-<input type="text" name="deadline" class="workday" name="deadline" id="datepicker" autocomplete="off" 
+<input type="text" name="deadline" class="workday"  id="datepicker" autocomplete="off" 
 value="<fmt:formatDate value="${longOrderListAll.deadline}" pattern="MM/dd HH:mm"/>" style="border:none;"><br>
             	</c:forEach>
             	
@@ -309,7 +309,7 @@ value="<fmt:formatDate value="${longOrderListAll.deadline}" pattern="MM/dd HH:mm
 	    Dateformat: 'YYYY-MM-DD HH:mm:ss'
 	});
 	var remove_div = function(test){		
-		$("#"+test.id).remove();		
+		$("#"+test).remove();		
 	}
 	var cnt = 1;
 	var add_div = function(){

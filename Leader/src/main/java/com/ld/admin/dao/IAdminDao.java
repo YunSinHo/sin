@@ -1,5 +1,6 @@
 package com.ld.admin.dao;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -7,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.ld.admin.vo.AdminVO;
 import com.ld.admin.vo.AdminworkVO;
 import com.ld.user.vo.ClassAllVO;
+import com.ld.user.vo.StudentClassVO;
 import com.ld.user.vo.TeacherVO;
 
 @Mapper
@@ -27,6 +29,10 @@ public interface IAdminDao {
 	TeacherVO loginTeacher(String id, String password);
 
 	List<ClassAllVO> getClassAll();
+
+	void addStudyPlan(Timestamp timestamp, int choiceArr, int week);
+
+	List<StudentClassVO> studentClassList();
 
 
 }

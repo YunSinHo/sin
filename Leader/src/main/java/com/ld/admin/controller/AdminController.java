@@ -1,8 +1,9 @@
 package com.ld.admin.controller;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -201,6 +202,51 @@ public class AdminController {
 		}
 		
 	//클래스 계획세우기
+		@RequestMapping(value="/addStudyPlan.mdo",method=RequestMethod.GET)
+		public ModelAndView addStudyPlanning() {
+			ModelAndView mav=new ModelAndView();
+			List<StudentClassVO> studentClassVO=new ArrayList();
+			studentClassVO=adminService.studentClassList();
+			mav.addObject("classList",studentClassVO);
+			mav.setViewName("admin/addStudyPlan");
+			return mav;
+		}
+		@RequestMapping("/imsi4")
+		public ModelAndView imsi4(@RequestParam("day")String day,
+				@RequestParam("date")String date,
+				@RequestParam("choiceDay")String choiceDay[]) {
+			Timestamp timestamp=null; 
+			date=date+" 00:00:00";
+			timestamp=Timestamp.valueOf(date);
+			System.out.println(day+"+"+date+" "+Arrays.asList(choiceDay));
+			int arr[]= {1,2,3,4,5,6,7};
+			int choiceArr[]=new int[choiceDay.length];
+			String dayArr[]= {"일","월","화","수","목","금","토"};
+			for(int i=0;i<choiceDay.length;i++) {
+				for(int j=0;j<dayArr.length;j++) {
+					if(choiceDay[i].equals(dayArr[j])) {
+						choiceArr[i]=arr[j];
+					}
+				}
+			}
+			for(int i=1;i<choiceDay.length;i++) {
+				choiceArr[i]=choiceArr[i]-choiceArr[0];
+			}
+			choiceArr[0]=0;
+			int choiceCnt=0;
+			int week=0;
+			for(int i=0;i<dayArr.length;i++) {
+				adminService.addStudyPlan(timestamp,choiceArr[choiceCnt],week);
+				choiceCnt++;
+				if(choiceCnt==choiceArr.length) {
+					choiceCnt=0;
+					week++;
+				}
+			}
+			ModelAndView mav=new ModelAndView();
+			mav.setViewName("admin/addStudyPlan");
+			return mav;
+		}
 		@RequestMapping(value="/planning.mdo",method=RequestMethod.GET)
 		public ModelAndView planning() {
 			ModelAndView mav=new ModelAndView();

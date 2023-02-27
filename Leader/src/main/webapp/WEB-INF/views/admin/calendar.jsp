@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ include file="../side.jsp"%>
+  <%@ include file="../header.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
 <script src='dist/index.global.js'></script>
 <script>
-
   document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
 
@@ -28,8 +29,8 @@
             end: arg.end,
             allDay: arg.allDay
           })
-        }--%>
-        location.href="adminOrderList.mdo";
+        }location.href="adminOrderList.mdo";--%>
+        
         calendar.unselect()
       },
       eventClick: function(arg) {
@@ -118,8 +119,8 @@
 </style>
 </head>
 <body>
-
+	<form name="calendarFrm">
   <div id='calendar'></div>
-
+	</form>
 </body>
 </html>
