@@ -36,25 +36,26 @@
       box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15)
     }
   </style>
-  <form action="imsi4">
+  <form action="addStudyPlan.mdo" method="POST">
  <div class="input-form-backgroud row">
       <div class="input-form col-md-auto mx-auto" style="width: 1000px;color:black;">
       
-      <div>교재명 : <input type="text"></div>
+      <div>교재명 : <input type="text" name="bookName"></div>
       <hr>
-      <div>요일 선택 : 일<input type="checkbox" name="choiceDay" value="${'일'}"> 월<input type="checkbox" name="choiceDay" value="${'월'}"> 
+      <div>요일선택 : 일<input type="checkbox" name="choiceDay" value="${'일'}"> 월<input type="checkbox" name="choiceDay" value="${'월'}"> 
       화<input type="checkbox" name="choiceDay" value="${'화'}"> 수<input type="checkbox" name="choiceDay" value="${'수'}"> 
       목<input type="checkbox" name="choiceDay" value="${'목'}">
        금<input type="checkbox" name="choiceDay" value="${'금'}"> 토<input type="checkbox" name="choiceDay" value="${'토'}">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
        <input type="text" class="workday" id="datepicker" value="시작날짜" style="border:none;width:100px;" name="date">
        <span id="mydate"></span>
        <input type="hidden" id="mydate2" name="day" style="display:none;"/></div>
       <hr>
-      <div>반 선택 <select>
-      <c:forEach items="${classList}" var="classList">
-      <option value="">${classList.name}</option>
-      </c:forEach>
-      </select>
+      <div>반선택 
+      <div id="room_type1" style="width:900px">
+    </div> 
+    <br>
+      <input type="button" class="btn btn-primary" value="추가" onclick="add_div1()"><br/>&nbsp;&nbsp;&nbsp;
       </div>
       <hr>
       <div>
@@ -85,6 +86,7 @@ $("#datepicker").datepicker({
     }
 });
 var cnt = 1;
+var cnt1 =1;
 var remove_div = function(test){		
 	$("#"+test).remove();
 	cnt--;
@@ -95,12 +97,32 @@ var add_div = function(){
 	var strMenu = "";
     var test =cnt;
    strMenu += '<div id="'+test+'"  style="width:900px;margin-top:5px;">'
-           		+ ''+test+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="content" style="width:600px;" name="word"  >&nbsp;'
+           		+ ''+test+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="content" style="width:600px;" name="title"  >&nbsp;'
            		+ '<input type="button" id="test'+test+'" value="삭제" onclick="remove_div('+test+')">'
             + '</div>';                          
                                             
 	$("#room_type").append(strMenu);
 	cnt ++;
+	
+	
+}
+var remove_div1 = function(test){		
+	$("#"+test).remove();
+	cnt1--;
+}
+
+var add_div1 = function(){
+	var choice="날짜 선택";
+	var strMenu = "";
+    var test =cnt1;
+   strMenu += '<select name="classId">'
+   +'<c:forEach items="${classList}" var="classList">'
+   +'<option value="${classList.id}">${classList.name}</option>'
+   +'</c:forEach>'
+   +'</select>&nbsp;&nbsp;&nbsp;';                          
+                                            
+	$("#room_type1").append(strMenu);
+	cnt1 ++;
 	
 	
 }

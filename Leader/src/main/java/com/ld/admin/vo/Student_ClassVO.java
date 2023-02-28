@@ -3,9 +3,9 @@ package com.ld.admin.vo;
 import lombok.Data;
 
 @Data
-public class StudentClassVO {
+public class Student_ClassVO {
 
 	private int id;
-	private String word;
+	private String title;
 	private String name;
 }

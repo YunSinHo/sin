@@ -31,9 +31,13 @@
 		select name from class
 	</select>
 	<insert id="addStudyPlan">
-		insert into class_planning(word,create_date) values('a',DATE_ADD(#{param1},interval 7*#{param3}+#{param2} day));
+		insert into class_planning(class_id,title,book_name,create_date,class_name) 
+		values(#{param4},#{param5},#{param6},DATE_ADD(#{param1},interval 7*#{param3}+#{param2} day),#{param7});
 	</insert>
-	<select id="studentClassList" resultType="com.ld.admin.vo.StudentClassVO">
+	<select id="studentClassList" resultType="com.ld.admin.vo.Student_ClassVO">
 		select * from student_class;
+	</select>
+	<select id="PlanningList" resultType="com.ld.admin.vo.ClassPlanningVO">
+		select * from class_planning;
 	</select>
 </mapper>

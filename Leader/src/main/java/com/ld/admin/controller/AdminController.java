@@ -1,6 +1,7 @@
 package com.ld.admin.controller;
 
 
+
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,7 +26,9 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ld.admin.service.AdminService;
 import com.ld.admin.service.ScheduleService;
 import com.ld.admin.service.StudentService;
+import com.ld.admin.vo.ClassPlanningVO;
 import com.ld.admin.vo.StudentClassAllVO;
+import com.ld.admin.vo.Student_ClassVO;
 import com.ld.user.service.TeacherService;
 import com.ld.user.vo.ClassAllVO;
 import com.ld.user.vo.StudentClassVO;
@@ -202,21 +205,35 @@ public class AdminController {
 		}
 		
 	//클래스 계획세우기
-		@RequestMapping(value="/addStudyPlan.mdo",method=RequestMethod.GET)
+		@RequestMapping(value="/studyPlan.mdo",method=RequestMethod.GET)
 		public ModelAndView addStudyPlanning() {
 			ModelAndView mav=new ModelAndView();
-			List<StudentClassVO> studentClassVO=new ArrayList();
+			List<Student_ClassVO> studentClassVO=new ArrayList();
 			studentClassVO=adminService.studentClassList();
 			mav.addObject("classList",studentClassVO);
 			mav.setViewName("admin/addStudyPlan");
 			return mav;
 		}
-		@RequestMapping("/imsi4")
+		@RequestMapping(value="/addStudyPlan.mdo" ,method=RequestMethod.POST)
 		public ModelAndView imsi4(@RequestParam("day")String day,
 				@RequestParam("date")String date,
-				@RequestParam("choiceDay")String choiceDay[]) {
+				@RequestParam("choiceDay")String choiceDay[],
+				@RequestParam("classId")int classId[],
+				@RequestParam("bookName")String bookName,
+				@RequestParam("title")String []title) {
 			Timestamp timestamp=null; 
 			date=date+" 00:00:00";
+			String className[]=new String[classId.length];
+			List<Student_ClassVO> studentClassVO=new ArrayList();
+			studentClassVO=adminService.studentClassList();
+			for(int j=0;j<classId.length;j++) {
+			for(int i=0;i<studentClassVO.size();i++) {
+					if(studentClassVO.get(i).getId()==classId[j]) {
+						className[j]=studentClassVO.get(i).getName();
+						
+					}
+				}
+			}
 			timestamp=Timestamp.valueOf(date);
 			System.out.println(day+"+"+date+" "+Arrays.asList(choiceDay));
 			int arr[]= {1,2,3,4,5,6,7};
@@ -235,16 +252,19 @@ public class AdminController {
 			choiceArr[0]=0;
 			int choiceCnt=0;
 			int week=0;
-			for(int i=0;i<dayArr.length;i++) {
-				adminService.addStudyPlan(timestamp,choiceArr[choiceCnt],week);
+			for(int i=0;i<title.length;i++) {
+				for(int j=0;j<classId.length;j++) {
+					adminService.addStudyPlan(timestamp,choiceArr[choiceCnt],week,classId[j],title[i],bookName,className[j]);
+				}
 				choiceCnt++;
 				if(choiceCnt==choiceArr.length) {
 					choiceCnt=0;
 					week++;
 				}
+				
 			}
 			ModelAndView mav=new ModelAndView();
-			mav.setViewName("admin/addStudyPlan");
+			mav.setViewName("redirect:/planning.mdo");
 			return mav;
 		}
 		@RequestMapping(value="/planning.mdo",method=RequestMethod.GET)
@@ -256,7 +276,7 @@ public class AdminController {
 		@GetMapping("/adminCalendar.mdo")
 	    @ResponseBody
 	    public List<Map<String, Object>> monthPlan() {
-	        List<Schedule> listAll = scheduleService.findAll();
+	        List<ClassPlanningVO> listAll = adminService.PlanningList();
 	 
 	        JSONObject jsonObj = new JSONObject();
 	        JSONArray jsonArr = new JSONArray();
@@ -264,14 +284,15 @@ public class AdminController {
 	        HashMap<String, Object> hash = new HashMap<>();
 	 
 	        for (int i = 0; i < listAll.size(); i++) {
-	            hash.put("title", listAll.get(i).getId());
-	            hash.put("start", listAll.get(i).getScheduleDate());
-//	            hash.put("time", listAll.get(i).getScheduleTime());
-	 
+	        	hash.put("title", listAll.get(i).getClass_name()+" "+listAll.get(i).getBook_name()+" "+listAll.get(i).getTitle());
+	        	hash.put("bookName", listAll.get(i).getBook_name());
+	            hash.put("start", listAll.get(i).getCreate_date());
+	            hash.put("end", listAll.get(i).getCreate_date());
+	            hash.put("id", listAll.get(i).getId());
+	            
 	            jsonObj = new JSONObject(hash);
 	            jsonArr.add(jsonObj);
 	        }
-	        log.info("jsonArrCheck: {}", jsonArr);
 	        return jsonArr;
 	    }
 
