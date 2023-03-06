@@ -132,7 +132,7 @@
            <c:forEach items="${dailyOrderList}" var="dailyOrderList">
 <div class="text-dark"><input type="checkbox" name="id" value="${dailyOrderList.id}">&nbsp;
 <input type="text" value="${dailyOrderList.title}"style="border:none;width:300px;" readonly>
-<input type="text" name="content" value="${dailyOrderList.content}"style="border:none; width:500px" >
+<input type="text" name="content" value="${'X'}"style="border:none; width:500px">
 <input type="file"  name="file">
 </div>
            </c:forEach>
@@ -157,14 +157,16 @@
             	<c:forEach items="${longOrderList}" var="longOrderList">
             	<input type="hidden" name="id2" value="${longOrderList.id}">
             	<tr>
-            	<td style="color:black;">${longOrderList.title}<br>D.L(<fmt:formatDate value="${longOrderList.deadline}" pattern="MM/dd" />)</td>
+            	<td style="color:black;">${longOrderList.title}
+            	<br>D.L(<fmt:formatDate value="${longOrderList.deadline}" pattern="MM/dd" />)<br>
+            	<input type="file"  name="file"></td>
             	<td><input type="radio" name="${'fulfill'}${longOrderList.id}" value="${'20%'}"></td>
             	<td><input type="radio" name="${'fulfill'}${longOrderList.id}"  value="${'40%'}"></td>
             	<td><input type="radio" name="${'fulfill'}${longOrderList.id}"  value="${'60%'}"></td>
             	<td><input type="radio" name="${'fulfill'}${longOrderList.id}" value="${'80%'}"></td>
             	<td><input type="radio" name="${'fulfill'}${longOrderList.id}"  value="${'o'}"></td>
             	</tr>
-            	<input type="file"  name="file">
+            	
             	</c:forEach>
             	</tbody>
             	</table>

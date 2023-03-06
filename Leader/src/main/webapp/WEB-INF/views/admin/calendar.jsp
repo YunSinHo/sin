@@ -10,7 +10,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     $(function () {
         var request = $.ajax({
-            url: "/adminCalendar.mdo", // 변경하기
+            url: "/adminCalendar.mdo", 
             method: "GET",
             dataType: "json"
         });
@@ -27,11 +27,22 @@ document.addEventListener('DOMContentLoaded', function () {
                     center: 'title',
                     right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
                 },
-                eventClick: function(arg) {
+                navLinks: true, // can click day/week names to navigate views
+                selectable: true,
+                selectMirror: true,
+                select: function(arg) {
                     if (confirm('Are you sure you want to delete this event?')) {
-                      arg.event.remove()
+                    	
+                            var request =$.ajax({
+                                url: "/calendarDetail.mdo", 
+                                method: "GET",
+                                data : JSON.stringify(data),
+                                dataType: "json",
+                                contentType: "application/json; charset=utf-8"
+                            });
                     }
-                  },
+                  }
+                ,
                 editable: true,
                 displayEventTime: false,
                 droppable: true, // this allows things to be dropped onto the calendar
@@ -79,6 +90,7 @@ document.addEventListener('DOMContentLoaded', function () {
 <body>
 	<form name="calendarFrm">
   <div id='calendar'></div>
+  <div></div>
 	</form>
 </body>
 </html>

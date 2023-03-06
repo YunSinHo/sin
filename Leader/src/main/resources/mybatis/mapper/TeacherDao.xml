@@ -71,7 +71,7 @@ select * from report where daily='o' and create_date is null and teacher_id=#{pa
 
 <!-- 개인 장기프로젝트 -->
 <select id="longOrderList" resultType="com.ld.admin.vo.ReportVO">
-	select * from report where teacher_id=#{param1} and longorder='o' and fulfill !='o' and deadline <![CDATA[>=]]> now();
+	select * from report where teacher_id=#{param1} and longorder='o' and (fulfill !='o' or fulfill is null) and deadline <![CDATA[>=]]> now();
 </select>
 <!-- 진행중인 모든 장기프로젝트 -->
 <select id="longOrderListAll" resultType="com.ld.admin.vo.ReportVO">

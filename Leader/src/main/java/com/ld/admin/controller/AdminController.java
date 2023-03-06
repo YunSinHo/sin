@@ -17,6 +17,7 @@ import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -295,5 +296,21 @@ public class AdminController {
 	        }
 	        return jsonArr;
 	    }
+		@RequestMapping("/calendarDetail.mdo")
+		public ModelAndView calendarDetail(@RequestBody Map<String, Object> param) {
+			ModelAndView mav=new ModelAndView();
+			  System.out.println("\n");
+			  
+			  
+		        System.out.println("=======================================");
+		        System.out.println("[ModuleApiController] : [testPostBodyJson] : [start]");
+		        System.out.println("[request keySet] : " + String.valueOf(param.keySet()));
+		        System.out.println("[request idx] : " + String.valueOf(param.get("id")));
+		        System.out.println("[request name] : " + String.valueOf(param.get("start")));
+		        System.out.println("=======================================");
+		        System.out.println("\n");
+
+			return mav;
+		}
 
 }

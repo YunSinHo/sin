@@ -341,10 +341,8 @@ public class orderWorkController {
 			//데일리 업무 추가, 이미 추가되었다면 추가하지 않음
 			List<ReportVO> reportVO5=new ArrayList();
 			reportVO5=teacherService.dailyOrderSampleList(id);
-			System.out.println(Arrays.asList(reportVO5));
 			List<ReportVO> reportVO4=new ArrayList();
 			reportVO4=teacherService.dailyOrderList(id,date);
-			System.out.println(Arrays.asList(reportVO4));
 			String date2=date+" 00:00:00";
 			Timestamp timestamp =Timestamp.valueOf(date2);
 			if(reportVO4.isEmpty()) {
@@ -436,6 +434,7 @@ teacherService.insertDailyOrder(reportVO5.get(i).getTeacher_id(),reportVO5.get(i
 					ReportVO reportVO=new ReportVO();
 					reportVO.setFulfill(fulfill[i]);
 					reportVO.setId(id2[i]);
+					fileService.saveFile(file.get(i),(long)id2[i]);
 					teacherService.longOrderFulfill(reportVO);
 				}
 			}catch(Exception e) {
@@ -444,9 +443,13 @@ teacherService.insertDailyOrder(reportVO5.get(i).getTeacher_id(),reportVO5.get(i
 			//업무 제출
 			try {
 				for(int i=0;i<id.length;i++) {
-					if(id[i]!=0) {
+					if(id[i]!=0&&!content[i].equals("X")) {
 						fileService.saveFile(file.get(i),(long)id[i]);
 						teacherService.fulfillEnd(id[i],content[i]);
+					}
+					else {
+						fileService.saveFile(file.get(i),(long)id[i]);
+						teacherService.fulfillEnd(id[i],"");
 					}
 					
 				}
