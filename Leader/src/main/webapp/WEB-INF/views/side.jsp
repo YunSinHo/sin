@@ -120,7 +120,8 @@
                 <div id="collapseone" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">목록</h6>
-                        <a class="collapse-item" href="tables.mdo">학습자 목록</a>
+                        <a class="collapse-item" href="tables.mdo">당근 목록</a>
+                        <a class="collapse-item" href="dailyStudentList.mdo">일일학습</a>
                      <!--    <a class="collapse-item" href="#">반 배정</a>
                         <a class="collapse-item" href="#">숙제 배정</a>
                         <a class="collapse-item" href="sendmessage.mdo">문자 전송</a> -->

@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 import com.ld.admin.dao.IStudentDao;
 import com.ld.admin.vo.CarrotVO;
 import com.ld.admin.vo.StudentClassAllVO;
-import com.ld.user.vo.StudentClassVO;
+import com.ld.admin.vo.StudentClassListVO;
+import com.ld.admin.vo.Student_ClassVO;
 import com.ld.user.vo.StudentVO;
+import com.ld.user.vo.StudentWordClassVO;
 
 @Service
 public class StudentService {
@@ -37,7 +39,7 @@ public class StudentService {
 		return studentDao.loginStudent(id,password);
 	}
 
-	public List<StudentClassVO> studentClassList(int id) {
+	public List<StudentWordClassVO> studentClassList(int id) {
 		return studentDao.studentClassList(id);
 	}
 
@@ -46,11 +48,11 @@ public class StudentService {
 		
 	}
 
-	public List<StudentClassVO> studentClassListAll(int id) {
+	public List<StudentWordClassVO> studentClassListAll(int id) {
 		return studentDao.studentClassListAll(id);
 	}
 
-	public List<StudentClassVO> studentClassName(int id) {
+	public List<StudentWordClassVO> studentClassName(int id) {
 		return studentDao.studentClassName(id);
 	}
 
@@ -100,6 +102,25 @@ public class StudentService {
 	public StudentVO studentOne(int id) {
 		// TODO Auto-generated method stub
 		return studentDao.studentOne(id);
+	}
+
+	public List<StudentClassAllVO> studentClass() {
+		return studentDao.studentClass();
+	}
+
+	public List<StudentClassListVO> getStudentClass(int id) {
+		// TODO Auto-generated method stub
+		return studentDao.getStudentClass(id);
+	}
+
+	public void insertStudentWordClass(int id, String string) {
+		studentDao.insertStudentWordClass(id, string);
+		
+	}
+
+	public void deleteStudentWordClass(int id, String string) {
+		studentDao.deleteStudentWordClass(id, string);
+		
 	}
 
 

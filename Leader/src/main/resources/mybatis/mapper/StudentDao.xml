@@ -50,14 +50,14 @@
     select * from student where stuid=#{param1} and CONVERT(AES_DECRYPT(unhex(password), SHA2('bockgipoog541354',256)) USING utf8)=#{param2};
    </select>
    
-   <select id="studentClassList" resultType="com.ld.user.vo.StudentClassVO" parameterType="int">
-   	select * from student_class where student_id=#{param1} 
+   <select id="studentClassList" resultType="com.ld.user.vo.StudentWordClassVO" parameterType="int">
+   	select * from student_word_class where student_id=#{param1} 
    </select>
-    <select id="studentClassListAll" resultType="com.ld.user.vo.StudentClassVO" parameterType="int">
-   	select * from student_class where student_id=#{param1}
+    <select id="studentClassListAll" resultType="com.ld.user.vo.StudentWordClassVO" parameterType="int">
+   	select * from student_word_class where student_id=#{param1}
    </select>
    <select id="studentClassName" resultType="String" parameterType="int">
-   	select name from student_class where student_id=#{param1}
+   	select name from student_word_class where student_id=#{param1}
    </select>
    
    <insert id="insertStudent" parameterType="com.ld.user.vo.StudentVO">
@@ -67,21 +67,40 @@
    
    <select id="studentClassId" resultType="com.ld.admin.vo.StudentClassAllVO" >
    		select student.available,student.join_date as join_date, student.id as id,student.name as name,student.stuid as stuid,
-   		student.grade as grade,group_concat(student_class.name) as class_name from student
+   		student.grade as grade,group_concat(student_word_class.name) as class_name from student
    		 left join
- student_class on student.id=student_class.student_id
+ student_word_class on student.id=student_word_class.student_id
  group by student.name,student.stuid having student.available='o';
    </select>
    
    <select id="studentClassCount" resultType="int" parameterType="int">
-   	select count(*) from student_class where student_id=#{param1}
+   	select count(*) from student_word_class where student_id=#{param1}
+   </select>
+   <!-- 학원생 단어클래스 추가 -->
+   <insert id="insertStudentWordClass">
+   insert into student_word_class (student_id,name) values(#{param1},#{param2})
+   </insert>
+   <!-- 학원생 단어클래스 삭제 -->
+   <delete id="deleteStudentWordClass">
+   	delete from student_word_class where student_id=#{param1} and name=#{param2}
+   </delete>
+   <!-- 학원생 클래스 목록 -->
+   <select id="studentClass" resultType="com.ld.admin.vo.StudentClassAllVO">
+   	select student.available,student.join_date as join_date, student.id as id,student.name as name,student.stuid as stuid,
+   		student.grade as grade,group_concat(student_class_list.class_name) as class_name from student
+   		 left join
+ student_class_list on student.id=student_class_list.student_id
+ group by student.name,student.stuid having student.available='o';
+   </select>
+   <select id="getStudentClass" resultType="String">
+   	select class_name from student_class_list where student_id=#{param1}
    </select>
    <!-- 학원생 클래스 추가 -->
    <insert id="insertStudentClass">
-   insert into student_class (student_id,name) values(#{param1},#{param2})
+   insert into student_class_list (student_id,class_name) values(#{param1},#{param2})
    </insert>
    <!-- 학원생 클래스 삭제 -->
-   <delete id="deleteStudentClass">
-   	delete from student_class where student_id=#{param1} and name=#{param2}
+    <delete id="deleteStudentClass">
+   	delete from student_class_list where student_id=#{param1} and class_name=#{param2}
    </delete>
 </mapper>

@@ -38,12 +38,20 @@ public class AdminCommonController {
 	}
 	@GetMapping("/tables.mdo")
 	public ModelAndView tablesGet() {
-		
 		ModelAndView mav=new ModelAndView();
 		List<StudentVO> studentVO=new ArrayList();
 		studentVO=studentService.studentApproveList();
 		mav.addObject("studentList",studentVO);
 		mav.setViewName("admin/tables");
+		return mav;
+	}
+	@GetMapping("/dailyStudentList.mdo")
+	public ModelAndView dailyStudentList() {
+		ModelAndView mav=new ModelAndView();
+		List<StudentVO> studentVO=new ArrayList();
+		studentVO=studentService.studentApproveList();
+		mav.addObject("studentList",studentVO);
+		mav.setViewName("admin/dailyStudentList");
 		return mav;
 	}
 }

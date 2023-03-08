@@ -38,7 +38,7 @@
 <c:forEach items="${studentClass}" var="studentClass">
 <input type="checkbox" name="name" value="${studentClass}" >${studentClass}<br>
 </c:forEach>
-<button type="button" class="btn btn-danger"  onclick="deleteStudentClass();">클래스삭제</button>
+<button type="button" class="btn btn-danger"  onclick="deleteStudentClass2();">클래스삭제</button>
 </form>
 </body>
 </html>

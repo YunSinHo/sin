@@ -40,4 +40,7 @@
 	<select id="PlanningList" resultType="com.ld.admin.vo.ClassPlanningVO">
 		select * from class_planning;
 	</select>
+	<select id="getStudentClassAll" resultType="String">
+		select name from student_class;
+	</select>
 </mapper>

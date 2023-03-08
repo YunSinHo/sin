@@ -12,15 +12,15 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="m-0 font-weight-bold text-primary">클래스 관리</h1>
+                    <h1 class="m-0 font-weight-bold text-primary">단어클래스 관리</h1>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-body">
                         <form method="get" name="studentClass" >
                             <input type="hidden" name="id" value="${id}">
-                            	<button type="button" class="btn btn-success"  onclick="addClass2();">클래스 추가</button>
-                            	<button type="button" class="btn btn-danger" onclick="deleteClass2();">클래스 삭제</button><br><br>
+                            	<button type="button" class="btn btn-success"  onclick="addClass();">클래스 추가</button>
+                            	<button type="button" class="btn btn-danger" onclick="deleteClass();">클래스 삭제</button><br><br>
                             <div class="filterarea">
                             </div>
                             <%--학원생 목록 --%>

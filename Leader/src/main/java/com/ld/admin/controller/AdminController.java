@@ -16,6 +16,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,11 +30,12 @@ import com.ld.admin.service.ScheduleService;
 import com.ld.admin.service.StudentService;
 import com.ld.admin.vo.ClassPlanningVO;
 import com.ld.admin.vo.StudentClassAllVO;
+import com.ld.admin.vo.StudentClassListVO;
 import com.ld.admin.vo.Student_ClassVO;
 import com.ld.user.service.TeacherService;
 import com.ld.user.vo.ClassAllVO;
-import com.ld.user.vo.StudentClassVO;
 import com.ld.user.vo.StudentVO;
+import com.ld.user.vo.StudentWordClassVO;
 import com.ld.user.vo.TeacherVO;
 
 import lombok.RequiredArgsConstructor;
@@ -74,13 +76,13 @@ public class AdminController {
 		mav.setViewName("admin/studentList");
 		return mav;
 	}
-	//학생클래스 추가
-	@RequestMapping("/addClassForm.mdo")
-	public ModelAndView addClassForm(@RequestParam("id")int id) {
+	//학생 단어클래스 추가
+	@RequestMapping("/addWordClassForm.mdo")
+	public ModelAndView addWordClassForm(@RequestParam("id")int id) {
 		ModelAndView mav=new ModelAndView();
 		List<ClassAllVO> classAllVO=new ArrayList();
 		classAllVO=adminService.getClassAll();
-		List<StudentClassVO> studentClassVO=new ArrayList();
+		List<StudentWordClassVO> studentClassVO=new ArrayList();
 			studentClassVO=studentService.studentClassName(id);
 			String stuClass[]=studentClassVO.toArray(new String [studentClassVO.size()]);
 			String classA[]=classAllVO.toArray(new String [classAllVO.size()]);
@@ -95,37 +97,36 @@ public class AdminController {
 		mav.addObject("studentClass",studentClassVO);
 		mav.addObject("classAll",classAllVO);
 		mav.addObject("id",id);
-		mav.setViewName("admin/addClass");
+		mav.setViewName("admin/addWordClass");
 		return mav;
 	}
-	@RequestMapping("/addClass.mdo")
-	public String addClass(@RequestParam("name")String []name,@RequestParam("id")int id) {
-		ModelAndView mav=new ModelAndView();
+	@RequestMapping("/addWordClass.mdo")
+	public String addWordClass(@RequestParam("name")String []name,@RequestParam("id")int id) {
 		for(int i=0;i<name.length;i++) {
-			studentService.insertStudentClass(id,name[i]);
+			studentService.insertStudentWordClass(id,name[i]);
 		}
 		
-		return "redirect:/addClassForm.mdo?id="+id;
+		return "redirect:/addClassWordForm.mdo?id="+id;
 	}
-	//학생 클래스 제거
-	@RequestMapping("/deleteClassForm.mdo")
-	public ModelAndView deleteClassForm(@RequestParam("id")int id) {
+	//학생 단어클래스 제거
+	@RequestMapping("/deleteWordClassForm.mdo")
+	public ModelAndView deleteWordClassForm(@RequestParam("id")int id) {
 		ModelAndView mav=new ModelAndView();
-		List<StudentClassVO> studentClassVO=new ArrayList();
+		List<StudentWordClassVO> studentClassVO=new ArrayList();
 		studentClassVO=studentService.studentClassName(id);
 		mav.addObject("studentClass",studentClassVO);
 		mav.addObject("id",id);
-		mav.setViewName("admin/deleteClass");
+		mav.setViewName("admin/deleteWordClass");
 		return mav;
 	}
-	@RequestMapping("/deleteClass.mdo")
+	@RequestMapping("/deleteWordClass.mdo")
 	public String delete(@RequestParam("name")String []name,@RequestParam("id")int id) {
 		ModelAndView mav=new ModelAndView();
 		for(int i=0;i<name.length;i++) {
-			studentService.deleteStudentClass(id,name[i]);
+			studentService.deleteStudentWordClass(id,name[i]);
 		}
 		
-		return "redirect:/deleteClassForm.mdo?id="+id;
+		return "redirect:/deleteClassWordForm.mdo?id="+id;
 	}
 	//학생 관리
 	//가입 승인
@@ -147,19 +148,19 @@ public class AdminController {
 		studentService.rejoinStudent(id);
 		return "redirect:/studentList.mdo";
 	}
-	//학생 클래스 관리
-	@RequestMapping("/studentClassList.mdo")
-	public ModelAndView studentClassList(HttpServletRequest request) {
+	//학생 단어클래스 관리
+	@RequestMapping("/studentWordClassList.mdo")
+	public ModelAndView studentWordClassList(HttpServletRequest request) {
 		HttpSession session=request.getSession();
 		TeacherVO teacherVO=(TeacherVO)session.getAttribute("loginTeacher");
 		ModelAndView mav=new ModelAndView();
 		List<StudentVO> studentVO=new ArrayList();
-		List<StudentClassVO> studentClassVO=new ArrayList();
+		List<StudentWordClassVO> studentClassVO=new ArrayList();
 		studentVO=studentService.studentList();
 		List<StudentClassAllVO> studentClassAllVO=new ArrayList();
 		studentClassAllVO=studentService.studentClassId();
 		mav.addObject("studentClassList",studentClassAllVO);
-		mav.setViewName("admin/studentClassList");
+		mav.setViewName("admin/studentWordClassList");
 		return mav;
 	}
 	//강사 관리
@@ -268,6 +269,7 @@ public class AdminController {
 			mav.setViewName("redirect:/planning.mdo");
 			return mav;
 		}
+		//클래스 별 계획
 		@RequestMapping(value="/planning.mdo",method=RequestMethod.GET)
 		public ModelAndView planning() {
 			ModelAndView mav=new ModelAndView();
@@ -276,7 +278,7 @@ public class AdminController {
 		}
 		@GetMapping("/adminCalendar.mdo")
 	    @ResponseBody
-	    public List<Map<String, Object>> monthPlan() {
+	    public List<Map<String, Object>> monthPlan(Model model) {
 	        List<ClassPlanningVO> listAll = adminService.PlanningList();
 	 
 	        JSONObject jsonObj = new JSONObject();
@@ -294,6 +296,7 @@ public class AdminController {
 	            jsonObj = new JSONObject(hash);
 	            jsonArr.add(jsonObj);
 	        }
+	        model.addAttribute("d","");
 	        return jsonArr;
 	    }
 		@RequestMapping("/calendarDetail.mdo")
@@ -311,6 +314,80 @@ public class AdminController {
 		        System.out.println("\n");
 
 			return mav;
+		}
+		@RequestMapping("/studentDaily.mdo")
+		public ModelAndView studentDaily() {
+			ModelAndView mav=new ModelAndView();
+			
+			
+			mav.setViewName("admin/studentDaily");
+			return mav;
+		}
+		//클래스 관리
+		@RequestMapping("/studentClassList.mdo")
+		public ModelAndView studentClassList(HttpServletRequest request) {
+			HttpSession session=request.getSession();
+			TeacherVO teacherVO=(TeacherVO)session.getAttribute("loginTeacher");
+			ModelAndView mav=new ModelAndView();
+			List<StudentVO> studentVO=new ArrayList();
+			List<StudentClassAllVO> studentClassVO=new ArrayList();
+			studentVO=studentService.studentList();
+			studentClassVO=studentService.studentClass();
+			mav.addObject("studentClassList",studentClassVO);
+			mav.setViewName("admin/studentClassList"); 	
+			return mav;
+		}
+		//클래스 추가
+		@RequestMapping("/addClassForm.mdo")
+		public ModelAndView addClassForm(@RequestParam("id")int id) {
+			ModelAndView mav=new ModelAndView();
+			List<Student_ClassVO> classAllVO=new ArrayList();
+			classAllVO=adminService.getStudentClassAll();
+			List<StudentClassListVO> studentClassVO=new ArrayList();
+				studentClassVO=studentService.getStudentClass(id);
+				String stuClass[]=studentClassVO.toArray(new String [studentClassVO.size()]);
+
+				//등록된 클래스 빼기
+			for(int i=0;i<studentClassVO.size();i++) {
+				for(int j=0;j<classAllVO.size();j++) {
+						classAllVO.remove(stuClass[i]);
+					
+				}
+			}
+			
+			mav.addObject("studentClass",studentClassVO);
+			mav.addObject("classAll",classAllVO);
+			mav.addObject("id",id);
+			mav.setViewName("admin/addClass");
+			return mav;
+		}
+		@RequestMapping("/addClass.mdo")
+		public String addClass(@RequestParam("name")String []name,@RequestParam("id")int id) {
+			for(int i=0;i<name.length;i++) {
+				studentService.insertStudentClass(id,name[i]);
+			}
+			
+			return "redirect:/addClassForm.mdo?id="+id;
+		}
+		//학생 클래스 제거
+		@RequestMapping("/deleteClassForm.mdo")
+		public ModelAndView deleteClassForm(@RequestParam("id")int id) {
+			ModelAndView mav=new ModelAndView();
+			List<StudentClassListVO> studentClassVO=new ArrayList();
+			studentClassVO=studentService.getStudentClass(id);
+			mav.addObject("studentClass",studentClassVO);
+			mav.addObject("id",id);
+			mav.setViewName("admin/deleteClass");
+			return mav;
+		}
+		@RequestMapping("/deleteClass.mdo")
+		public String deleteClass(@RequestParam("name")String []name,@RequestParam("id")int id) {
+			ModelAndView mav=new ModelAndView();
+			for(int i=0;i<name.length;i++) {
+				studentService.deleteStudentClass(id,name[i]);
+			}
+			
+			return "redirect:/deleteClassForm.mdo?id="+id;
 		}
 
 }

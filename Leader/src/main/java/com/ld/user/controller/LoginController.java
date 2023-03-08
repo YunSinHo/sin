@@ -20,8 +20,8 @@ import com.ld.admin.service.StudentService;
 import com.ld.admin.vo.ReportVO;
 import com.ld.user.service.TeacherService;
 import com.ld.user.vo.ClassAllVO;
-import com.ld.user.vo.StudentClassVO;
 import com.ld.user.vo.StudentVO;
+import com.ld.user.vo.StudentWordClassVO;
 import com.ld.user.vo.TeacherVO;
 
 @Controller
@@ -212,7 +212,7 @@ public class LoginController {
 		TeacherVO teacherVO=new TeacherVO();
 		HttpSession session=request.getSession();
 		String url="user/login";
-		List<StudentClassVO> studentClassVO =new ArrayList();
+		List<StudentWordClassVO> studentClassVO =new ArrayList();
 			studentVO=studentService.loginStudent(id,password);
 			if(studentVO==null) {
 				request.setAttribute("message","아이디가 존재하지 않습니다.");

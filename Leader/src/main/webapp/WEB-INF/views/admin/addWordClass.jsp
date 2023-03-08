@@ -42,7 +42,7 @@
 <c:forEach items="${studentClass}" var="studentClass">
 ${studentClass}<br>
 </c:forEach>
-<button type="button" class="btn btn-success"  onclick="addStudentClass2();">클래스 추가</button>
+<button type="button" class="btn btn-success"  onclick="addStudentClass();">클래스 추가</button>
 </form>
 </body>
 </html>

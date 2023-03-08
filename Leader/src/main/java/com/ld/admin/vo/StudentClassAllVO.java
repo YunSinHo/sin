@@ -14,4 +14,5 @@ public class StudentClassAllVO {
 	private String class_name;
 	private Timestamp join_date;
 	private Timestamp update_date;
+	private int class_id;
 }

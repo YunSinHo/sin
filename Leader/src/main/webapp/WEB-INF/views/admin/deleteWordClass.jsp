@@ -31,18 +31,14 @@
     <script src="js/admin/datatables-demo.js"></script>
 </head>
 <body>
-<form name="addStudentClassGO">
+<form name="deleteStudentClassGO">
 <input type="hidden" name="classOne" value="${studentClass}">
 <input type="hidden" name="id" value="${id}">
-<h2 >미등록 클래스</h2>
-<c:forEach items="${classAll}" var="classAll">
-<input type="checkbox" name="name" value="${classAll}" >${classAll}<br>
-</c:forEach>
 <h2>등록된 클래스</h2>
 <c:forEach items="${studentClass}" var="studentClass">
-${studentClass}<br>
+<input type="checkbox" name="name" value="${studentClass}" >${studentClass}<br>
 </c:forEach>
-<button type="button" class="btn btn-success"  onclick="addStudentClass2();">클래스 추가</button>
+<button type="button" class="btn btn-danger"  onclick="deleteStudentClass();">클래스삭제</button>
 </form>
 </body>
 </html>

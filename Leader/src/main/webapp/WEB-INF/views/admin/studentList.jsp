@@ -53,6 +53,7 @@ function approveStudent(){
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
+                        <button type="button" class="btn btn-dark"  onclick="location.href='studentWordClassList.mdo'">단어클래스 관리</button>
                         <button type="button" class="btn btn-dark"  onclick="location.href='studentClassList.mdo'">클래스 관리</button>
                         </div>
                         <div class="card-body">

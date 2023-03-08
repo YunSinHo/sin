@@ -6,8 +6,10 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.ld.admin.vo.CarrotVO;
 import com.ld.admin.vo.StudentClassAllVO;
-import com.ld.user.vo.StudentClassVO;
+import com.ld.admin.vo.StudentClassListVO;
+import com.ld.admin.vo.Student_ClassVO;
 import com.ld.user.vo.StudentVO;
+import com.ld.user.vo.StudentWordClassVO;
 
 @Mapper
 public interface IStudentDao {
@@ -22,13 +24,13 @@ public interface IStudentDao {
 
 	StudentVO loginStudent(String id, String password);
 
-	List<StudentClassVO> studentClassList(int id);
+	List<StudentWordClassVO> studentClassList(int id);
 
 	void insertStudent(StudentVO studentVO);
 
-	List<StudentClassVO> studentClassListAll(int id);
+	List<StudentWordClassVO> studentClassListAll(int id);
 
-	List<StudentClassVO> studentClassName(int id);
+	List<StudentWordClassVO> studentClassName(int id);
 
 	List<StudentClassAllVO> studentClassId();
 
@@ -51,6 +53,15 @@ public interface IStudentDao {
 	void rejoinStudent(int id);
 
 	StudentVO studentOne(int id);
+
+	List<StudentClassAllVO> studentClass();
+
+	List<StudentClassListVO> getStudentClass(int id);
+
+	void insertStudentWordClass(int id, String string);
+
+
+	void deleteStudentWordClass(int id, String string);
 
 
 

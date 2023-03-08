@@ -11,9 +11,9 @@ import org.springframework.stereotype.Service;
 import com.ld.admin.dao.IAdminDao;
 import com.ld.admin.vo.AdminVO;
 import com.ld.admin.vo.ClassPlanningVO;
+import com.ld.admin.vo.StudentClassListVO;
 import com.ld.admin.vo.Student_ClassVO;
 import com.ld.user.vo.ClassAllVO;
-import com.ld.user.vo.StudentClassVO;
 import com.ld.user.vo.TeacherVO;
 @Service
 public class AdminService {
@@ -44,6 +44,10 @@ public class AdminService {
 	public List<ClassPlanningVO> PlanningList() {
 		// TODO Auto-generated method stub
 		return admindao.PlanningList();
+	}
+	public List<Student_ClassVO> getStudentClassAll() {
+		// TODO Auto-generated method stub
+		return admindao.getStudentClassAll();
 	}
 }
 
