@@ -12,64 +12,44 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h1 mb-2 text-gray-800">학습자 관리</h1>
+                    <h1 class="m-0 font-weight-bold text-primary">일일학습</h1>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h4 class="m-0 font-weight-bold text-primary">학습자 관리</h4>
-                        </div>
                         <div class="card-body">
+                        <form method="get" name="studentClass" >
+                            <input type="hidden" name="id" value="${id}">
                             <div class="filterarea">
                             </div>
-                            <form action="selectStudent.mdo" method="get">
-                            <div class="table-responsive">
+                            <%--학원생 목록 --%>
+                            <div class="table-responsive" id="studentList" style="display:block;">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align: center; vertical-align:middle;">
+                                   <colgroup>
+            <col width=15%>
+            <col width=10%>
+            <col width=45%>
+            <col width=20%>
+        </colgroup>
                                     <thead>
                                         <tr>
                                             <th>이름</th>
                                             <th>학년</th>
-                                            <th>학교</th>
                                             <th>클래스</th>
-                                            <th>학생 번호</th>
-                                            <th>부모님번호</th>
-                                            
+                                            <th>가입날짜</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    <script>
-                                    function goCarrotList(number){
-                                    	 let f = document.createElement('form');
-                                    	    
-                                    	    let obj;
-                                    	    obj = document.createElement('input');
-                                    	    obj.setAttribute('type', 'hidden');
-                                    	    obj.setAttribute('name', 'parentnumber');
-                                    	    obj.setAttribute('value', number);
-                                    	    
-                                    	    f.appendChild(obj);
-                                    	    f.setAttribute('method', 'post');
-                                    	    f.setAttribute('action', 'carrotList.mdo');
-                                    	    document.body.appendChild(f);
-                                    	    f.submit();
-                                    }
-                                    </script>
-                                    <c:forEach items="${studentList}" var="studentList">
+                                    <c:forEach items="${studentClassList}" var="studentClassList">
                                     <tr><%--carrotList.mdo?student_parentnumber=${studentList.student_parentnumber}--%>
-                                            <th><input type="checkbox" value="${studentList.parentnumber}" name="parentnumber">
-                                          &nbsp;  <a href="javascript:goCarrotList('${studentList.parentnumber}')">
-                                              ${studentList.name}</a></th>
-                                            <th>${studentList.grade}</th>
-                                          <th>${studentList.school}</th>
-                                          <th>d</th>
-                                            <th>${studentList.number}</th>
-                                            <th>${studentList.parentnumber}</th>
+                                        <%--    <th><a href="studentInfo.mdo?id=${studentClass.id}"> --%> 
+<th><a href="studentDaily.mdo?id=${studentClassList.id}">${studentClassList.name}<br>${studentClassList.stuid}</a></th>
+<th>${studentClassList.grade}</th>
+<th>${studentClassList.class_name}<br></th>
+<th><fmt:formatDate value="${studentClassList.join_date}" pattern="yyyy-MM-dd" /></th>
                                         </tr>
                                     </c:forEach>
                                     </tbody>
                                 </table>
- <input type="submit" value="그룹당근작성">
- <input type="button" value="오늘당근목록" onclick="location.href='todayCarrotList.mdo?carrot_date=<%= sf.format(nowTime) %>'">
                             </div>
                             </form>
                         </div>

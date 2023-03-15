@@ -28,12 +28,13 @@
 	</select>
 	
 	<select id="getClassAll" resultType="String">
-		select name from class
+		select name from word_class
 	</select>
 	<insert id="addStudyPlan">
 		insert into class_planning(class_id,title,book_name,create_date,class_name) 
 		values(#{param4},#{param5},#{param6},DATE_ADD(#{param1},interval 7*#{param3}+#{param2} day),#{param7});
 	</insert>
+	<!-- 학생 클래스 리스트 -->
 	<select id="studentClassList" resultType="com.ld.admin.vo.Student_ClassVO">
 		select * from student_class;
 	</select>
@@ -43,4 +44,38 @@
 	<select id="getStudentClassAll" resultType="String">
 		select name from student_class;
 	</select>
+	
+	<!-- 부서 목록 -->
+	<select id="departmentList" resultType="com.ld.admin.vo.DepartmentVO">
+		select * from department;
+	</select>
+	<update id="updateDept">
+		update teacher set department=#{param2} where id=#{param1};
+	</update>
+	<select id="studentDaily" resultType="com.ld.admin.vo.StudentClassListVO">
+		select class_planning.title,class_planning.book_name,class_planning.class_name,
+class_planning.create_date from class_planning join student_class on
+ class_planning.class_id=student_class.id
+ join student_class_list
+ where student_class_list.student_id=#{param1};
+	</select>
+	<!-- 단어클래스 목록-->
+	<select id="wordClassList" resultType="com.ld.user.vo.StudentWordClassVO">
+		select * from word_class;
+	</select>
+	<!-- 부서리스트 추가 -->
+	<insert id="insertDeptList">
+		insert into department(name) value(#{param1});
+	</insert>
+	<!-- 부서리스트 삭제 -->
+	<delete id="deleteDeptList">
+		delete from department where id=#{param1};
+	</delete>
+	<!-- 클래스 리스트 추가 -->
+	<insert id="insertClassList">
+		insert into student_class(name) values(#{param1});
+	</insert>
+	<delete id="deleteClassList">
+		delete from student_class where id=#{param1};
+	</delete>
 </mapper>

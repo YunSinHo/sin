@@ -118,3 +118,33 @@ if(!Chk){
 		document.deleteStudentClassGO.submit();
 	}
 }
+
+//부서 관리
+function addDept(){
+	if(document.teacherList1.id.value==""){
+	alert("강사를 선택해주세요")
+	return false;
+	}
+	var url = "addDeptForm.mdo?id=" + document.teacherList1.id.value;
+	var opt = "toolbar=no, menubar=no, resizable=no, width=500, height=550, scrollbars=yes";
+	window.open(url, "studentClass", opt);	
+	
+}
+function addTeacherDept(){
+	var Chk = false;
+	var arrName = document.getElementsByName('name');
+	for(var i=0;i<arrName.length;i++){
+	if(arrName[i].checked == true){
+    	Chk = true;
+        break;
+    }
+}
+ 
+if(!Chk){
+    alert("부서를 체크해주세요.");
+    return false;
+}else if(confirm("부서를 변경하시겠습니까?")){
+		document.addTeacherDeptGO.action = "addDept.mdo";
+		document.addTeacherDeptGO.submit();
+	}
+}

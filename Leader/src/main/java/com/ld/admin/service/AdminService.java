@@ -11,9 +11,11 @@ import org.springframework.stereotype.Service;
 import com.ld.admin.dao.IAdminDao;
 import com.ld.admin.vo.AdminVO;
 import com.ld.admin.vo.ClassPlanningVO;
+import com.ld.admin.vo.DepartmentVO;
 import com.ld.admin.vo.StudentClassListVO;
 import com.ld.admin.vo.Student_ClassVO;
 import com.ld.user.vo.ClassAllVO;
+import com.ld.user.vo.StudentWordClassVO;
 import com.ld.user.vo.TeacherVO;
 @Service
 public class AdminService {
@@ -48,6 +50,42 @@ public class AdminService {
 	public List<Student_ClassVO> getStudentClassAll() {
 		// TODO Auto-generated method stub
 		return admindao.getStudentClassAll();
+	}
+	public List<DepartmentVO> departmentList() {
+		// TODO Auto-generated method stub
+		return admindao.departmentList();
+	}
+	public void updateDept(int id, String string) {
+		admindao.updateDept(id,string);
+		
+	}
+	public List<StudentClassListVO> studentDaily(int id) {
+		// TODO Auto-generated method stub
+		return admindao.studentDaily(id);
+	}
+	public List<Student_ClassVO> student_classList() {
+		// TODO Auto-generated method stub
+		return admindao.student_classList();
+	}
+	public List<StudentWordClassVO> wordClassList() {
+		// TODO Auto-generated method stub
+		return admindao.wordClassList();
+	}
+	public void insertDeptList(String string) {
+		admindao.insertDeptList(string);
+		
+	}
+	public void deleteDeptList(int id) {
+		admindao.deleteDeptList(id);
+		
+	}
+	public void insertClassList(String string) {
+		admindao.insertClassList(string);
+		
+	}
+	public void deleteClassList(int id) {
+		admindao.deleteClassList(id);
+		
 	}
 }
 

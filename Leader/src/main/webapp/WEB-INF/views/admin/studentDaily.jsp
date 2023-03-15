@@ -41,8 +41,17 @@
       
       <div style="text align:center"><h2>일일학습</h2> <%=sf.format(nowTime)%></div>
       <hr>
-      
+      <div>
+      	<c:forEach items="${daily}" var="daily">
+      		반: ${daily.class_name}&nbsp;&nbsp;
+      		교재명: ${daily.book_name}&nbsp;&nbsp;
+      		내용: ${daily.title}&nbsp;&nbsp;
+      		날짜: ${daily.create_date}<br>
+      		
+      	</c:forEach>
       </div>
+      </div>
+      
       </div>
 <script>
 </script>

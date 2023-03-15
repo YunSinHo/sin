@@ -233,6 +233,7 @@
                       <h6 class="collapse-header">학원생&강사관리</h6>
                         <a class="collapse-item" href="studentList.mdo">학원생관리</a>
                         <a class="collapse-item" href="teacherList.mdo">강사관리</a>
+                        <a class="collapse-item" href="edit.mdo">클래스/부서관리</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">기타</h6>
                     </div>

@@ -18,4 +18,5 @@ public class StudentVO {
 	private String name;
 	private Timestamp join_date;
 	private Timestamp update_date;
+	private String student_class;
 }

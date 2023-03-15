@@ -3,13 +3,18 @@ package com.ld.admin.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ld.admin.service.StudentService;
+import com.ld.admin.vo.StudentClassAllVO;
 import com.ld.user.vo.StudentVO;
+import com.ld.user.vo.TeacherVO;
 
 @Controller
 public class AdminCommonController {
@@ -46,11 +51,15 @@ public class AdminCommonController {
 		return mav;
 	}
 	@GetMapping("/dailyStudentList.mdo")
-	public ModelAndView dailyStudentList() {
+	public ModelAndView dailyStudentList(HttpServletRequest request) {
+		HttpSession session=request.getSession();
+		TeacherVO teacherVO=(TeacherVO)session.getAttribute("loginTeacher");
 		ModelAndView mav=new ModelAndView();
 		List<StudentVO> studentVO=new ArrayList();
-		studentVO=studentService.studentApproveList();
-		mav.addObject("studentList",studentVO);
+		List<StudentClassAllVO> studentClassVO=new ArrayList();
+		studentVO=studentService.studentList();
+		studentClassVO=studentService.studentClass();
+		mav.addObject("studentClassList",studentClassVO);
 		mav.setViewName("admin/dailyStudentList");
 		return mav;
 	}

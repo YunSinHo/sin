@@ -29,6 +29,7 @@ import com.ld.admin.service.AdminService;
 import com.ld.admin.service.ScheduleService;
 import com.ld.admin.service.StudentService;
 import com.ld.admin.vo.ClassPlanningVO;
+import com.ld.admin.vo.DepartmentVO;
 import com.ld.admin.vo.StudentClassAllVO;
 import com.ld.admin.vo.StudentClassListVO;
 import com.ld.admin.vo.Student_ClassVO;
@@ -106,7 +107,7 @@ public class AdminController {
 			studentService.insertStudentWordClass(id,name[i]);
 		}
 		
-		return "redirect:/addClassWordForm.mdo?id="+id;
+		return "redirect:/addWordClassForm.mdo?id="+id;
 	}
 	//학생 단어클래스 제거
 	@RequestMapping("/deleteWordClassForm.mdo")
@@ -126,7 +127,7 @@ public class AdminController {
 			studentService.deleteStudentWordClass(id,name[i]);
 		}
 		
-		return "redirect:/deleteClassWordForm.mdo?id="+id;
+		return "redirect:/deleteWordClassForm.mdo?id="+id;
 	}
 	//학생 관리
 	//가입 승인
@@ -316,78 +317,173 @@ public class AdminController {
 			return mav;
 		}
 		@RequestMapping("/studentDaily.mdo")
-		public ModelAndView studentDaily() {
+		public ModelAndView studentDaily(@RequestParam("id")int id) {
 			ModelAndView mav=new ModelAndView();
+			List<StudentClassListVO> studentClassListVO=new ArrayList<>();
+			studentClassListVO=adminService.studentDaily(id);
 			
-			
+			mav.addObject("daily",studentClassListVO);
 			mav.setViewName("admin/studentDaily");
 			return mav;
 		}
 		//클래스 관리
-		@RequestMapping("/studentClassList.mdo")
-		public ModelAndView studentClassList(HttpServletRequest request) {
-			HttpSession session=request.getSession();
-			TeacherVO teacherVO=(TeacherVO)session.getAttribute("loginTeacher");
-			ModelAndView mav=new ModelAndView();
-			List<StudentVO> studentVO=new ArrayList();
-			List<StudentClassAllVO> studentClassVO=new ArrayList();
-			studentVO=studentService.studentList();
-			studentClassVO=studentService.studentClass();
-			mav.addObject("studentClassList",studentClassVO);
-			mav.setViewName("admin/studentClassList"); 	
-			return mav;
-		}
-		//클래스 추가
-		@RequestMapping("/addClassForm.mdo")
-		public ModelAndView addClassForm(@RequestParam("id")int id) {
-			ModelAndView mav=new ModelAndView();
-			List<Student_ClassVO> classAllVO=new ArrayList();
-			classAllVO=adminService.getStudentClassAll();
-			List<StudentClassListVO> studentClassVO=new ArrayList();
-				studentClassVO=studentService.getStudentClass(id);
-				String stuClass[]=studentClassVO.toArray(new String [studentClassVO.size()]);
-
-				//등록된 클래스 빼기
-			for(int i=0;i<studentClassVO.size();i++) {
-				for(int j=0;j<classAllVO.size();j++) {
-						classAllVO.remove(stuClass[i]);
-					
+				@RequestMapping("/studentClassList.mdo")
+				public ModelAndView studentClassList(HttpServletRequest request) {
+					HttpSession session=request.getSession();
+					TeacherVO teacherVO=(TeacherVO)session.getAttribute("loginTeacher");
+					ModelAndView mav=new ModelAndView();
+					List<StudentVO> studentVO=new ArrayList();
+					List<StudentClassAllVO> studentClassVO=new ArrayList();
+					studentVO=studentService.studentList();
+					studentClassVO=studentService.studentClass();
+					mav.addObject("studentClassList",studentClassVO);
+					mav.setViewName("admin/studentClassList"); 	
+					return mav;
 				}
-			}
-			
-			mav.addObject("studentClass",studentClassVO);
-			mav.addObject("classAll",classAllVO);
+				//클래스 추가
+				@RequestMapping("/addClassForm.mdo")
+				public ModelAndView addClassForm(@RequestParam("id")int id) {
+					ModelAndView mav=new ModelAndView();
+					List<Student_ClassVO> classAllVO=new ArrayList();
+					classAllVO=adminService.getStudentClassAll();
+					List<StudentClassListVO> studentClassVO=new ArrayList();
+						studentClassVO=studentService.getStudentClass(id);
+						String stuClass[]=studentClassVO.toArray(new String [studentClassVO.size()]);
+
+					//등록된 클래스 빼기
+					for(int i=0;i<studentClassVO.size();i++) {
+						for(int j=0;j<classAllVO.size();j++) {
+								classAllVO.remove(stuClass[i]);
+
+						}
+					}
+
+					mav.addObject("studentClass",studentClassVO);
+					mav.addObject("classAll",classAllVO);
+					mav.addObject("id",id);
+					mav.setViewName("admin/addClass");
+					return mav;
+				}
+				@RequestMapping("/addClass.mdo")
+				public String addClass(@RequestParam("name")String []name,@RequestParam("id")int id) {
+					for(int i=0;i<name.length;i++) {
+						studentService.insertStudentClass(id,name[i]);
+					}
+
+					return "redirect:/addClassForm.mdo?id="+id;
+				}
+				//학생 클래스 제거
+				@RequestMapping("/deleteClassForm.mdo")
+				public ModelAndView deleteClassForm(@RequestParam("id")int id) {
+					ModelAndView mav=new ModelAndView();
+					List<StudentClassListVO> studentClassVO=new ArrayList();
+					studentClassVO=studentService.getStudentClass(id);
+					mav.addObject("studentClass",studentClassVO);
+					mav.addObject("id",id);
+					mav.setViewName("admin/deleteClass");
+					return mav;
+				}
+				@RequestMapping("/deleteClass.mdo")
+				public String deleteClass(@RequestParam("name")String []name,@RequestParam("id")int id) {
+					ModelAndView mav=new ModelAndView();
+					for(int i=0;i<name.length;i++) {
+						studentService.deleteStudentClass(id,name[i]);
+					}
+
+					return "redirect:/deleteClassForm.mdo?id="+id;
+				}
+		//부서 관리
+		//부서 추가/변경
+		@RequestMapping("/addDeptForm.mdo")
+		public ModelAndView addDeptForm(@RequestParam("id")int id) {
+			ModelAndView mav=new ModelAndView();
+			List<DepartmentVO> departmentVO =new ArrayList();
+			departmentVO =adminService.departmentList();
 			mav.addObject("id",id);
-			mav.setViewName("admin/addClass");
+			mav.addObject("departmentList",departmentVO);
+			mav.setViewName("admin/addDept");
 			return mav;
 		}
-		@RequestMapping("/addClass.mdo")
-		public String addClass(@RequestParam("name")String []name,@RequestParam("id")int id) {
-			for(int i=0;i<name.length;i++) {
-				studentService.insertStudentClass(id,name[i]);
-			}
+		@RequestMapping("/addDept.mdo")
+		public String addDept(@RequestParam("name")String name,@RequestParam("id")int id) {
+			
+				adminService.updateDept(id,name);
+			
 			
 			return "redirect:/addClassForm.mdo?id="+id;
 		}
-		//학생 클래스 제거
-		@RequestMapping("/deleteClassForm.mdo")
-		public ModelAndView deleteClassForm(@RequestParam("id")int id) {
-			ModelAndView mav=new ModelAndView();
-			List<StudentClassListVO> studentClassVO=new ArrayList();
-			studentClassVO=studentService.getStudentClass(id);
-			mav.addObject("studentClass",studentClassVO);
-			mav.addObject("id",id);
-			mav.setViewName("admin/deleteClass");
+		//부서/클래스 관리 및 편집
+		@RequestMapping("/edit.mdo")
+		public ModelAndView edit() {
+			ModelAndView mav=new ModelAndView();                                      
+			List<Student_ClassVO> student_ClassVO =new ArrayList();
+			student_ClassVO=adminService.studentClassList();
+			List<StudentWordClassVO> studentWordClassVO =new ArrayList();
+			studentWordClassVO=adminService.wordClassList();
+			List<DepartmentVO> departmentVO=new ArrayList();
+			departmentVO=adminService.departmentList();
+			mav.addObject("departmentList",departmentVO);
+			mav.addObject("classList",student_ClassVO);
+			mav.addObject("wordClassList",studentWordClassVO);
+			mav.setViewName("admin/edit");
 			return mav;
 		}
-		@RequestMapping("/deleteClass.mdo")
-		public String deleteClass(@RequestParam("name")String []name,@RequestParam("id")int id) {
+		//부서 리스트 추가/삭제
+		@RequestMapping("/addDeptListForm.mdo")
+		public ModelAndView addDeptListForm() {
 			ModelAndView mav=new ModelAndView();
+			List<DepartmentVO> departmentVO=new ArrayList();
+			departmentVO=adminService.departmentList();
+			mav.addObject("departmentList",departmentVO);
+			mav.setViewName("admin/addDeptList");
+			return mav;
+		}
+		//추가
+		@RequestMapping(value="/insertDeptList.mdo", method=RequestMethod.POST)
+		public String insertDailyOrder(
+				@RequestParam("name")String name[]) {
 			for(int i=0;i<name.length;i++) {
-				studentService.deleteStudentClass(id,name[i]);
+				adminService.insertDeptList(name[i]);
 			}
 			
-			return "redirect:/deleteClassForm.mdo?id="+id;
+			
+			return "redirect:/addDeptListForm.mdo";
+		}
+		//삭제
+		@RequestMapping("/deleteDeptList.mdo")
+		public String deleteDailyOrder(
+				@RequestParam("id")int id) {
+			adminService.deleteDeptList(id);
+			return "redirect:/addDeptListForm.mdo";
+		}
+		//클래스 리스트 추가/삭제
+		@RequestMapping("/addClassListForm.mdo")
+			public ModelAndView addClassListForm() {
+				ModelAndView mav=new ModelAndView();
+				List<Student_ClassVO> student_ClassVO =new ArrayList();
+				student_ClassVO=adminService.studentClassList();
+				mav.addObject("classList",student_ClassVO);
+				mav.setViewName("admin/addClassList");
+				return mav;
+		}
+		//추가
+		@RequestMapping(value="/insertClassList.mdo", method=RequestMethod.POST)
+		public String insertClassList(
+				@RequestParam("name")String name[]) {
+			System.out.println(Arrays.asList(name));
+			for(int i=0;i<name.length;i++) {
+				adminService.insertClassList(name[i]);
+			}
+			
+			
+			return "redirect:/addClassListForm.mdo";
+		}
+		//삭제
+		@RequestMapping("/deleteClassList.mdo")
+		public String deleteClassList(
+				@RequestParam("id")int id) {
+			adminService.deleteClassList(id);
+			return "redirect:/addClassListForm.mdo";
 		}
 
 }

@@ -8,9 +8,11 @@ import org.apache.ibatis.annotations.Mapper;
 import com.ld.admin.vo.AdminVO;
 import com.ld.admin.vo.AdminworkVO;
 import com.ld.admin.vo.ClassPlanningVO;
+import com.ld.admin.vo.DepartmentVO;
 import com.ld.admin.vo.StudentClassListVO;
 import com.ld.admin.vo.Student_ClassVO;
 import com.ld.user.vo.ClassAllVO;
+import com.ld.user.vo.StudentWordClassVO;
 import com.ld.user.vo.TeacherVO;
 
 @Mapper
@@ -39,6 +41,24 @@ public interface IAdminDao {
 	List<ClassPlanningVO> PlanningList();
 
 	List<Student_ClassVO> getStudentClassAll();
+
+	List<DepartmentVO> departmentList();
+
+	void updateDept(int id, String string);
+
+	List<StudentClassListVO> studentDaily(int id);
+
+	List<Student_ClassVO> student_classList();
+
+	List<StudentWordClassVO> wordClassList();
+
+	void insertDeptList(String string);
+
+	void deleteDeptList(int id);
+
+	void insertClassList(String string);
+
+	void deleteClassList(int id);
 
 
 }
