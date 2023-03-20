@@ -79,7 +79,7 @@ public class LoginController {
 			
 		}
 		studentVO2.setGrade(grade);
-		studentVO2.setStuid(id);
+		studentVO2.setUser_id(id);
 		studentVO2.setName(name);
 		studentVO2.setNumber(number);
 		studentVO2.setParentnumber(parentnumber);
@@ -110,7 +110,7 @@ public class LoginController {
 			}
 			
 		}
-		teacherVO2.setTeaid(id);
+		teacherVO2.setUser_id(id);
 		teacherVO2.setName(name);
 		teacherVO2.setNumber(number);
 		teacherVO2.setPassword(password);
@@ -125,7 +125,7 @@ public class LoginController {
 		
 		List<StudentVO> studentVO=studentService.studentList();
 		for(int i=0;i<studentVO.size();i++) {
-			if(studentVO.get(i).getStuid().equals(id)) {
+			if(studentVO.get(i).getUser_id().equals(id)) {
 				model.addAttribute("result", 1);
 				break;
 			}
@@ -142,7 +142,7 @@ public class LoginController {
 		
 		List<TeacherVO> teacherVO=teacherService.teacherList();
 		for(int i=0;i<teacherVO.size();i++) {
-			if(teacherVO.get(i).getTeaid().equals(id)) {
+			if(teacherVO.get(i).getUser_id().equals(id)) {
 				request.setAttribute("result", 1);
 				break;
 			}
@@ -266,4 +266,53 @@ public class LoginController {
 		mav.setViewName("user/mainStudent");
 		return mav;
 	}
+	//마이페이지
+	@RequestMapping("/mypage")
+	public ModelAndView mypage(HttpServletRequest request,
+			@RequestParam("teaOrStu")String teaOrStu) {
+		ModelAndView mav=new ModelAndView();
+		HttpSession session=request.getSession();
+		int id=(int)session.getAttribute("id");
+		if(teaOrStu.equals("teacher")) {
+			TeacherVO mypage=teacherService.teacherOne(id);
+			mav.addObject("mypage",mypage);
+		}
+		else if(teaOrStu.equals("student")) {
+			StudentVO mypage=studentService.studentOne(id);
+			mav.addObject("mypage",mypage);
+		}
+		mav.addObject("teaOrStu",teaOrStu);
+		mav.setViewName("user/mypage");
+		return mav; 
+	}
+	//수정
+	@RequestMapping(value="/modify" ,method=RequestMethod.POST)
+	public ModelAndView modify(HttpServletRequest request,
+			@RequestParam(value="password",required=false)String password,
+			@RequestParam(value="number",required=false)String number,
+			@RequestParam("teaOrStu")String teaOrStu) {
+		ModelAndView mav=new ModelAndView();
+		HttpSession session=request.getSession();
+		int id=(int)session.getAttribute("id");
+		if(teaOrStu.equals("teacher")) {
+			if(password.equals(null)) {
+				teacherService.modifyNumber(id,number);
+			}
+			else {
+				teacherService.modifyPasswordAndNumber(id,password,number);
+			}
+		}
+		else if(teaOrStu.equals("student")) {
+			
+			if(password.equals(null)) {
+				studentService.modifyStudentNumber(id,number);
+			}
+			else {
+				studentService.modifyStudentPasswordAndNumber(id,password,number);
+			}
+		}
+		mav.setViewName("redirect:/mypage?teaOrStu="+teaOrStu);
+		return mav; 
+	
+}
 }

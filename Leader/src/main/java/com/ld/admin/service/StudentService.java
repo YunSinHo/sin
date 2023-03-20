@@ -123,5 +123,16 @@ public class StudentService {
 		
 	}
 
+	public void modifyStudentNumber(int id, String number) {
+		studentDao.modifyStudentNumber(id,number);
+		
+	}
+
+
+	public void modifyStudentPasswordAndNumber(int id, String password, String number) {
+		studentDao.modifyStudentPasswordAndNumber(id,password,number);
+		
+	}
+
 
 }

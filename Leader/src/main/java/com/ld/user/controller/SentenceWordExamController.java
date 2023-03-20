@@ -104,7 +104,6 @@ public class SentenceWordExamController {
 			mav.addObject("gugudan",wordgugudanVO);
 			mav.addObject("class_name",gugudan_name);
 			mav.setViewName("user/examSubjective1");
-		System.out.println(wordVO1.get(0).getWord_seq()+" "+wordVO1.size()+" "+wordVO2.size());
 		return mav;
 	}
 	//영자 주관식

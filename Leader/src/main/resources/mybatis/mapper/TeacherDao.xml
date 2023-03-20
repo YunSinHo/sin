@@ -41,6 +41,7 @@ select * from report where daily='o' and create_date is null and teacher_id=#{pa
 <!-- 재전송된 업무 -->
 <select id="reorderList" resultType="com.ld.admin.vo.ReportVO">
 	select * from report where reorder='o' and teacher_id=#{param1} and  deadline <![CDATA[>=]]> now() and fulfill!='o' and daily!='o'
+	and longorder!='o'
 	 order by update_date desc,create_date desc;
 </select>
 <!-- 개인 당일 업무 -->
@@ -75,7 +76,7 @@ select * from report where daily='o' and create_date is null and teacher_id=#{pa
 </select>
 <!-- 진행중인 모든 장기프로젝트 -->
 <select id="longOrderListAll" resultType="com.ld.admin.vo.ReportVO">
-	select * from report where longorder='o' and fulfill !='o' and deadline <![CDATA[>=]]> now();
+	select * from report where longorder='o' and (fulfill !='o' or fulfill is null) and deadline <![CDATA[>=]]> now();
 </select>
 <!-- 특이사항(추신) 인서트 -->
 <insert id="insertPostscript" parameterType="com.ld.admin.vo.PostscriptVO">
@@ -98,12 +99,12 @@ select * from report where daily='o' and create_date is null and teacher_id=#{pa
 	</select>
 	<!--  강사 회원가입 -->
 	<insert id="insertTeacher" parameterType="com.ld.user.vo.TeacherVO">
-   	insert into teacher(teaid,password,number,name) values
-   	(#{teaid},hex(aes_encrypt(#{password}, SHA2('bockgipoog541354',256))),#{number},#{name})
+   	insert into teacher(user_id,password,number,name) values
+   	(#{user_id},hex(aes_encrypt(#{password}, SHA2('bockgipoog541354',256))),#{number},#{name})
    </insert>
    <!--  강사 로그인 -->
    <select id="loginTeacher" resultType="com.ld.user.vo.TeacherVO" parameterType="String">
-		select * from teacher where teaid=#{param1} and CONVERT(AES_DECRYPT(unhex(password), SHA2('bockgipoog541354',256)) USING utf8)=#{param2};
+		select * from teacher where user_id=#{param1} and CONVERT(AES_DECRYPT(unhex(password), SHA2('bockgipoog541354',256)) USING utf8)=#{param2};
 	</select>
 	<!-- 가입 대기 목록 -->
    <select id="teacherStandByList" resultType="com.ld.user.vo.StudentVO">
@@ -215,5 +216,12 @@ insert into report (title,content) values(#{param1},'jointOrder');
 	deadline=<if test='deadline == null'>DATE_ADD(now(),interval 12 hour)</if>
 	<if test='deadline != null'>DATE_ADD(#{deadline},interval 1 day)</if>
 	 where id=#{id}
+</update>
+<!-- 강사 정보 수정 -->
+<update id="modifyPasswordAndNumber">
+	update teacher set password=hex(aes_encrypt(#{param2}, SHA2('bockgipoog541354',256))), number=#{param3} where id=#{param1};
+</update>
+<update id="modifyNumber">
+	update teacher set number=#{param2} where id=#{param1};
 </update>
 </mapper>

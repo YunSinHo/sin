@@ -24,7 +24,7 @@
 		select * from adminwork_table where adminwork_type = 'monthly';
 	</select>
 	<select id="loginTeacher" resultType="com.ld.user.vo.TeacherVO" parameterType="String">
-		select * from teacher where teaid=#{param1} and CONVERT(AES_DECRYPT(unhex(password), SHA2('bockgipoog541354',256)) USING utf8)=#{param2};
+		select * from teacher where user_id=#{param1} and CONVERT(AES_DECRYPT(unhex(password), SHA2('bockgipoog541354',256)) USING utf8)=#{param2};
 	</select>
 	
 	<select id="getClassAll" resultType="String">

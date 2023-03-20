@@ -119,6 +119,12 @@ public interface ITeacherDao {
 
 	List<ReportVO> reorderList(int id);
 
+	void modifyNumber(int id, String number);
+
+	void modifyPasswordAndNumber(String password, String number);
+
+	void modifyPasswordAndNumber(int id, String password, String number);
+
 
 
 }

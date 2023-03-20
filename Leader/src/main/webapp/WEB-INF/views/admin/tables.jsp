@@ -30,7 +30,6 @@
                                             <th>이름</th>
                                             <th>학년</th>
                                             <th>학교</th>
-                                            <th>클래스</th>
                                             <th>학생 번호</th>
                                             <th>부모님번호</th>
                                             
@@ -60,7 +59,6 @@
                                           &nbsp;  <a href="javascript:goCarrotList('${studentList.parentnumber}')">
                                               ${studentList.name}</a></th>
                                             <th>${studentList.grade}</th>
-                                             <th>
                                           <th>${studentList.school}</th>
                                             <th>${studentList.number}</th>
                                             <th>${studentList.parentnumber}</th>

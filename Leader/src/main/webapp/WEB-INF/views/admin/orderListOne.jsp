@@ -43,21 +43,21 @@ function reOrder(id){
   readonly>${orderListOne.content}</textarea>
 </div>
 
-<c:if test="${loginTeacher.teaid eq 'admin'&&loginTeacher ne null&&orderListOne.fulfill eq 'o'}">
+<c:if test="${loginTeacher.user_id eq 'admin'&&loginTeacher ne null&&orderListOne.fulfill eq 'o'}">
  <div class="mb-3">
   <label for="exampleFormControlTextarea1" class="form-label">업무완료 보고</label>
   <textarea class="form-control col-sm-15" rows="3" id="exampleFormControlTextarea1" name="replyteacher"
   readonly>${orderListOne.replyteacher}</textarea>
 </div>
   </c:if>
-<c:if test="${orderListOne.fulfill eq 'o'&&orderListOne.success eq 'o'&&loginTeacher.teaid eq 'admin'}">
+<c:if test="${orderListOne.fulfill eq 'o'&&orderListOne.success eq 'o'&&loginTeacher.user_id eq 'admin'}">
 <div class="mb-3 text-dark">
   <label for="exampleFormControlTextarea1" class="form-label">재전송내용</label>
   <textarea class="form-control col-sm-15" rows="3" id="exampleFormControlTextarea1" id="reply" name="reply"
   readonly>${orderListOne.reply}</textarea>
 </div>
 </c:if>
-<c:if test="${orderListOne.fulfill eq 'o'&&orderListOne.success eq 'x'&&loginTeacher.teaid eq 'admin'}">
+<c:if test="${orderListOne.fulfill eq 'o'&&orderListOne.success eq 'x'&&loginTeacher.user_id eq 'admin'}">
 <div class="mb-3 text-dark">
   <label for="exampleFormControlTextarea1" class="form-label">재전송내용</label>&nbsp;&nbsp;&nbsp;
   데드라인 변경 : <input type="text"  class="workday" name="deadline" id="datepicker" autocomplete="off">
@@ -66,7 +66,7 @@ function reOrder(id){
 </div>
 </c:if>
 
-<c:if test="${orderListOne.success eq 'x'&&loginTeacher.teaid ne 'admin'&&orderListOne.reorder eq 'o'}">
+<c:if test="${orderListOne.success eq 'x'&&loginTeacher.user_id ne 'admin'&&orderListOne.reorder eq 'o'}">
 <div class="mb-3 text-dark">
   <label for="exampleFormControlTextarea1" class="form-label">재전송내용</label>
   <textarea class="form-control col-sm-15" rows="3" id="exampleFormControlTextarea1" name="reply"
@@ -74,7 +74,7 @@ function reOrder(id){
 </div>
 </c:if>
 
-<c:if test="${loginTeacher.teaid ne 'admin'&&loginTeacher ne null&&orderListOne.fulfill eq 'x'}">
+<c:if test="${loginTeacher.user_id ne 'admin'&&loginTeacher ne null&&orderListOne.fulfill eq 'x'}">
  <div class="mb-3">
   <label for="exampleFormControlTextarea1" class="form-label">업무완료 보고</label>
   <textarea class="form-control col-sm-15" rows="3" id="exampleFormControlTextarea1" name="replyteacher"
@@ -82,13 +82,13 @@ function reOrder(id){
 </div>
   </c:if>
 
-<c:if test="${orderListOne.fulfill eq 'o'&&orderListOne.success eq 'x'&&loginTeacher.teaid eq 'admin'}">
+<c:if test="${orderListOne.fulfill eq 'o'&&orderListOne.success eq 'x'&&loginTeacher.user_id eq 'admin'}">
 <button class="btn btn-success"  onclick="successFinal(${orderListOne.id});">업무완료처리</button>
 </c:if>
-<c:if test="${orderListOne.fulfill eq 'o'&&orderListOne.success eq 'x'&&loginTeacher.teaid eq 'admin'}">
+<c:if test="${orderListOne.fulfill eq 'o'&&orderListOne.success eq 'x'&&loginTeacher.user_id eq 'admin'}">
 <button class="btn btn-success"  onclick="reOrder(${orderListOne.id});">재전송하기</button>
 </c:if>
-  <c:if test="${loginTeacher.teaid ne 'admin'&&loginTeacher ne null&&orderListOne.fulfill eq 'x'}">
+  <c:if test="${loginTeacher.user_id ne 'admin'&&loginTeacher ne null&&orderListOne.fulfill eq 'x'}">
   <button class="btn btn-success" onclick="orderSuccess();">업무완료</button>
   </c:if>
 </form>

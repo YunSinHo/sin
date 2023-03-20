@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
+	
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -130,6 +130,14 @@
             line-height: 3.7396vw;
         }
         </style>
+        <script>
+        function submitTest(){
+    		if(confirm("제출하시겠습니까?")){
+    			document.testGugudan.action="testCheck.do";
+    			document.testGugudan.submit();
+    }
+    }
+        </script>
 </head>
 <body>
 <form name="testGugudan" method="POST">

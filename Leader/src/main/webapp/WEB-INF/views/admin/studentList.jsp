@@ -80,7 +80,7 @@ function approveStudent(){
                                     <tbody>
                                     <c:forEach items="${studentList}" var="studentList">
                                     <tr><%--carrotList.mdo?student_parentnumber=${studentList.student_parentnumber}--%>
-                                            <th>${studentList.name}<br>${studentList.stuid}</th>
+                                            <th>${studentList.name}<br>${studentList.user_id}</th>
                                             <th>${studentList.grade}</th>
                                           <th>${studentList.school}</th>
                                             <th>${studentList.number}</th>

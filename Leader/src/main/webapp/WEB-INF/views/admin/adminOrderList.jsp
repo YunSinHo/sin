@@ -119,7 +119,7 @@ function longorderReOrder(){
 	}
 	}
 	if(confirm("재전송하시겠습니까?")){
-		document.adminLongorderForm.action="reOrder.mdo";
+		document.adminLongorderForm.action="reOrder.mdo?content='X'";
 		document.adminLongorderForm.submit();
 		return true;
 	}
@@ -272,7 +272,8 @@ value="<fmt:formatDate value="${incompleteOrder.deadline}" pattern="MM/dd HH:mm"
            <button type="button" class="btn btn-info" onclick="longorderReOrder();">재발송</button>&nbsp;&nbsp;&nbsp;<br>
             	<c:forEach items="${longOrderListAll}" var="longOrderListAll">
             	<input type="checkbox" name="id" value="${longOrderListAll.id}">&nbsp;
-            	<input type="text" value="${longOrderListAll.title} ${longOrderListAll.fulfill}" name="title" style="border:none;width:300px;">
+            	<input type="text" value="${longOrderListAll.title}" name="title" style="border:none;width:300px;">
+            	${longOrderListAll.fulfill}
             	 <select id="selbox2"  name="teacher_id" style="border:none;">
 <option value="${longOrderListAll.teacher_id}">선택</option>
 	<c:forEach items="${teacherList}" var="teacherList">
@@ -330,7 +331,7 @@ value="<fmt:formatDate value="${longOrderListAll.deadline}" pattern="MM/dd HH:mm
 	           		+'<input type="text" name="deadline" style="border:none;width:100px" class="workday" name="deadline" id="datepicker" autocomplete="off" value="'+choice+'">'
 	           		+'중요업무<input type="checkbox" value="${"o"}" name="importance">&nbsp;&nbsp;'
 	           		+'장기업무<input type="checkbox" value="${"o"}" name="longorder"><br>'
-	           		+ '상세내용<input type="text" id="content" style="width:600px;" name="content"  >&nbsp;&nbsp;<br>'
+	           		+ '상세내용<input type="text" id="content" value="${"내용無"}" style="width:600px;" name="content"  >&nbsp;&nbsp;<br>'
 	           		+ '<input type="button" id="test'+test+'" value="삭제" onclick="remove_div('+test+')">'
 	            + '</div><br>';                          
 	                                            

@@ -401,8 +401,12 @@ teacherService.insertDailyOrder(reportVO5.get(i).getTeacher_id(),reportVO5.get(i
 			List<ReportVO> reportVO3=new ArrayList();
 			reportVO3=teacherService.longOrderList(id);
 			mav.addObject("longOrderList",reportVO3);
+			List<ReportVO> reportVO6=new ArrayList();
+			reportVO6=teacherService.reorderList(id);
+			mav.addObject("reorderList",reportVO6);
 			}
-			mav.setViewName("admin/teacherOrderList");
+			
+			mav.setViewName("admin/teacherOrderListDate");
 			return mav;
 		}
 		//업무 제출
@@ -431,11 +435,12 @@ teacherService.insertDailyOrder(reportVO5.get(i).getTeacher_id(),reportVO5.get(i
 					fulfill[i]=request.getParameter("fulfill"+id2[i]);
 				}
 				for(int i=0;i<id2.length;i++) {
+					if(!fulfill[i].equals(null)){
 					ReportVO reportVO=new ReportVO();
 					reportVO.setFulfill(fulfill[i]);
 					reportVO.setId(id2[i]);
-					fileService.saveFile(file.get(i),(long)id2[i]);
 					teacherService.longOrderFulfill(reportVO);
+					}
 				}
 			}catch(Exception e) {
 				
@@ -587,7 +592,6 @@ teacherService.insertDailyOrder(reportVO5.get(i).getTeacher_id(),reportVO5.get(i
 				@RequestParam("longorder")String longorder[],
 				@RequestParam("dept")String dept[],
 				@RequestParam(value="content",required=false)String content[]) {
-			System.out.println(content[1]);
 			ModelAndView mav = new ModelAndView();
 			for(int i=0;i<title.length;i++) {
 				Timestamp timestamp=null;

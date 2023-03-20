@@ -63,6 +63,12 @@ public interface IStudentDao {
 
 	void deleteStudentWordClass(int id, String string);
 
+	void modifyStudentNumber(int id, String number);
+
+	void modifyStudentPasswordAndNumber(String password, String number);
+
+	void modifyStudentPasswordAndNumber(int id, String password, String number);
+
 
 
 }

@@ -215,4 +215,12 @@ public class TeacherService {
 		// TODO Auto-generated method stub
 		return teacherDao.reorderList(id);
 	}
+	public void modifyNumber(int id, String number) {
+		teacherDao.modifyNumber(id,number);
+		
+	}
+	public void modifyPasswordAndNumber(int id, String password, String number) {
+		teacherDao.modifyPasswordAndNumber(id,password,number);
+		
+	}
 }

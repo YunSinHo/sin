@@ -42,7 +42,7 @@
                                     <c:forEach items="${studentClassList}" var="studentClassList">
                                     <tr><%--carrotList.mdo?student_parentnumber=${studentList.student_parentnumber}--%>
                                         <%--    <th><a href="studentInfo.mdo?id=${studentClass.id}"> --%> 
-<th><a href="studentDaily.mdo?id=${studentClassList.id}">${studentClassList.name}<br>${studentClassList.stuid}</a></th>
+<th><a href="studentDaily.mdo?id=${studentClassList.id}">${studentClassList.name}<br>${studentClassList.user_id}</a></th>
 <th>${studentClassList.grade}</th>
 <th>${studentClassList.class_name}<br></th>
 <th><fmt:formatDate value="${studentClassList.join_date}" pattern="yyyy-MM-dd" /></th>

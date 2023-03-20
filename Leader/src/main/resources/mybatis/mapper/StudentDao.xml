@@ -47,7 +47,7 @@
    select * from student where parentnumber=#{parentnumber}
    </select>
    <select id="loginStudent" resultType="com.ld.user.vo.StudentVO" parameterType="String">
-    select * from student where stuid=#{param1} and CONVERT(AES_DECRYPT(unhex(password), SHA2('bockgipoog541354',256)) USING utf8)=#{param2};
+    select * from student where user_id=#{param1} and CONVERT(AES_DECRYPT(unhex(password), SHA2('bockgipoog541354',256)) USING utf8)=#{param2};
    </select>
    
    <select id="studentClassList" resultType="com.ld.user.vo.StudentWordClassVO" parameterType="int">
@@ -61,16 +61,16 @@
    </select>
    
    <insert id="insertStudent" parameterType="com.ld.user.vo.StudentVO">
-   	insert into student(stuid,password,parentnumber,number,grade,school,name) values
-   	(#{stuid},hex(aes_encrypt(#{password}, SHA2('bockgipoog541354',256))),#{parentnumber},#{number},#{grade},#{school},#{name})
+   	insert into student(user_id,password,parentnumber,number,grade,school,name) values
+   	(#{user_id},hex(aes_encrypt(#{password}, SHA2('bockgipoog541354',256))),#{parentnumber},#{number},#{grade},#{school},#{name})
    </insert>
    
    <select id="studentClassId" resultType="com.ld.admin.vo.StudentClassAllVO" >
-   		select student.available,student.join_date as join_date, student.id as id,student.name as name,student.stuid as stuid,
+   		select student.available,student.join_date as join_date, student.id as id,student.name as name,student.user_id as user_id,
    		student.grade as grade,group_concat(student_word_class.name) as class_name from student
    		 left join
  student_word_class on student.id=student_word_class.student_id
- group by student.name,student.stuid having student.available='o';
+ group by student.name,student.user_id having student.available='o';
    </select>
    
    <select id="studentClassCount" resultType="int" parameterType="int">
@@ -86,11 +86,11 @@
    </delete>
    <!-- 학원생 클래스 목록 -->
    <select id="studentClass" resultType="com.ld.admin.vo.StudentClassAllVO">
-   	select student.available,student.join_date as join_date, student.id as id,student.name as name,student.stuid as stuid,
+   	select student.available,student.join_date as join_date, student.id as id,student.name as name,student.user_id as user_id,
    		student.grade as grade,group_concat(student_class_list.class_name) as class_name from student
    		 left join
  student_class_list on student.id=student_class_list.student_id
- group by student.name,student.stuid having student.available='o';
+ group by student.name,student.user_id having student.available='o';
    </select>
    <select id="getStudentClass" resultType="String">
    	select class_name from student_class_list where student_id=#{param1}
@@ -103,4 +103,11 @@
     <delete id="deleteStudentClass">
    	delete from student_class_list where student_id=#{param1} and class_name=#{param2}
    </delete>
+   <!-- 학생 정보수정 -->
+   <update id="modifyStudentNumber">
+   	update student set number=#{param2} where id=#{param1};
+   </update>
+   <update id="modifyStudentPasswordAndNumber">
+   	update student set password=hex(aes_encrypt(#{param2}, SHA2('bockgipoog541354',256))), number=#{param3} where id=#{param1};
+   </update>
 </mapper>

@@ -57,12 +57,19 @@
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
+                
                 <div class="sidebar-brand-text mx-3">김지민 영어학원</div>
             </a>
             <!-- Divider -->
-            <hr class="sidebar-divider">
-
+			<c:if test="${loginTeacher ne null}">
+			 &nbsp;&nbsp;<div style="color:white;top: -20px;position: relative;left: 12px;">${loginTeacher.name}님 환영합니다.</div>
+			</c:if>
+			
+			<c:if test="${loginStudent ne null}">
+			  &nbsp;&nbsp;<div style="color:white;top: -20px;position: relative;left: 12px;">${loginStudent.name}님 환영합니다.</div>
+			</c:if>
             <!-- Heading -->
+            <hr class="sidebar-divider">
             <div class="sidebar-heading">
                 메뉴
             </div>
@@ -129,40 +136,7 @@
                 </div>
             </li>
 			</c:if>
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapse"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Components</span>
-                </a>
-                <div id="collapse" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Components:</h6>
-                        <a class="collapse-item" href="buttons.mdo">Buttons</a>
-                        <a class="collapse-item" href="cards.mdo">Cards</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                    aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Utilities</span>
-                </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" href="utilities-color.mdo">Colors</a>
-                        <a class="collapse-item" href="utilities-border.mdo">Borders</a>
-                        <a class="collapse-item" href="utilities-animation.mdo">Animations</a>
-                        <a class="collapse-item" href="utilities-other.mdo">Other</a>
-                    </div>
-                </div>
-            </li>
+           
 
             <!-- Divider -->
             <hr class="sidebar-divider">
@@ -176,14 +150,14 @@
             
 
             <!-- Nav Item - Charts -->
-            <c:if test="${loginTeacher.teaid ne 'admin'&&loginTeacher ne null}">
+            <c:if test="${loginTeacher.user_id ne 'admin'&&loginTeacher ne null}">
              <li class="nav-item"> 
                 <a class="nav-link" href="main.do?id=${id}">
                     <i class="fas fa-fw fa-table"></i>
                     <span>업무목록</span></a>
             </li>
             </c:if>
-            <c:if test="${loginTeacher.teaid eq 'admin'}">
+            <c:if test="${loginTeacher.user_id eq 'admin'}">
           <!--   <li class="nav-item">
                 <a class="nav-link" href="todayOrder.mdo">
                     <i class="fas fa-fw fa-table"></i>
@@ -215,7 +189,7 @@
 
             
             <!-- Nav Item - Tables -->
-            <c:if test="${loginTeacher.teaid eq 'admin' }">
+            <c:if test="${loginTeacher.user_id eq 'admin' }">
             <!-- Heading -->
            
             

@@ -44,7 +44,7 @@
                                     <c:forEach items="${studentClassList}" var="studentClassList">
                                     <tr><%--carrotList.mdo?student_parentnumber=${studentList.student_parentnumber}--%>
                                         <%--    <th><a href="studentInfo.mdo?id=${studentClass.id}"> --%> 
-<th><input type="radio" name="id" value="${studentClassList.id}">  ${studentClassList.name}<br>${studentClassList.stuid}</th>
+<th><input type="radio" name="id" value="${studentClassList.id}">  ${studentClassList.name}<br>${studentClassList.user_id}</th>
 <th>${studentClassList.grade}</th>
 <th>${studentClassList.class_name}<br></th>
 <th><fmt:formatDate value="${studentClassList.join_date}" pattern="yyyy-MM-dd" /></th>

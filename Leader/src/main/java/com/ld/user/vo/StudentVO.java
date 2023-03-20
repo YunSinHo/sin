@@ -9,7 +9,7 @@ import lombok.Data;
 public class StudentVO {
 	private int id;
 	private String available;
-	private String stuid;
+	private String user_id;
 	private String parentnumber;
 	private String number;
 	private String grade;
