@@ -43,17 +43,14 @@
       <hr>
       <div>
       	<c:forEach items="${daily}" var="daily">
-      		반: ${daily.class_name}&nbsp;&nbsp;
+      		${daily.class_name}&nbsp;&nbsp;
       		교재명: ${daily.book_name}&nbsp;&nbsp;
       		내용: ${daily.title}&nbsp;&nbsp;
-      		날짜: ${daily.create_date}<br>
-      		
+      		날짜: <fmt:formatDate value="${daily.create_date}" pattern="MM/dd"/><br>
       	</c:forEach>
       </div>
       </div>
       
       </div>
-<script>
-</script>
 </body>
 </html>

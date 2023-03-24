@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="../side.jsp"%>
-  <%@ include file="../header.jsp"%>
+     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    <script src="js/test.js"></script>
+    <script src="js/login.js"></script>
 <style>
     body {
       min-height: 100vh;
@@ -29,11 +30,10 @@
     }
   </style>
   <body>
+    <div id="messeage" style="color:white;">&nbsp;&nbsp;&nbsp;${message}</div>
    <div id="teacher">
     <div class="input-form-backgroud row">
       <div class="input-form col-md-12 mx-auto">
-      
-    <div id="messeage" style="color:white;">&nbsp;&nbsp;&nbsp;${message}</div>
         <h4 class="mb-3">회원가입</h4>
         <form class="validation-form" novalidate action="joinTeacher.do" method="post" name="joinTeacher">
         <input type="hidden" name="result" value="${result}">
@@ -49,7 +49,7 @@
             <div class="col-md-8 mb-3">
               <label for="root3">아이디</label>
               <input type="text" class="custom-select d-block w-100" id="root3" name="id" value="${id}">
-              <button class="btn btn-primary " type="button" onclick="idcheckTeacher();">중복확인</button>
+              <button class="btn btn-primary " type="button" onclick="idcheckTeacher2();">중복확인</button>
               <c:if test="${result == 1}">
               <div>
 			<h5  style="
@@ -87,7 +87,7 @@
           </div>
           <hr class="mb-4">
           <div class="mb-4"></div>
-          <button class="btn btn-primary btn-lg btn-block" type="button" onclick="go_saveTeacher();">가입 완료</button>
+          <button class="btn btn-primary btn-lg btn-block" type="button" onclick="go_saveTeacher2();">가입 완료</button>
         </form>
       </div>
     </div>

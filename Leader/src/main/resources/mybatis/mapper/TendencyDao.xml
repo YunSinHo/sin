@@ -6,9 +6,7 @@
 <insert id="tendencyInsert"
 		parameterType="com.ld.user.vo.TendencyVO">
 		insert into
-		tendencytest(tendency_name, tendency_school,
-		tendency_grade, tendency_phone1, tendency_phone2, tendency_phone3,
-		tendency_parentphone1, tendency_parentphone2, tendency_parentphone3, tendency_date,
+		tendencytest(student_id, tendency_date, tendency_name,
 		tendency_a1, tendency_a2, tendency_a3, tendency_a4, tendency_a5,
 		tendency_a6, tendency_a7, tendency_a8, tendency_a9, tendency_a10,
 		tendency_a11, tendency_a12, tendency_a13, tendency_h1, tendency_h2,
@@ -20,9 +18,7 @@
 		tendency_e8, tendency_e9, tendency_e10, tendency_e11, tendency_e12,
 		tendency_e13, tendency_e14, tendency_e15, tendency_e16, tendency_e17,
 		tendency_e18, tendency_e19)
-		values(#{tendency_name}, #{tendency_school},
-		#{tendency_grade}, #{tendency_phone1}, #{tendency_phone2}, #{tendency_phone3},
-		#{tendency_parentphone1}, #{tendency_parentphone2}, #{tendency_parentphone3}, #{tendency_date},
+		values(student_id, #{tendency_date}, #{tendency_name},
 		#{tendency_a1}, #{tendency_a2}, #{tendency_a3}, #{tendency_a4}, #{tendency_a5},
 		#{tendency_a6}, #{tendency_a7}, #{tendency_a8}, #{tendency_a9}, #{tendency_a10},
 		#{tendency_a11}, #{tendency_a12}, #{tendency_a13}, #{tendency_h1}, #{tendency_h2},

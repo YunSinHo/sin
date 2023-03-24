@@ -31,7 +31,7 @@ function loginCheckEnter(){
 			
 	}
 	
-	
+//직접 회원가입
 function loginCheckTeacher(){
 	if(document.loginFrm.id.value==""){
 		alert("아이디는 필수입력사항입니다");
@@ -48,6 +48,7 @@ function loginCheckTeacher(){
 		document.loginFrm.submit();
                                     }
 }	
+
 function loginCheckTeacherEnter(){
 	if (window.event.keyCode == 13) {
 	if(document.loginFrm.id.value==""){
@@ -84,6 +85,16 @@ function idcheckTeacher(){
 		return;
 	}
 	document.joinTeacher.action = "idCheckTeacher.do";
+		document.joinTeacher.submit();	
+}
+//admin이 회원가입시 체크
+function idcheckTeacher2(){
+	if( document.joinTeacher.id.value=="" ){
+		alert("아이디를 입력하고 중복체크를 진행하세요" );
+		documnet.joinTeacher.id.focus();
+		return;
+	}
+	document.joinTeacher.action = "idCheckTeacher2.do";
 		document.joinTeacher.submit();	
 }
 function numberRegExp(e) {
@@ -171,7 +182,7 @@ else if (document.joinStudent.id.value == "") {
 	    document.joinStudent.submit();
 	}
 }
-
+//직접 회원가입
 function go_saveTeacher(){
 	var idRegExp = /^[a-zA-z0-9]{4,12}$/;
  if(document.joinTeacher.name.value == "") {
@@ -181,10 +192,6 @@ function go_saveTeacher(){
 else if (document.joinTeacher.id.value == "") {
 		alert("아이디를 입력하여 주세요."); 	    
 	    document.joinTeacher.id.focus();
-	}
-	else if (!idRegExp.test(document.joinTeacher.id.value)) {
-		alert("4~12자 영문 대소문자, 숫자만 입력하세요.");	    
-	    document.joinStudent.id.focus();
 	}
 	else if(document.joinTeacher.result.value=="" ){
 		alert("중복 체크를 해주세요");		
@@ -208,6 +215,42 @@ else if (document.joinTeacher.id.value == "") {
 	    document.joinTeacher.number.focus();
 	}else{
 		document.joinTeacher.action = "joinTeacher.do";
+	    document.joinTeacher.submit();
+	}
+}
+//admin이 회원가입
+function go_saveTeacher2(){
+	var idRegExp = /^[a-zA-z0-9]{4,12}$/;
+ if(document.joinTeacher.name.value == "") {
+	    alert("이름을 입력해 주세요.");	    
+	    document.joinTeacher.name.focus();
+	}
+else if (document.joinTeacher.id.value == "") {
+		alert("아이디를 입력하여 주세요."); 	    
+	    document.joinTeacher.id.focus();
+	}
+	else if(document.joinTeacher.result.value=="" ){
+		alert("중복 체크를 해주세요");		
+		document.joinTeacher.id.focus();
+	} else if(document.joinTeacher.result.value=="1" ){
+		alert("중복된 아이디 입니다");		
+		document.joinTeacher.id.focus();
+	}  else if(document.joinTeacher.password.value == "") {
+	    alert("비밀번호를 입력해 주세요.");	    
+	    document.joinTeacher.password.focus();
+	} else if(document.joinTeacher.password.value != document.joinTeacher.passwordCheck.value) {
+	    alert("비밀번호와 비밀번호 확인이 일치하지 않습니다.");	    
+	    document.joinTeacher.password.focus();
+	}
+	else if(!idRegExp.test(document.joinTeacher.password.value)) {
+	    alert("4~12자 영문 대소문자, 숫자만 입력하세요.");	   
+	    document.joinStudent.password.focus();
+	}
+	 else if(document.joinTeacher.number.value == "") {
+	    alert("전화번호를 입력해 주세요.");	   
+	    document.joinTeacher.number.focus();
+	}else{
+		document.joinTeacher.action = "joinTeacher.do?access=o";
 	    document.joinTeacher.submit();
 	}
 }

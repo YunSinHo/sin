@@ -321,7 +321,7 @@ public class AdminController {
 			ModelAndView mav=new ModelAndView();
 			List<StudentClassListVO> studentClassListVO=new ArrayList<>();
 			studentClassListVO=adminService.studentDaily(id);
-			
+			System.out.println(Arrays.asList(studentClassListVO.get(0).getBook_name()));
 			mav.addObject("daily",studentClassListVO);
 			mav.setViewName("admin/studentDaily");
 			return mav;
@@ -410,7 +410,7 @@ public class AdminController {
 				adminService.updateDept(id,name);
 			
 			
-			return "redirect:/addClassForm.mdo?id="+id;
+			return "redirect:/addDeptForm.mdo?id="+id;
 		}
 		//부서/클래스 관리 및 편집
 		@RequestMapping("/edit.mdo")
@@ -484,6 +484,27 @@ public class AdminController {
 				@RequestParam("id")int id) {
 			adminService.deleteClassList(id);
 			return "redirect:/addClassListForm.mdo";
+		}
+		@RequestMapping("/joinTeacherAdmin.mdo")
+		public String joinTeacherAdmin() {
+			
+			return "admin/joinTeacherAdmin";
+		}
+		//강사 아이디 중복 체크
+		@RequestMapping("/idCheckTeacher2.do")
+		public String idCheckTeacher(@RequestParam("id")String id,@RequestParam("name")String name,Model model,HttpServletRequest request) {
+			
+			List<TeacherVO> teacherVO=teacherService.teacherList();
+			for(int i=0;i<teacherVO.size();i++) {
+				if(teacherVO.get(i).getUser_id().equals(id)) {
+					request.setAttribute("result", 1);
+					break;
+				}
+				else request.setAttribute("result", -1);
+			}
+			request.setAttribute("name", name); 
+			request.setAttribute("id", id); 
+			return "admin/joinTeacherAdmin";
 		}
 
 }

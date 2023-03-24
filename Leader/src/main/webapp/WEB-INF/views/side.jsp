@@ -116,6 +116,11 @@
                     </div>
                 </div>
             </li>
+            <li class="nav-item"> 
+                <a class="nav-link" href="tendencyboard.do">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>성향검사</span></a>
+            </li>
             </c:if>
             <c:if test="${loginTeacher ne null}">
             <li class="nav-item">

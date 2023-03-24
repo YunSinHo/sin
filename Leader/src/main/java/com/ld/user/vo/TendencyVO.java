@@ -5,16 +5,9 @@ import lombok.Data;
 @Data
 public class TendencyVO {
 	private int tendency_seq;
-	private String tendency_name;
-	private String tendency_school;
-	private String tendency_grade;
-	private String tendency_phone1;
-	private String tendency_phone2;
-	private String tendency_phone3;
-	private String tendency_parentphone1;
-	private String tendency_parentphone2;
-	private String tendency_parentphone3;
+	private int student_id;
 	private String tendency_date;
+	private String tendency_name;
 	private float tendency_a1;
 	private float tendency_a2;
 	private float tendency_a3;

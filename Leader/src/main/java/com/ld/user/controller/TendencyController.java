@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,22 +17,30 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ld.admin.service.StudentService;
 import com.ld.user.service.TendencyService;
 import com.ld.user.vo.Criteria;
+import com.ld.user.vo.StudentVO;
 import com.ld.user.vo.TendencyVO;
 
 @Controller
 public class TendencyController {
 	@Autowired
 	private final TendencyService tendencyService;
-	
+	@Autowired
+	private StudentService studentService;
 	@Inject
 	public TendencyController(TendencyService tendencyService) {
 		this.tendencyService = tendencyService;
 	}
 	
 	@GetMapping("/tendencytest.do")
-	public String tendencytestGet() {
+	public String tendencytestGet(Model model,HttpServletRequest request) {
+		HttpSession session=request.getSession();
+		int id=(int)session.getAttribute("id");
+		StudentVO studentVO=studentService.studentOne(id);
+		model.addAttribute("student",studentVO);
+		model.addAttribute("id",id);
 		return "user/tendencytest";
 	}
 	
@@ -40,11 +50,12 @@ public class TendencyController {
 		return "redirect:/tendencyboard.do";
 	}
 	@RequestMapping(value = "/tendencyboard.do")
-	public ModelAndView tendencylistGet(Model model) throws Exception {
+	public ModelAndView tendencylistGet(Model model,HttpServletRequest request) throws Exception {
+		HttpSession session=request.getSession();
+		int id=(int)session.getAttribute("id");
 		ModelAndView mav = new ModelAndView();
-		Criteria Criteria = null;
 		List<TendencyVO> tenList = new ArrayList<TendencyVO>();
-		tenList = tendencyService.tendencylist(Criteria);
+		tenList = tendencyService.tendencyStudentlist(id);
 		mav.addObject("TendencyList", tenList);
 		mav.setViewName("user/tendencyboard");
 		return mav;

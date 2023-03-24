@@ -99,8 +99,8 @@ select * from report where daily='o' and create_date is null and teacher_id=#{pa
 	</select>
 	<!--  강사 회원가입 -->
 	<insert id="insertTeacher" parameterType="com.ld.user.vo.TeacherVO">
-   	insert into teacher(user_id,password,number,name) values
-   	(#{user_id},hex(aes_encrypt(#{password}, SHA2('bockgipoog541354',256))),#{number},#{name})
+   	insert into teacher(user_id,password,number,name,available) values
+   	(#{user_id},hex(aes_encrypt(#{password}, SHA2('bockgipoog541354',256))),#{number},#{name},'o')
    </insert>
    <!--  강사 로그인 -->
    <select id="loginTeacher" resultType="com.ld.user.vo.TeacherVO" parameterType="String">

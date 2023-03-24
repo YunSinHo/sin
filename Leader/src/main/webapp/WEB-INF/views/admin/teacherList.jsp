@@ -51,6 +51,12 @@ function approveTeacher(id){
 		return true;
 	}
 }
+function addTeacher(){
+	var url = "joinTeacherAdmin.mdo";
+	var opt = "toolbar=no, menubar=no, resizable=no, width=500, height=550, scrollbars=yes";
+	window.open(url, "joinTeacherForm", opt);	
+	
+}
 
 </script>
                 <div class="container-fluid">
@@ -62,6 +68,7 @@ function approveTeacher(id){
                     <div class="card shadow mb-4">
                         <div class="card-body">
                         <form name="teacherList1" method="POST">
+                        <button type="button" class="btn btn-info" onclick="addTeacher();">강사추가</button>
                             	<button type="button" class="btn btn-success"  onclick="addDept();">부서 추가/변경</button>
                         	<button type="button" class="btn btn-success"  onclick="teacherList('o');">강사목록</button>
                             	<button type="button" class="btn btn-success"  onclick="teacherList('t');">가입대기목록</button>

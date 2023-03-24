@@ -57,7 +57,7 @@
 class_planning.create_date from class_planning join student_class on
  class_planning.class_id=student_class.id
  join student_class_list
- where student_class_list.student_id=#{param1};
+ where student_class_list.student_id=#{param1} and class_planning.create_date > DATE_SUB(now(),INTERVAL 1 day);
 	</select>
 	<!-- 단어클래스 목록-->
 	<select id="wordClassList" resultType="com.ld.user.vo.StudentWordClassVO">

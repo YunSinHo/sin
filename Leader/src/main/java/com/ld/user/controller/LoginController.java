@@ -96,6 +96,7 @@ public class LoginController {
 			@RequestParam("id")String id,
 			@RequestParam("password")String password,
 			@RequestParam("number")String number,
+			@RequestParam(value="access",required=false)String access,
 			HttpServletRequest request) {
 		String url="user/joinTeacher";
 		HttpSession session=request.getSession();
@@ -115,6 +116,10 @@ public class LoginController {
 		teacherVO2.setNumber(number);
 		teacherVO2.setPassword(password);
 		teacherService.insertTeacher(teacherVO2);
+		if(access.equals("o")) {
+			url="admin/joinTeacherAdmin";
+		}
+		else
 		url="user/login";
 		request.setAttribute("message","회원가입 완료.");
 		return url;

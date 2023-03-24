@@ -10,6 +10,8 @@
 <link href="css/user/tendencytest.css" rel="stylesheet">
 </head>
 <body>
+<input type="hidden" id="tendency_name" value="${student.name}">
+<input type="hidden" id="student_id" value="${id}">
 	<div class="menubody">
 		
     </div>
@@ -39,48 +41,7 @@
 						<p>(검사지 작성시간 : 초등 10분 / 중고등 5분)</p>
 					</div>
 				</div>
-				<div class="stuinforinsertarea">
-					<div class="infornameheader">
-						이름
-					</div>
-					<div style="border-right:3px solid gray;">
-						<input type="text" class="infornamebody" id="tendency_name">
-					</div>
-					<div class="inforschoolheader">
-						학교/학년
-					</div>
-					<div class="inforschoolbody">
-						<div class="insertzone">
-							<input type="text"  class="insertschool" id="tendency_school">
-							/
-							<input type="text"  class="insertgrade" id="tendency_grade">
-						</div>
-					</div>
-					<div class="inforphoneheader">
-						본인연락처
-					</div>
-					<div class="inforphonebody">
-						<div class="insertzone">
-							<input type="text" class="insertphone" id="tendency_phone1">
-							-
-							<input type="text" class="insertphone" id="tendency_phone2">
-							-
-							<input type="text" class="insertphone" id="tendency_phone3">
-						</div>
-					</div>
-					<div class="inforparentphoneheader">
-						부모님연락처
-					</div>
-					<div class="inforparentphonebody">
-						<div class="insertzone">
-							<input type="text" class="insertphone" id="tendency_parentphone1">
-							-
-							<input type="text" class="insertphone" id="tendency_parentphone2">
-							-
-							<input type="text" class="insertphone" id="tendency_parentphone3">
-						</div>
-					</div>
-				</div>
+				
 				<table class="tendencytable">
 					<thead>
 						<tr>
@@ -671,6 +632,8 @@
     <script>
     	$(document).ready(function(){
     		$('.finishbtn').click(function(){
+    			var tendency_name = $("#tendency_name").val();
+    			var student_id = $("#student_id").val();
     			var name = $("#tendency_name").val();
     			var school = $("#tendency_school").val();
     			var grade = $("#tendency_grade").val();
@@ -744,15 +707,8 @@
         				url : "inserttendency.do",
         				type : "post",
         				data : {
-        					tendency_name : name,
-        					tendency_school : school,
-        					tendency_grade : grade,
-        					tendency_phone1 : phone1,
-        					tendency_phone2 : phone2,
-        					tendency_phone3 : phone3,
-        					tendency_parentphone1 : parentphone1,
-        					tendency_parentphone2 : parentphone2,
-        					tendency_parentphone3 : parentphone3,
+        					tendency_name : tendency_name,
+        					student_id : student_id,
         					tendency_date : insertdate,
         					tendency_a1 : a1,
         					tendency_a2 : a2,

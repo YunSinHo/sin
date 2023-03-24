@@ -8,6 +8,5 @@
 <button type="button" class="btn btn-outline-secondary" style="width:45%;height:300px;" onclick="location.href='loginTeacherForm.do'">강사 로그인</button>
 </div>
 </div>
-
 </body>
 </html>

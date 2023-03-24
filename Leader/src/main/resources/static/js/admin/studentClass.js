@@ -127,7 +127,7 @@ function addDept(){
 	}
 	var url = "addDeptForm.mdo?id=" + document.teacherList1.id.value;
 	var opt = "toolbar=no, menubar=no, resizable=no, width=500, height=550, scrollbars=yes";
-	window.open(url, "studentClass", opt);	
+	window.open(url, "addDeptForm", opt);	
 	
 }
 function addTeacherDept(){

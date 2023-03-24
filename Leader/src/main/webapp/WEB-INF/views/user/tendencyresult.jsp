@@ -82,32 +82,9 @@
 						<div class="dayheader">검사일자</div>
 						<div class="daybody">${tendencyresult.tendency_date }</div>
 					</div>
-					<div class="school area1">
-						<div class="schoolheader">학교/학년</div>
-						<div class="schoolbodyarea">
-							<div class="schoolbody1">${tendencyresult.tendency_school }</div>
-							<div class="schoolbody2">${tendencyresult.tendency_grade }</div>
-						</div>
-					</div>
-					<div class="phone area2">
-						<div class="phoneheader">연락처</div>
-						<div class="phonebodyarea">
-							<div class="phonebody1">${tendencyresult.tendency_phone1 }</div>.
-							<div class="phonebody2">${tendencyresult.tendency_phone2 }</div>.
-							<div class="phonebody3">${tendencyresult.tendency_phone3 }</div>
-						</div>
-					</div>
 					<div class="category area1">
 						<div class="categoryheader">유형</div>
 						<div class="categorybody"><span id="tendencyresultbest1"></span></div>
-					</div>
-					<div class="parent area2">
-						<div class="parentphoneheader">보호자연락처</div>
-						<div class="parentphonebodyarea">
-							<div class="parentphonebody1">${tendencyresult.tendency_parentphone1 }</div>.
-							<div class="parentphonebody2">${tendencyresult.tendency_parentphone2 }</div>.
-							<div class="parentphonebody3">${tendencyresult.tendency_parentphone3 }</div>
-						</div>
 					</div>
 				</div>
 				<div class="img3area">
