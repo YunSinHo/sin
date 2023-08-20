@@ -78,7 +78,4 @@ create table if not exists report_file
     delete_yn     varchar(255)
 );
 
-create table if not exists teacher
-(
 
-);
