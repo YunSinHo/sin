@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ld.admin.dao.IAdminDao">
+    <insert id="adminregister" useGeneratedKeys="true" keyProperty="admin_seq" parameterType="com.ld.admin.vo.AdminVO">
+        insert into admin_table(admin_id, admin_password, admin_name, admin_phone1, admin_phone2, admin_phone3,
+                                admin_email, admin_academy, admin_access, admin_tier, admin_date)
+        values (#{admin_id}, #{admin_password}, #{admin_name}, #{admin_phone1}, #{admin_phone2}, #{admin_phone3},
+                #{admin_email}, #{admin_academy}, "no", #{admin_tier}, now());
+    </insert>
+    <select id="adminloginCheck" parameterType="String" resultType="com.ld.admin.vo.AdminVO">
+        SELECT *
+        FROM admin_table
+        where admin_id = #{admin_id};
+    </select>
+
+    <select id="adminworkfixview" resultType="com.ld.admin.vo.AdminworkVO">
+        select *
+        from adminwork_table
+        where adminwork_type = 'fix';
+    </select>
+    <select id="adminworkexceptedview" resultType="com.ld.admin.vo.AdminworkVO">
+        select *
+        from adminwork_table
+        where adminwork_type = 'expected';
+    </select>
+    <select id="adminworkdayview" resultType="com.ld.admin.vo.AdminworkVO">
+        select *
+        from adminwork_table
+        where adminwork_type = 'day';
+    </select>
+    <select id="adminworkmonthlyview" resultType="com.ld.admin.vo.AdminworkVO">
+        select *
+        from adminwork_table
+        where adminwork_type = 'monthly';
+    </select>
+    <select id="loginTeacher" resultType="com.ld.user.vo.TeacherVO" parameterType="String">
+        select *
+        from teacher
+        where user_id = #{param1}
+          and CONVERT(AES_DECRYPT(unhex(password), SHA2('bockgipoog541354', 256)) USING utf8) = #{param2};
+    </select>
+
+    <select id="getClassAll" resultType="String">
+        select name
+        from word_class
+    </select>
+    <insert id="addStudyPlan">
+        insert into class_planning(class_id, title, book_name, create_date, class_name)
+        values (#{param4}, #{param5}, #{param6}, DATE_ADD(#{param1}, interval 7 * #{param3} + #{param2} day),
+                #{param7});
+    </insert>
+    <!-- 학생 클래스 리스트 -->
+    <select id="studentClassList" resultType="com.ld.admin.vo.Student_ClassVO">
+        select *
+        from student_class;
+    </select>
+    <select id="PlanningList" resultType="com.ld.admin.vo.ClassPlanningVO">
+        select *
+        from class_planning;
+    </select>
+    <select id="getStudentClassAll" resultType="String">
+        select name
+        from student_class;
+    </select>
+
+    <!-- 부서 목록 -->
+    <select id="departmentList" resultType="com.ld.admin.vo.DepartmentVO">
+        select *
+        from department;
+    </select>
+    <update id="updateDept">
+        update teacher
+        set department=#{param2}
+        where id = #{param1};
+    </update>
+    <select id="studentDaily" resultType="com.ld.admin.vo.StudentClassListVO">
+        select class_planning.title,
+               class_planning.book_name,
+               class_planning.class_name,
+               class_planning.create_date
+        from class_planning
+                 join student_class on
+            class_planning.class_id = student_class.id
+                 join student_class_list
+        where student_class_list.student_id = #{param1}
+          and class_planning.create_date > DATE_SUB(now(), INTERVAL 1 day);
+    </select>
+    <!-- 단어클래스 목록-->
+    <select id="wordClassList" resultType="com.ld.user.vo.StudentWordClassVO">
+        select *
+        from word_class;
+    </select>
+    <!-- 부서리스트 추가 -->
+    <insert id="insertDeptList">
+        insert into department(name) value (#{param1});
+    </insert>
+    <!-- 부서리스트 삭제 -->
+    <delete id="deleteDeptList">
+        delete
+        from department
+        where id = #{param1};
+    </delete>
+    <!-- 클래스 리스트 추가 -->
+    <insert id="insertClassList">
+        insert into student_class(name)
+        values (#{param1});
+    </insert>
+    <delete id="deleteClassList">
+        delete
+        from student_class
+        where id = #{param1};
+    </delete>
+</mapper>
