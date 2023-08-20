@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ld.exam.dao.IWordpdfDao">
+<!-- 구구단 목록 -->
+    <select id="wordpdfread" resultType="com.ld.exam.vo.WordcollectionVO" parameterType="int">
+		select * from wordcollection Where  word_difficulty= #{gugudan_level};
+	</select>
+
+    <select id="wordpdflist_page" resultType="com.ld.exam.vo.WordgugudanVO">
+		select * from wordgugudan;
+	</select>
+
+    <select id="getGugudan" resultType="com.ld.exam.vo.WordgugudanVO" parameterType="String">
+		select * from wordgugudan where gugudan_name=#{gugudan_name}
+	</select>
+	<select id="getStartSeq" resultType="int" parameterType="int">
+	select word_seq from wordcollection where word_difficulty =#{param1} order by word_seq asc limit 1;
+	</select>
+	<select id="getEndSeq" resultType="int" parameterType="int">
+	select word_seq from wordcollection where word_difficulty =#{param1} order by word_seq desc limit 1;
+	</select>
+
+    <select id="wordpdfread1" resultType="com.ld.exam.vo.WordcollectionVO">
+		select * from wordcollection Where  word_seq in
+		<foreach collection="array" item="arr" open="(" close=")" separator=",">
+ #{arr}
+</foreach>
+	</select>
+    <select id="wordpdflist_pageSelect" resultType="com.ld.exam.vo.WordgugudanVO">
+		select * from wordgugudan where gugudan_level in
+		<foreach collection="array" item="arr" open="(" close=")" separator=",">
+ #{arr}
+</foreach>
+	</select>
+	<!-- 구구단 시험결과 insert -->
+    <insert id="insertExamGugudan" parameterType="com.ld.exam.vo.ExamVO">
+		insert into exam(student_id,class_name,content,num,score) value(#{student_id},#{class_name},#{content},#{num},#{score})
+	</insert>
+	<!-- 시험결과 하나 -->
+    <select id="getExam" resultType="com.ld.exam.vo.ExamVO">
+		select * from exam where id=#{param1};
+	</select>
+	<!-- 학생 한명 모든 시험지(틀린단어목록만들기) -->
+    <select id="getExamListAll" resultType="com.ld.exam.vo.ExamVO">
+		select * from exam where student_id=#{param1};
+	</select>
+	<!-- 시험 결과들 -->
+    <select id="getExamList" resultType="com.ld.exam.vo.ExamVO">
+		select * from exam where student_id=#{param1} and class_name=#{param2}
+	</select>
+	<!-- 영자신문 단어추출 -->
+    <select id="getSentenceWord" resultType="com.ld.exam.vo.WordcollectionVO">
+		select * from wordcollection where word_seq <![CDATA[>=]]> #{param1} and word_seq <![CDATA[<=]]> #{param2} 
+	</select>
+</mapper>

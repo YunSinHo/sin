@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ld.exam.dao.IBoardDao">
+
+    <select id="grammarread" resultType="com.ld.admin.vo.GrammarVO">
+        select *
+        from grammartable
+        where grammar_title = #{grammar_title};
+    </select>
+    <select id="showgrammar_page" resultType="com.ld.admin.vo.GrammarVO">
+        select distinct grammar_title
+        from grammartable;
+    </select>
+    <select id="wordcollection" resultType="com.ld.exam.vo.WordcollectionVO">
+        select *
+        from wordcollection
+        where word_difficulty = 6
+           or word_difficulty = 7
+           or word_difficulty = 8
+           or word_difficulty = 9;
+    </select>
+    <select id="showtrans_page" resultType="com.ld.admin.vo.TransVO">
+        select distinct trans_title
+        from trans_table;
+    </select>
+    <select id="transread" resultType="com.ld.admin.vo.TransVO">
+        select *
+        from trans_table
+        where trans_title = #{trans_title};
+    </select>
+</mapper>

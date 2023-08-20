@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.ld.user.dao.IImsiDao">
+	<insert id="imsiinsert" parameterType="com.ld.user.vo.ImsiVO">
+		insert into imsi_table(imsi_title, imsi_content)
+		values(#{imsi_title}, #{imsi_content});
+	</insert>
+	<select id="imsilist" resultType="com.ld.user.vo.ImsiVO">
+		select * from imsi_table;
+	</select>
+	<select id="imsiread" resultType="com.ld.user.vo.ImsiVO">
+		select * from imsi_table Where imsi_seq = #{imsi_seq}
+	</select>
+</mapper>

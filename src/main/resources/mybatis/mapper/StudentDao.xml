@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ld.admin.dao.IStudentDao">
+    <!-- 학원생 한명 -->
+    <select id="studentOne" resultType="com.ld.user.vo.StudentVO">
+        select *
+        from student
+        where id = #{param1}
+    </select>
+    <!-- 학원생 목록 -->
+    <select id="studentList" resultType="com.ld.user.vo.StudentVO">
+        select *
+        from student;
+    </select>
+    <!-- 승인 완료된 학원생 목록 -->
+    <select id="studentApproveList" resultType="com.ld.user.vo.StudentVO">
+        select *
+        from student
+        where available = 'o';
+    </select>
+    <!-- 가입 대기 목록 -->
+    <select id="studentStandByList" resultType="com.ld.user.vo.StudentVO">
+        select *
+        from student
+        where available = 't';
+    </select>
+    <!-- 퇴원생 목록 -->
+    <select id="studentQuitList" resultType="com.ld.user.vo.StudentVO">
+        select *
+        from student
+        where available = 'x';
+    </select>
+    <!-- 가입승인 -->
+    <update id="approveJoinStudent">
+        update student
+        set available='o'
+        where id = #{param1};
+    </update>
+    <!-- 퇴원시키기 -->
+    <update id="quitStudent">
+        update student
+        set available='x',
+            update_date=now()
+        where id = #{param1};
+    </update>
+    <!-- 재등록하기 -->
+    <update id="rejoinStudent">
+        update student
+        set available='o',
+            update_date=now()
+        where id = #{param1};
+    </update>
+    <select id="studentListSelect" resultType="com.ld.user.vo.StudentVO" parameterType="String">
+        select * from student where parentnumber in
+        <foreach collection="array" item="arr" open="(" close=")" separator=",">
+            #{arr}
+        </foreach>
+    </select>
+    <select id="carrotList1" resultType="com.ld.admin.vo.CarrotVO" parameterType="String">
+        select *
+        from carrot_table
+        where carrot_number = #{param1}
+        order by carrot_date desc
+    </select>
+    <select id="studentList1" resultType="com.ld.user.vo.StudentVO" parameterType="String">
+        select *
+        from student
+        where parentnumber = #{parentnumber}
+    </select>
+    <select id="loginStudent" resultType="com.ld.user.vo.StudentVO" parameterType="String">
+        select *
+        from student
+        where user_id = #{param1}
+          and CONVERT(AES_DECRYPT(unhex(password), SHA2('bockgipoog541354', 256)) USING utf8) = #{param2};
+    </select>
+
+    <select id="studentClassList" resultType="com.ld.user.vo.StudentWordClassVO" parameterType="int">
+        select *
+        from student_word_class
+        where student_id = #{param1}
+    </select>
+    <select id="studentClassListAll" resultType="com.ld.user.vo.StudentWordClassVO" parameterType="int">
+        select *
+        from student_word_class
+        where student_id = #{param1}
+    </select>
+    <select id="studentClassName" resultType="String" parameterType="int">
+        select name
+        from student_word_class
+        where student_id = #{param1}
+    </select>
+
+    <insert id="insertStudent" parameterType="com.ld.user.vo.StudentVO">
+        insert into student(user_id, password, parentnumber, number, grade, school, name)
+        values (#{user_id}, hex(aes_encrypt(#{password}, SHA2('bockgipoog541354', 256))), #{parentnumber}, #{number},
+                #{grade}, #{school}, #{name})
+    </insert>
+
+    <select id="studentClassId" resultType="com.ld.admin.vo.StudentClassAllVO">
+        select student.available,
+               student.join_date                     as join_date,
+               student.id                            as id,
+               student.name                          as name,
+               student.user_id                       as user_id,
+               student.grade                         as grade,
+               group_concat(student_word_class.name) as class_name
+        from student
+                 left join
+             student_word_class on student.id = student_word_class.student_id
+        group by student.name, student.user_id
+        having student.available = 'o';
+    </select>
+
+    <select id="studentClassCount" resultType="int" parameterType="int">
+        select count(*)
+        from student_word_class
+        where student_id = #{param1}
+    </select>
+    <!-- 학원생 단어클래스 추가 -->
+    <insert id="insertStudentWordClass">
+        insert into student_word_class (student_id, name)
+        values (#{param1}, #{param2})
+    </insert>
+    <!-- 학원생 단어클래스 삭제 -->
+    <delete id="deleteStudentWordClass">
+        delete
+        from student_word_class
+        where student_id = #{param1}
+          and name = #{param2}
+    </delete>
+    <!-- 학원생 클래스 목록 -->
+    <select id="studentClass" resultType="com.ld.admin.vo.StudentClassAllVO">
+        select student.available,
+               student.join_date                           as join_date,
+               student.id                                  as id,
+               student.name                                as name,
+               student.user_id                             as user_id,
+               student.grade                               as grade,
+               group_concat(student_class_list.class_name) as class_name
+        from student
+                 left join
+             student_class_list on student.id = student_class_list.student_id
+        group by student.name, student.user_id
+        having student.available = 'o';
+    </select>
+    <select id="getStudentClass" resultType="String">
+        select class_name
+        from student_class_list
+        where student_id = #{param1}
+    </select>
+    <!-- 학원생 클래스 추가 -->
+    <insert id="insertStudentClass">
+        insert into student_class_list (student_id, class_name)
+        values (#{param1}, #{param2})
+    </insert>
+    <!-- 학원생 클래스 삭제 -->
+    <delete id="deleteStudentClass">
+        delete
+        from student_class_list
+        where student_id = #{param1}
+          and class_name = #{param2}
+    </delete>
+    <!-- 학생 정보수정 -->
+    <update id="modifyStudentNumber">
+        update student
+        set number=#{param2}
+        where id = #{param1};
+    </update>
+    <update id="modifyStudentPasswordAndNumber">
+        update student
+        set password=hex(aes_encrypt(#{param2}, SHA2('bockgipoog541354', 256))),
+            number=#{param3}
+        where id = #{param1};
+    </update>
+</mapper>
