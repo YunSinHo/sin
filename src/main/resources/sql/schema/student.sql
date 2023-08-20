@@ -77,59 +77,12 @@ create table if not exists user_table
     user_date         datetime
 );
 
-create table if not exists admin_table
-(
-    admin_seq      int auto_increment,
-    admin_id       varchar(50) unique not null,
-    admin_password varchar(100)       not null,
-    admin_name     varchar(20)        not null,
-    admin_phone1   varchar(10)        not null,
-    admin_phone2   varchar(10)        not null,
-    admin_phone3   varchar(10)        not null,
-    admin_email    varchar(100)       null,
-    admin_academy  varchar(50)        not null,
-    admin_access   varchar(10)        not null,
-    admin_tier     varchar(10)        not null,
-    admin_date     datetime,
-    primary key (admin_seq)
-);
 
 create table if not exists lecture_table
 (
     lecture_seq  int auto_increment primary key,
     lecture_name varchar(50)  not null,
     lecture_link varchar(400) not null
-);
-
-create table if not exists adminwork_table
-(
-    adminwork_seq int auto_increment primary key,
-    adminwork_content    varchar(200)  not null,
-    adminwork_type       varchar(30)   not null,
-    adminwork_date       date          not null,
-    adminwork_deadline   date          not null,
-    adminwork_manager    varchar(200)  not null,
-    adminwork_incomplete varchar(200)  not null,
-    adminwork_reason     varchar(1000) not null,
-    adminwork_delete     int
-);
-
-create table if not exists admin_notice
-(
-    notice_seq     int auto_increment primary key,
-    notice_title   varchar(30)   not null,
-    notice_content varchar(1000) not null,
-    notice_name    varchar(30)   not null,
-    notice_date    datetime
-);
-
-create table if not exists admin_material
-(
-    material_seq     int auto_increment primary key,
-    material_title   varchar(30)   not null,
-    material_content varchar(1000) not null,
-    material_name    varchar(30)   not null,
-    material_date    datetime
 );
 
 create table if not exists academy_table
@@ -144,4 +97,17 @@ create table if not exists academy_table
     academy_detailaddress varchar(100) not null,
     academy_extraaddress  varchar(100) not null,
     academy_date          datetime
+);
+
+create table if not exists student_class_list
+(
+    id          int auto_increment primary key,
+    user_id     varchar(255) null,
+    grade       varchar(255) null,
+    name        varchar(255) null,
+    student_id  int          null,
+    class_name  varchar(255) null,
+    join_date   datetime     null,
+    update_date datetime     null,
+    class_id    int          null
 );

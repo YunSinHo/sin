@@ -1,18 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-    
-<mapper namespace="com.ld.file.IFileDao">
-<!-- 재전송시 파일 삭제 -->
-<update id="deleteReportFile">
-	update report_file set delete_yn='y' where delete_yn='n' and report_id=#{param1}
-</update>
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<!-- 리포트 파일 조회 -->
-<select id="reportFileId" resultType="long">
-select report_file.id from report_file join report on report.id=report_file.report_id where report_file.delete_yn='n';
-</select>
-<select id="reportFileReportId" resultType="long">
-select report_file.report_id from report_file join report on report.id=report_file.report_id where report_file.delete_yn='n';
-</select>
+<mapper namespace="com.ld.file.IFileDao">
+    <!-- 재전송시 파일 삭제 -->
+    <update id="deleteReportFile">
+        update report_file
+        set delete_yn='y'
+        where delete_yn = 'n'
+          and report_id = #{param1}
+    </update>
+
+    <!-- 리포트 파일 조회 -->
+    <select id="reportFileId" resultType="long">
+        select report_file.id
+        from report_file
+                 join report on report.id = report_file.report_id
+        where report_file.delete_yn = 'n';
+    </select>
+    <select id="reportFileReportId" resultType="long">
+        select report_file.report_id
+        from report_file
+                 join report on report.id = report_file.report_id
+        where report_file.delete_yn = 'n';
+    </select>
 </mapper>

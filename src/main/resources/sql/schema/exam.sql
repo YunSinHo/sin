@@ -126,3 +126,10 @@ create table if not exists exam
     ox               varchar(300)       null,
     wrong_word_count int                null
 );
+
+create table if not exists student_word_class
+(
+    id         int auto_increment primary key,
+    student_id int          not null,
+    name       varchar(255) not null
+);
