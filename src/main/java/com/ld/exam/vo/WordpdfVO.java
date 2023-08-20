@@ -1,4 +1,4 @@
-package com.ld.user.vo;
+package com.ld.exam.vo;
 
 import lombok.Data;
 

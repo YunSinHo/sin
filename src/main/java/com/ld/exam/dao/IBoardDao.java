@@ -1,9 +1,9 @@
-package com.ld.user.dao;
+package com.ld.exam.dao;
 
 import com.ld.admin.vo.GrammarVO;
 import com.ld.admin.vo.TransVO;
+import com.ld.exam.vo.WordcollectionVO;
 import com.ld.user.vo.Criteria;
-import com.ld.user.vo.WordcollectionVO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

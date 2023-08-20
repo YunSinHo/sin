@@ -1,8 +1,8 @@
-package com.ld.user.service;
+package com.ld.exam.service;
 
 import com.ld.admin.vo.CarrotVO;
 import com.ld.admin.vo.UpdatorVO;
-import com.ld.user.dao.ICarrotDao;
+import com.ld.exam.dao.ICarrotDao;
 import com.ld.user.vo.Criteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

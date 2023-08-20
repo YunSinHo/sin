@@ -1,9 +1,9 @@
-package com.ld.user.service;
+package com.ld.exam.service;
 
-import com.ld.user.dao.IWordpdfDao;
-import com.ld.user.vo.ExamVO;
-import com.ld.user.vo.WordcollectionVO;
-import com.ld.user.vo.WordgugudanVO;
+import com.ld.exam.dao.IWordpdfDao;
+import com.ld.exam.vo.ExamVO;
+import com.ld.exam.vo.WordcollectionVO;
+import com.ld.exam.vo.WordgugudanVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

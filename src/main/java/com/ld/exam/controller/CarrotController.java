@@ -1,7 +1,7 @@
-package com.ld.user.controller;
+package com.ld.exam.controller;
 
 import com.ld.admin.vo.CarrotVO;
-import com.ld.user.service.CarrotService;
+import com.ld.exam.service.CarrotService;
 import com.ld.user.vo.Criteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -1,17 +1,17 @@
-package com.ld.user.service;
+package com.ld.exam.service;
 
 import com.ld.admin.vo.GrammarVO;
 import com.ld.admin.vo.TransVO;
-import com.ld.user.dao.IBoardDao;
+import com.ld.exam.dao.IBoardDao;
+import com.ld.exam.vo.WordcollectionVO;
 import com.ld.user.vo.Criteria;
-import com.ld.user.vo.WordcollectionVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class BoardService {
+public class ExamBoardService {
 
 	@Autowired
 	private IBoardDao boardDao;
@@ -33,7 +33,6 @@ public class BoardService {
 	}
 
 	public List<Object> transread(String trans_title) {
-		// TODO Auto-generated method stub
 		return boardDao.transread(trans_title);
 	}
 

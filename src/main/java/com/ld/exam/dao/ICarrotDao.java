@@ -1,4 +1,4 @@
-package com.ld.user.dao;
+package com.ld.exam.dao;
 
 import com.ld.admin.vo.CarrotVO;
 import com.ld.admin.vo.UpdatorVO;

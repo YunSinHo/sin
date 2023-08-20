@@ -2,7 +2,7 @@ package com.ld.admin.controller;
 
 import com.ld.admin.service.StudentService;
 import com.ld.admin.vo.CarrotVO;
-import com.ld.user.service.CarrotService;
+import com.ld.exam.service.CarrotService;
 import com.ld.user.vo.StudentVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

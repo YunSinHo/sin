@@ -1,7 +1,7 @@
 package com.ld.admin.controller;
 
 import com.ld.admin.vo.CarrotVO;
-import com.ld.user.service.CarrotService;
+import com.ld.exam.service.CarrotService;
 import com.popbill.api.ChargeInfo;
 import com.popbill.api.MessageService;
 import com.popbill.api.PopbillException;

@@ -31,32 +31,47 @@
   </style>
   <body>
     <div id="messeage">&nbsp;&nbsp;&nbsp;${message}</div>
-    <!-- 학원생 회원가입 -->
   <div id="student">
     <div class="input-form-backgroud row">
-      <div class="input-form col-md-13 mx-auto">
-        <h4 class="mb-3">학원생 로그인</h4>
+      <div class="input-form col-md-12 mx-auto">
+        <h4 class="mb-3">강사 로그인</h4>
         <form  class="validation-form" action="loginStudent.do" method="post" name="loginFrm">
           <div class="mb-3">
-            <label for="number">아이디</label>
+            <label for="id">아이디</label>
             <input type="text" class="form-control" required name="id">
             <div class="invalid-feedback">
               이메일을 입력해주세요.
             </div>
           </div>
           <div class="mb-3">
-            <label for="address">비밀번호</label>
-            <input type="password" class="form-control" required name="password" onkeypress="loginCheckEnter();">
+            <label for="password">비밀번호</label>
+            <input type="password" class="form-control" required name="password" onkeyup="loginCheckTeacherEnter();">
             <div class="invalid-feedback">
             </div>
           </div>
           <hr class="mb-4">
           <div class="mb-4"></div>
-          <button class="btn btn-primary btn-lg btn-block" type="button" onclick="loginCheck();">로그인</button>
+          <button class="btn btn-primary btn-lg btn-block" type="button" onclick="loginCheckTeacher();">로그인</button>
         </form>
       </div>
     </div>
   </div>
   <body>
+  <script>
+    window.addEventListener('load', () => {
+      const forms = document.getElementsByClassName('validation-form');
+
+      Array.prototype.filter.call(forms, (form) => {
+        form.addEventListener('submit', function (event) {
+          if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+
+          form.classList.add('was-validated');
+        }, false);
+      });
+    }, false);
+  </script>
 </body>
 </html>

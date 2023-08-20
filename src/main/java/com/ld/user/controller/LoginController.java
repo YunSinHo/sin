@@ -36,8 +36,7 @@ public class LoginController {
     //시작페이지
     @RequestMapping("/")
     public String start() {
-
-        return "user/userindex";
+        return "home";
     }
 
     //회원가입
@@ -164,15 +163,21 @@ public class LoginController {
     }
 
     //로그인
-    @RequestMapping("/loginForm.do")
+    @RequestMapping("/login.do")
     public String loginForm() {
+        return "login/login";
+    }
 
-        return "user/login";
+    @RequestMapping("/logout.do")
+    public String logout(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        session.invalidate();
+        return "redirect:/tables.mdo";
     }
 
     @RequestMapping("/loginTeacherForm.do")
     public String loginTeacherForm() {
-        return "user/loginTeacher";
+        return "login/loginTeacher";
     }
 
     //강사 로그인
@@ -183,7 +188,7 @@ public class LoginController {
                                Model model) {
         TeacherVO teacherVO = new TeacherVO();
         HttpSession session = request.getSession();
-        String url = "user/login";
+        String url = "login/login";
         teacherVO = teacherService.loginTeacher(id, password);
         if (teacherVO == null) {
             request.setAttribute("message", "아이디가 존재하지 않습니다.");
@@ -214,7 +219,7 @@ public class LoginController {
     //학생 로그인
     @RequestMapping("/loginStudentForm.do")
     public String loginStudentForm() {
-        return "user/loginStudent";
+        return "login/loginStudent";
     }
 
     @PostMapping("/loginStudent.do")
@@ -225,7 +230,7 @@ public class LoginController {
         StudentVO studentVO = new StudentVO();
         TeacherVO teacherVO = new TeacherVO();
         HttpSession session = request.getSession();
-        String url = "user/login";
+        String url = "login/login";
         List<StudentWordClassVO> studentClassVO = new ArrayList();
         studentVO = studentService.loginStudent(id, password);
         if (studentVO == null) {
@@ -244,12 +249,6 @@ public class LoginController {
         return url;
     }
 
-    @RequestMapping("/logout.do")
-    public String logout(HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        session.invalidate();
-        return "redirect:/tables.mdo";
-    }
 
     //로그인시 메인 페이지
     //강사

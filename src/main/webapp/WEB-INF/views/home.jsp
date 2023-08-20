@@ -214,10 +214,10 @@ p.btn_next {
 			<div class="loginarea">
 			<c:choose>
 				<c:when test="${sessionScope.user_id == null}">
-					<div class="login" onclick="location.href='userlogin.do';">로그인</div>
+					<div class="login" onclick="location.href='login.do';">로그인</div>
 				</c:when>
 				<c:otherwise>
-					<div class="myarea" onclick="location.href='userlogout.do';">
+					<div class="myarea" onclick="location.href='logout.do';">
 						<img class="mypageimg" src="img/user/userindeximg/로고(로그아웃).png" alt="로그아웃로고">
 						<p>로그아웃</p>
 					</div>

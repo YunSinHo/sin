@@ -3,7 +3,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.ld.user.dao.ICarrotDao">
+<mapper namespace="com.ld.exam.dao.ICarrotDao">
     <select id="carrotlist" resultType="com.ld.admin.vo.CarrotVO">
         select *
         from carrot_table;

@@ -4,7 +4,7 @@ import com.ld.admin.service.StudentService;
 import com.ld.admin.service.UpdatorService;
 import com.ld.admin.vo.CarrotVO;
 import com.ld.admin.vo.UpdatorVO;
-import com.ld.user.service.CarrotService;
+import com.ld.exam.service.CarrotService;
 import com.ld.user.vo.StudentVO;
 import com.ld.user.vo.TeacherVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,7 +65,7 @@ public class AdminCarrotController {
 		if(carrotVO.getCarrot_getting().equals("대분류 우선 선택"))carrotVO.setCarrot_getting(getting);
 		HttpSession session=request.getSession ();
 		TeacherVO TeacherVO=(TeacherVO)session.getAttribute("loginTeacher");
-		if(TeacherVO==null)return "user/login";
+        if (TeacherVO == null) return "login/login";
 		UpdatorVO updatorVO=new UpdatorVO();
 		UpdatorVO updatorVO1=new UpdatorVO();
 		updatorVO.setCarrot_seq(carrotVO.getCarrot_seq());

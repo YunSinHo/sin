@@ -1,9 +1,9 @@
-package com.ld.user.controller;
+package com.ld.exam.controller;
 
-import com.ld.user.service.WordpdfService;
-import com.ld.user.vo.ExamVO;
-import com.ld.user.vo.WordcollectionVO;
-import com.ld.user.vo.WordgugudanVO;
+import com.ld.exam.service.WordpdfService;
+import com.ld.exam.vo.ExamVO;
+import com.ld.exam.vo.WordcollectionVO;
+import com.ld.exam.vo.WordgugudanVO;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

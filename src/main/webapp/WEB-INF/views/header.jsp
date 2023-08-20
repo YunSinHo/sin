@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,9 +22,9 @@
                         <i class="fa fa-bars"></i>
                     </button>
 
-                  
+
                     <ul class="navbar-nav ml-auto">
-                        <!-- 
+                        <!--
                         <li class="nav-item dropdown no-arrow mx-1">
                             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -126,26 +126,26 @@
                                 </c:if>
                                </c:otherwise>
                                </c:choose>
-                                
+
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
                                 <c:choose>
                                 <c:when test="${loginStudent eq null && loginTeacher eq null }">
-                                  <a class="dropdown-item" href="loginForm.do">
+                                    <a class="dropdown-item" href="login.do">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     로그인
                                 </a>
-                                
-                                <a class="dropdown-item" href="joinForm.do">
+
+                                    <a class="dropdown-item" href="joinForm.do">
                                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                     회원가입
                                 </a>
                                 </c:when>
                                 <c:otherwise>
                                 <c:choose>
-                                
+
                                 <c:when test="${loginStudent eq null}">
                                 <a class="dropdown-item" href="mypage?teaOrStu=${'teacher'}">
                                     <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -167,7 +167,7 @@
                                 </c:otherwise>
                                 </c:choose>
 
-                                
+
                             </div>
                         </li>
 

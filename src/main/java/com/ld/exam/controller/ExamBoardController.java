@@ -1,10 +1,10 @@
-package com.ld.user.controller;
+package com.ld.exam.controller;
 
 import com.ld.admin.vo.GrammarVO;
 import com.ld.admin.vo.TransVO;
-import com.ld.user.service.BoardService;
+import com.ld.exam.service.ExamBoardService;
+import com.ld.exam.vo.WordcollectionVO;
 import com.ld.user.vo.Criteria;
-import com.ld.user.vo.WordcollectionVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,12 +19,12 @@ import java.util.List;
 
 
 @Controller
-public class BoardController {
+public class ExamBoardController {
 	@Autowired
-	private final BoardService boardService;
+    private final ExamBoardService boardService;
 	
 	@Inject
-	public BoardController(BoardService boardService) {
+    public ExamBoardController(ExamBoardService boardService) {
 		this.boardService = boardService;
 	}
 	@RequestMapping(value = "/grammarlist.do")

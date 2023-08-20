@@ -1,8 +1,8 @@
-package com.ld.user.dao;
+package com.ld.exam.dao;
 
-import com.ld.user.vo.ExamVO;
-import com.ld.user.vo.WordcollectionVO;
-import com.ld.user.vo.WordgugudanVO;
+import com.ld.exam.vo.ExamVO;
+import com.ld.exam.vo.WordcollectionVO;
+import com.ld.exam.vo.WordgugudanVO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

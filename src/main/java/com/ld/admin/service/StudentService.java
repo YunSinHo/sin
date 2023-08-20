@@ -75,7 +75,6 @@ public class StudentService {
 	}
 
 	public List<StudentVO> studentQuitList() {
-		// TODO Auto-generated method stub
 		return studentDao.studentQuitList();
 	}
 

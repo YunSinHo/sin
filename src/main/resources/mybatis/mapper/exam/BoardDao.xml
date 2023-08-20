@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.ld.user.dao.IBoardDao">
+<mapper namespace="com.ld.exam.dao.IBoardDao">
 
     <select id="grammarread" resultType="com.ld.admin.vo.GrammarVO">
         select *
@@ -13,7 +13,7 @@
         select distinct grammar_title
         from grammartable;
     </select>
-    <select id="wordcollection" resultType="com.ld.user.vo.WordcollectionVO">
+    <select id="wordcollection" resultType="com.ld.exam.vo.WordcollectionVO">
         select *
         from wordcollection
         where word_difficulty = 6
